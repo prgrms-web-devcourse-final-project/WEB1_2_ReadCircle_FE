@@ -1,4 +1,9 @@
 import React from "react";
+import { IoBookOutline } from "react-icons/io5";
+import { FaDumbbell } from "react-icons/fa";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { MdOutlineMan4 } from "react-icons/md";
+import { FaComputer } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import "./../styles/scss/MainPage.scss";
 import Header from "../components/Header";
@@ -43,6 +48,32 @@ const MainPage = () => {
     { title: "MARIE CURIE", price: "17,000원", image: "src/assets/book1.png" },
     { title: "MuhammadAli", price: "18,000원", image: "src/assets/book2.png" },
     { title: "MALCOLM X", price: "22,000원", image: "src/assets/book3.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book4.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book5.png" },
+
+    { title: "MARIE CURIE", price: "17,000원", image: "src/assets/book1.png" },
+    { title: "MuhammadAli", price: "18,000원", image: "src/assets/book2.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book3.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book4.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book5.png" },
+
+    { title: "MARIE CURIE", price: "17,000원", image: "src/assets/book1.png" },
+    { title: "MuhammadAli", price: "18,000원", image: "src/assets/book2.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book3.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book4.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book5.png" },
+
+    { title: "MARIE CURIE", price: "17,000원", image: "src/assets/book1.png" },
+    { title: "MuhammadAli", price: "18,000원", image: "src/assets/book2.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book3.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book4.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book5.png" },
+
+    { title: "MARIE CURIE", price: "17,000원", image: "src/assets/book1.png" },
+    { title: "MuhammadAli", price: "18,000원", image: "src/assets/book2.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book3.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book4.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book5.png" },
   ];
 
   return (
