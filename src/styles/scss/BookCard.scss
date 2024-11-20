@@ -1,19 +1,19 @@
-$primary-green: #4caf50;
-$primary-green-hover: #45a049;
 $sale-bg: #dff0d8;
 $sale-color: #3c763d;
 $exchange-bg: #d9edf7;
 $exchange-color: #31708f;
 $text-color: #555;
+$bookmark-color: #d45555;
 
 .book-card {
-  width: 200px;
+  width: 161px;
   padding: 16px;
   border: 1px solid #ddd;
   border-radius: 8px;
   text-align: center;
   background-color: #fff;
   transition: transform 0.3s;
+  position: relative;
 
   &:hover {
     transform: scale(1.05);
@@ -74,17 +74,37 @@ $text-color: #555;
       font-weight: bold;
       margin-bottom: 12px;
     }
+  }
 
-    .add-to-cart {
-      background-color: $primary-green;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      cursor: pointer;
+  .bookmark-button {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 2px solid transparent;
+    font-size: 24px;
+    color: $bookmark-color;
+    cursor: pointer;
+    transition: all 0.3s;
 
+    &:hover {
+      border: 2px solid $bookmark-color;
+      background-color: transparent;
+      color: $bookmark-color;
+    }
+
+    &.active {
+      color: $bookmark-color;
       &:hover {
-        background-color: $primary-green-hover;
+        border: 2px solid $bookmark-color;
+        background-color: transparent;
+        color: $bookmark-color;
       }
     }
   }

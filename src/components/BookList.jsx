@@ -44,6 +44,7 @@ const BookList = () => {
       category: "Novel",
       condition: "최상",
       forSale: true,
+      isFavorite: true,
       forExchange: false,
       price: 15000,
     },
@@ -75,6 +76,7 @@ const BookList = () => {
       condition: "최상",
       forSale: true,
       forExchange: false,
+      isFavorite: true,
       price: 15000,
     },
     {
