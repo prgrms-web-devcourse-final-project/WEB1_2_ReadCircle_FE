@@ -1,6 +1,12 @@
+.book-page {
+  display: flex;
+  gap: 16px; // BookList와 FilterSidebar 간격
+}
+
 .book-list {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
-  padding: 16px 300px;
+  padding: 16px;
 }
