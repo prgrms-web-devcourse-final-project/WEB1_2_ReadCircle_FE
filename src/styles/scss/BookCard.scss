@@ -1,0 +1,91 @@
+$primary-green: #4caf50;
+$primary-green-hover: #45a049;
+$sale-bg: #dff0d8;
+$sale-color: #3c763d;
+$exchange-bg: #d9edf7;
+$exchange-color: #31708f;
+$text-color: #555;
+
+.book-card {
+  width: 200px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #fff;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .book-link {
+    text-decoration: none;
+    color: inherit;
+
+    .book-image {
+      width: 100%;
+      height: auto;
+      margin-bottom: 12px;
+    }
+
+    .book-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .book-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+
+      .category,
+      .condition {
+        font-size: 12px;
+        color: $text-color;
+      }
+    }
+
+    .book-options {
+      margin-bottom: 8px;
+
+      .option {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+
+        &.sale {
+          background-color: $sale-bg;
+          color: $sale-color;
+          margin-right: 4px;
+        }
+
+        &.exchange {
+          background-color: $exchange-bg;
+          color: $exchange-color;
+        }
+      }
+    }
+
+    .book-price {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .add-to-cart {
+      background-color: $primary-green;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $primary-green-hover;
+      }
+    }
+  }
+}
