@@ -9,22 +9,31 @@ import FilterSidebar from "./FilterSidebar";
 import { dummyData } from "../data";
 
 const BookList = () => {
-  const [filters, setFilters] = useState({});
-
-  const filteredBooks = dummyData.filter((book) => {
-    if (filters.category && book.category !== filters.category) return false;
-    if (filters.condition && book.condition !== filters.condition) return false;
-    if (filters.forSale !== null && book.forSale !== filters.forSale)
-      return false;
-    if (
-      filters.forExchange !== null &&
-      book.forExchange !== filters.forExchange
-    )
-      return false;
-    if (filters.isFavorite !== null && book.isFavorite !== filters.isFavorite)
-      return false;
-    return true;
+  // 필터 초기 상태 정의
+  const [filters, setFilters] = useState({
+    category: [], // 빈 배열로 초기화
+    condition: "",
+    forSale: false,
+    forExchange: false,
+    isFavorite: false,
   });
+
+  const filteredBooks = dummyData
+    .filter((book) => {
+      if (
+        filters.category?.length > 0 &&
+        !filters.category.includes(book.category)
+      )
+        return false;
+      if (filters.condition && book.condition !== filters.condition)
+        return false;
+      if (filters.forSale && !book.forSale) return false;
+      if (filters.forExchange && !book.forExchange) return false;
+      if (filters.isFavorite && !book.isFavorite) return false;
+
+      return true;
+    })
+    .sort((a, b) => new Date(b.postCreatedAt) - new Date(a.postCreatedAt));
 
   return (
     <>
