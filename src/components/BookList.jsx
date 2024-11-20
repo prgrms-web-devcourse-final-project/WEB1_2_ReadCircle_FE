@@ -6,10 +6,12 @@ import SearchBar from "./SearchBar";
 import FloatingButton from "./FloatingButton";
 import FilterSidebar from "./FilterSidebar";
 
+import { dummyData } from "../data";
+
 const BookList = () => {
   const [filters, setFilters] = useState({});
 
-  const filteredBooks = books.filter((book) => {
+  const filteredBooks = dummyData.filter((book) => {
     if (filters.category && book.category !== filters.category) return false;
     if (filters.condition && book.condition !== filters.condition) return false;
     if (filters.forSale !== null && book.forSale !== filters.forSale)
@@ -32,7 +34,7 @@ const BookList = () => {
         <FilterSidebar onFilterChange={setFilters} />
         <div className="book-list">
           {filteredBooks.map((book) => (
-            <BookCard key={book.id} book={book} />
+            <BookCard key={book.postId} book={book} />
           ))}
         </div>
       </div>

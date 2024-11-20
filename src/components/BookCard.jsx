@@ -48,7 +48,7 @@ const BookCard = ({ book }) => {
 
   return (
     <div className="book-card">
-      <Link to={`/book/${book.id}`} className="book-link">
+      <Link to={`/book/${book.postId}`} className="book-link">
         <div
           className={`bookmark-button ${isFavorite ? "active" : ""}`}
           onClick={(e) => {
@@ -59,7 +59,7 @@ const BookCard = ({ book }) => {
           {isFavorite ? <FaBookmark /> : <FaRegBookmark />}
         </div>
 
-        <img src={book.image} alt={book.title} className="book-image" />
+        <img src={book.bookImage} alt={book.title} className="book-image" />
         <h3 className="book-title">{book.title}</h3>
         <div className="book-info">
           <span className={`category ${getCategoryClass(book.category)}`}>
@@ -74,6 +74,7 @@ const BookCard = ({ book }) => {
           {book.forExchange && <span className="option exchange">교환</span>}
         </div>
         <div className="book-price">{book.price}원</div>
+        <div className="book-user">{book.userId}</div>
       </Link>
     </div>
   );

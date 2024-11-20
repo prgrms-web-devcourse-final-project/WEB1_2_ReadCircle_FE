@@ -10,6 +10,8 @@ import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import FloatingButton from "../components/FloatingButton";
 
+import { dummyData } from "../data";
+
 const MainPage = () => {
   const categories = [
     {
@@ -80,12 +82,12 @@ const MainPage = () => {
         </div>
         <h2 className="main__title">새로 등록된 상품</h2>
         <div className="main__products">
-          {products.map((product, index) => (
-            <div key={index} className="product">
-              <img src={product.image} alt={product.title} />
+          {dummyData.map((book) => (
+            <div key={book.postId} className="product">
+              <img src={book.bookImage} alt={book.title} />
               <div className="product__info">
-                <h3>{product.title}</h3>
-                <p>{product.price}</p>
+                <h3>{book.title}</h3>
+                <p>{book.price}</p>
               </div>
             </div>
           ))}

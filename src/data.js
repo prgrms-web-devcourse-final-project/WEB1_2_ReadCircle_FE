@@ -11,6 +11,10 @@ export const dummyData = [
     trade_status: false, // 거래 유무
     isFavorite: false, // 찜한 게시글 어디있음?
     condition: "최상",
+
+    // tradeType: "판매, 교환", // 판매, 교환 vs 교환, 판매 -> 둘 중에 1개만 가능 또는 2개만 가능
+    forSale: true,
+    forExchange: true,
   },
   {
     postId: "2",
@@ -24,6 +28,8 @@ export const dummyData = [
     trade_status: false,
     isFavorite: true,
     condition: "상",
+    forSale: true,
+    forExchange: true,
   },
   {
     postId: "3",
@@ -37,6 +43,8 @@ export const dummyData = [
     trade_status: false,
     isFavorite: true,
     condition: "중",
+    forSale: false,
+    forExchange: true,
   },
   {
     postId: "4",
@@ -50,6 +58,8 @@ export const dummyData = [
     trade_status: false,
     isFavorite: false,
     condition: "하",
+    forSale: true,
+    forExchange: true,
   },
   {
     postId: "5",
@@ -63,6 +73,8 @@ export const dummyData = [
     trade_status: false,
     isFavorite: true,
     condition: "최하",
+    forSale: true,
+    forExchange: false,
   },
   {
     postId: "6",
@@ -76,6 +88,8 @@ export const dummyData = [
     trade_status: false,
     isFavorite: true,
     condition: "최상",
+    forSale: false,
+    forExchange: true,
   },
   {
     postId: "7",
@@ -89,5 +103,7 @@ export const dummyData = [
     trade_status: false,
     isFavorite: false,
     condition: "상",
+    forSale: false,
+    forExchange: true,
   },
 ];
