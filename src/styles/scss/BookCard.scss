@@ -5,6 +5,37 @@ $exchange-color: #31708f;
 $text-color: #555;
 $bookmark-color: #d45555;
 
+$category-colors: (
+  "소설/시": (
+    #dff0d8,
+    #3c763d,
+  ),
+  "자기계발": (
+    #d9edf7,
+    #31708f,
+  ),
+  "경제경영": (
+    #fcf8e3,
+    #8a6d3b,
+  ),
+  "인문학": (
+    #f2e6ff,
+    #6a1b9a,
+  ),
+  "컴퓨터/모바일": (
+    #eeeeee,
+    #212121,
+  ),
+);
+
+$condition-colors: (
+  "최상": #4caf50,
+  "상": #2196f3,
+  "중": #ffc107,
+  "하": #ff5722,
+  "최하": #b71c1c,
+);
+
 .book-card {
   width: 161px;
   padding: 16px;
@@ -40,10 +71,44 @@ $bookmark-color: #d45555;
       justify-content: space-between;
       margin-bottom: 8px;
 
-      .category,
+      .category {
+        &.novel-poetry {
+          background-color: #dff0d8;
+          color: #3c763d;
+        }
+        &.self-development {
+          background-color: #d9edf7;
+          color: #31708f;
+        }
+        &.business {
+          background-color: #fcf8e3;
+          color: #8a6d3b;
+        }
+        &.humanities {
+          background-color: #f2e6ff;
+          color: #6a1b9a;
+        }
+        &.it {
+          background-color: #eeeeee;
+          color: #212121;
+        }
+      }
       .condition {
-        font-size: 12px;
-        color: $text-color;
+        &.best {
+          color: #4caf50;
+        }
+        &.good {
+          color: #2196f3;
+        }
+        &.fair {
+          color: #ffc107;
+        }
+        &.poor {
+          color: #ff5722;
+        }
+        &.worst {
+          color: #b71c1c;
+        }
       }
     }
 

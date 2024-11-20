@@ -11,6 +11,41 @@ const BookCard = ({ book }) => {
     setIsFavorite((prevState) => !prevState);
   };
 
+  // 카테고리 및 상태 클래스 변환
+  const getCategoryClass = (category) => {
+    switch (category) {
+      case "소설/시":
+        return "novel-poetry";
+      case "자기계발":
+        return "self-development";
+      case "경제경영":
+        return "business";
+      case "인문학":
+        return "humanities";
+      case "컴퓨터/모바일":
+        return "it";
+      default:
+        return "";
+    }
+  };
+
+  const getConditionClass = (condition) => {
+    switch (condition) {
+      case "최상":
+        return "best";
+      case "상":
+        return "good";
+      case "중":
+        return "fair";
+      case "하":
+        return "poor";
+      case "최하":
+        return "worst";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="book-card">
       <Link to={`/book/${book.id}`} className="book-link">
@@ -27,8 +62,12 @@ const BookCard = ({ book }) => {
         <img src={book.image} alt={book.title} className="book-image" />
         <h3 className="book-title">{book.title}</h3>
         <div className="book-info">
-          <span className="category">{book.category}</span>
-          <span className="condition">{book.condition}</span>
+          <span className={`category ${getCategoryClass(book.category)}`}>
+            {book.category}
+          </span>
+          <span className={`condition ${getConditionClass(book.condition)}`}>
+            {book.condition}
+          </span>
         </div>
         <div className="book-options">
           {book.forSale && <span className="option sale">판매</span>}
