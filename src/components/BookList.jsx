@@ -129,36 +129,6 @@ const BookList = () => {
       forExchange: false,
       price: 15000,
     },
-    {
-      id: 2,
-      title: "How Innovation Works",
-      image: "src/assets/book3.png",
-      category: "Novel",
-      condition: "최상",
-      forSale: true,
-      forExchange: false,
-      price: 15000,
-    },
-    {
-      id: 2,
-      title: "How Innovation Works",
-      image: "src/assets/book4.png",
-      category: "Novel",
-      condition: "최상",
-      forSale: true,
-      forExchange: false,
-      price: 15000,
-    },
-    {
-      id: 2,
-      title: "How Innovation Works",
-      image: "src/assets/book5.png",
-      category: "Novel",
-      condition: "최상",
-      forSale: true,
-      forExchange: false,
-      price: 15000,
-    },
   ];
 
   return (
