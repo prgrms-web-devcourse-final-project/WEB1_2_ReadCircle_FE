@@ -2,6 +2,8 @@ import React from "react";
 import BookCard from "./BookCard";
 import "../styles/scss/BookList.scss";
 import Header from "./Header";
+import SearchBar from "./SearchBar";
+import FloatingButton from "./FloatingButton";
 
 const BookList = () => {
   const books = [
@@ -160,11 +162,13 @@ const BookList = () => {
   return (
     <>
       <Header />
+      <SearchBar />
       <div className="book-list">
         {books.map((book) => (
           <BookCard key={book.id} book={book} />
         ))}
       </div>
+      <FloatingButton />
     </>
   );
 };
