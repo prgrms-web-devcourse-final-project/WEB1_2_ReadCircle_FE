@@ -49,31 +49,51 @@ const MainPage = () => {
   ];
 
   const products = [
-    { title: "MARIE CURIE", price: "17,000원", image: "imgs/book1.png" },
-    { title: "MuhammadAli", price: "18,000원", image: "imgs/book2.png" },
-    { title: "MALCOLM X", price: "22,000원", image: "imgs/book3.png" },
-    { title: "MICHELLE OBAMA", price: "21,000원", image: "imgs/book4.png" },
-    { title: "WALT DISNEY", price: "19,000원", image: "imgs/book5.png" },
-    { title: "MARIE CURIE", price: "17,000원", image: "imgs/book1.png" },
-    { title: "MuhammadAli", price: "18,000원", image: "imgs/book2.png" },
-    { title: "MALCOLM X", price: "22,000원", image: "imgs/book3.png" },
-    { title: "MICHELLE OBAMA", price: "21,000원", image: "imgs/book4.png" },
-    { title: "WALT DISNEY", price: "19,000원", image: "imgs/book5.png" },
-    { title: "MARIE CURIE", price: "17,000원", image: "imgs/book1.png" },
-    { title: "MuhammadAli", price: "18,000원", image: "imgs/book2.png" },
-    { title: "MALCOLM X", price: "22,000원", image: "imgs/book3.png" },
-    { title: "MICHELLE OBAMA", price: "21,000원", image: "imgs/book4.png" },
-    { title: "WALT DISNEY", price: "19,000원", image: "imgs/book5.png" },
-    { title: "MARIE CURIE", price: "17,000원", image: "imgs/book1.png" },
-    { title: "MuhammadAli", price: "18,000원", image: "imgs/book2.png" },
-    { title: "MALCOLM X", price: "22,000원", image: "imgs/book3.png" },
-    { title: "MICHELLE OBAMA", price: "21,000원", image: "imgs/book4.png" },
-    { title: "WALT DISNEY", price: "19,000원", image: "imgs/book5.png" },
-    { title: "MARIE CURIE", price: "17,000원", image: "imgs/book1.png" },
-    { title: "MuhammadAli", price: "18,000원", image: "imgs/book2.png" },
-    { title: "MALCOLM X", price: "22,000원", image: "imgs/book3.png" },
-    { title: "MICHELLE OBAMA", price: "21,000원", image: "imgs/book4.png" },
-    { title: "WALT DISNEY", price: "19,000원", image: "imgs/book5.png" },
+    { title: "MARIE CURIE", price: "17,000원", image: "src/assets/book1.png" },
+    { title: "MuhammadAli", price: "18,000원", image: "src/assets/book2.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book3.png" },
+    {
+      title: "MICHELLE OBAMA",
+      price: "21,000원",
+      image: "src/assets/book4.png",
+    },
+    { title: "WALT DISNEY", price: "19,000원", image: "src/assets/book5.png" },
+    { title: "MARIE CURIE", price: "17,000원", image: "src/assets/book1.png" },
+    { title: "MuhammadAli", price: "18,000원", image: "src/assets/book2.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book3.png" },
+    {
+      title: "MICHELLE OBAMA",
+      price: "21,000원",
+      image: "src/assets/book4.png",
+    },
+    { title: "WALT DISNEY", price: "19,000원", image: "src/assets/book5.png" },
+    { title: "MARIE CURIE", price: "17,000원", image: "src/assets/book1.png" },
+    { title: "MuhammadAli", price: "18,000원", image: "src/assets/book2.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book3.png" },
+    {
+      title: "MICHELLE OBAMA",
+      price: "21,000원",
+      image: "src/assets/book4.png",
+    },
+    { title: "WALT DISNEY", price: "19,000원", image: "src/assets/book5.png" },
+    { title: "MARIE CURIE", price: "17,000원", image: "src/assets/book1.png" },
+    { title: "MuhammadAli", price: "18,000원", image: "src/assets/book2.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book3.png" },
+    {
+      title: "MICHELLE OBAMA",
+      price: "21,000원",
+      image: "src/assets/book4.png",
+    },
+    { title: "WALT DISNEY", price: "19,000원", image: "src/assets/book5.png" },
+    { title: "MARIE CURIE", price: "17,000원", image: "src/assets/book1.png" },
+    { title: "MuhammadAli", price: "18,000원", image: "src/assets/book2.png" },
+    { title: "MALCOLM X", price: "22,000원", image: "src/assets/book3.png" },
+    {
+      title: "MICHELLE OBAMA",
+      price: "21,000원",
+      image: "src/assets/book4.png",
+    },
+    { title: "WALT DISNEY", price: "19,000원", image: "src/assets/book5.png" },
   ];
 
   return (
@@ -102,7 +122,7 @@ const MainPage = () => {
         </div>
 
         <div className="main__banner">
-          <img src="imgs/banner.png" alt="Banner" />
+          <img src="src/assets/banner.png" alt="Banner" />
         </div>
 
         <div className="main__categories">
