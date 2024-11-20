@@ -6,7 +6,7 @@ import { MdOutlineMan4 } from "react-icons/md";
 import { FaComputer } from "react-icons/fa6";
 import { FaRegCommentDots } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import "./../styles/MainPage.scss";
+import "./../styles/scss/MainPage.scss";
 
 const MainPage = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
