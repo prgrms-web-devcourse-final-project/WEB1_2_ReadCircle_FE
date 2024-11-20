@@ -6,14 +6,34 @@
   position: relative;
   padding: 0 20px;
 
-  input {
-    width: 324px;
-    height: 42px;
-    padding: 0 10px;
-    background-color: #fafafa;
-    border: 1px solid #495560;
-    border-radius: 12px;
-    font-size: 16px;
+  .search-input {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: #f9f9f9;
+    width: 350px;
+    height: 24px;
+
+    &__icon {
+      font-size: 20px;
+      color: #585858;
+      margin-right: 10px;
+    }
+
+    &__field {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 16px;
+      color: #666;
+      background-color: transparent;
+    }
+
+    &__field::placeholder {
+      color: #bdbdbd;
+    }
   }
 
   .search-bar__hamburger {

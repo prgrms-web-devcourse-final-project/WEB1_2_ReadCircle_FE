@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FiSearch } from "react-icons/fi";
 import "../styles/scss/SearchBar.scss";
 
 const SearchBar = () => {
@@ -15,7 +16,14 @@ const SearchBar = () => {
       >
         ☰
       </button>
-      <input type="text" placeholder="   Book name or writer name" />
+      <div className="search-input">
+        <FiSearch className="search-input__icon" />
+        <input
+          type="text"
+          placeholder="Book name or writer name"
+          className="search-input__field"
+        />
+      </div>
       {dropdownOpen && (
         <div className="search-bar__dropdown">
           <a href="#">소설 / 시</a>
