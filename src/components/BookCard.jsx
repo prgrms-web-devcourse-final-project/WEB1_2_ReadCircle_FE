@@ -74,6 +74,8 @@ const BookCard = ({ book }) => {
           {book.forExchange && <span className="option exchange">교환</span>}
         </div>
         <div className="book-price">{book.price}원</div>
+
+        {/* 유저 닉네임 선택 */}
         <div className="book-user">{book.userId}</div>
       </Link>
     </div>
