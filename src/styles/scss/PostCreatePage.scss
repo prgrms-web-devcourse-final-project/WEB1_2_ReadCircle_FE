@@ -88,6 +88,16 @@ $hover-color: #e0e0e0;
     padding: 10px;
     border: 1px solid $border-color;
     margin-bottom: 15px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  input[type="number"] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
   }
 
   textarea {
@@ -141,7 +151,7 @@ $hover-color: #e0e0e0;
     .unit {
         position: absolute;
         right: 10px;
-        bottom: 25px;
+        bottom: 10px;
         font-size: 14px;
         font-weight: bold;
         color: #ccc;
