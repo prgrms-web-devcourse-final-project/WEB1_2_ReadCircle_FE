@@ -22,7 +22,7 @@ const BookListPage = () => {
 
   const filterBooks = () => {
     if (!dummyData || dummyData.length === 0) {
-      return []; // 데이터가 없으면 빈 배열 반환
+      return [];
     }
 
     let results = dummyData;

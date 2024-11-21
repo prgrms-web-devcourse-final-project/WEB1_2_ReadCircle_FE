@@ -5,7 +5,7 @@ const FilterSidebar = ({ onFilterChange }) => {
   const [filters, setFilters] = useState({
     category: [],
     condition: [],
-    priceRange: "",
+    // priceRange: "",
     forSale: false,
     forExchange: false,
     isFavorite: false,
@@ -37,7 +37,6 @@ const FilterSidebar = ({ onFilterChange }) => {
     handleFilterChange("category", updatedCategory);
   };
 
-  // Condition 상태 필터링 함수
   const handleConditionSelection = (condition) => {
     const updatedCondition = filters.condition.includes(condition)
       ? filters.condition.filter((item) => item !== condition)
@@ -50,8 +49,10 @@ const FilterSidebar = ({ onFilterChange }) => {
     <div className="filter-sidebar">
       <div className="filter-group">
         <div className="filter-header" onClick={() => setIsModalOpen(true)}>
-          카테고리{" "}
-          {filters.category.length > 0 ? `(${filters.category.length})` : "+"}
+          카테고리
+          <span className="toggle-button">
+            {filters.category.length > 0 ? `(${filters.category.length})` : "+"}
+          </span>
         </div>
       </div>
 
@@ -60,7 +61,10 @@ const FilterSidebar = ({ onFilterChange }) => {
           className="filter-header"
           onClick={() => toggleExpand("condition")}
         >
-          상태 {isExpanded.condition ? "-" : "+"}
+          상태
+          <span className="toggle-button">
+            {isExpanded.condition ? "-" : "+"}
+          </span>
         </div>
         {isExpanded.condition && (
           <div className="filter-options">
@@ -141,54 +145,57 @@ const FilterSidebar = ({ onFilterChange }) => {
 
       {isModalOpen && (
         <div className="category-modal">
-          <div className="modal-content">
-            <h3>카테고리 선택</h3>
-            <div className="categories-grid">
-              {[
-                "소설",
-                "시/에세이",
-                "희곡",
-                "인문",
-                "가정/육아",
-                "요리",
-                "건강",
-                "취미/실용/스포츠",
-                "경제경영",
-                "자기계발",
-                "정치/사회",
-                "역사/문화",
-                "종교",
-                "예술/대중문화",
-                "중/고등참고서",
-                "기술/공학",
-                "외국어",
-                "과학",
-                "취업/수험서",
-                "여행/지리",
-                "컴퓨터/IT",
-                "잡지",
-                "청소년",
-                "초등참고서",
-                "유아",
-                "어린이",
-                "만화",
-                "대학교재",
-                "의학/건강",
-                "사회과학",
-                "인물/평전",
-                "부모",
-              ].map((cat) => (
-                <label key={cat}>
-                  <input
-                    type="checkbox"
-                    checked={filters.category.includes(cat)}
-                    onChange={() => handleCategorySelection(cat)}
-                  />
-                  {cat}
-                </label>
-              ))}
-            </div>
-            <button onClick={() => setIsModalOpen(false)}>닫기</button>
+          <button
+            className="close-button"
+            onClick={() => setIsModalOpen(false)}
+            aria-label="Close"
+          >
+            ✖
+          </button>
+          <div className="categories-grid">
+            {[
+              "소설",
+              "시/에세이",
+              "희곡",
+              "인문",
+              "가정/육아",
+              "요리",
+              "건강",
+              "취미/실용/스포츠",
+              "경제경영",
+              "자기계발",
+              "정치/사회",
+              "역사/문화",
+              "종교",
+              "예술/대중문화",
+              "중/고등참고서",
+              "기술/공학",
+              "외국어",
+              "과학",
+              "취업/수험서",
+              "여행/지리",
+              "컴퓨터/IT",
+              "잡지",
+              "청소년",
+              "초등참고서",
+              "유아",
+              "어린이",
+              "만화",
+              "대학교재",
+              "의학/건강",
+              "사회과학",
+              "인물/평전",
+              "부모",
+            ].map((cat) => (
+              <label key={cat}>
+                <input
+                  type="checkbox"
+                  checked={filters.category.includes(cat)}
+                  onChange={() => handleCategorySelection(cat)}
+                />
+                <span>{cat}</span>
+              </label>
+            ))}
           </div>
         </div>
       )}
