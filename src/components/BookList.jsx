@@ -41,8 +41,8 @@ const BookList = () => {
     <>
       <Header />
       <SearchBar />
-      <FilterSidebar onFilterChange={setFilters} />
       <div className="book-page">
+        <FilterSidebar onFilterChange={setFilters} />
         <div className="book-list">
           {filteredBooks.map((book) => (
             <BookCard key={book.postId} book={book} />
