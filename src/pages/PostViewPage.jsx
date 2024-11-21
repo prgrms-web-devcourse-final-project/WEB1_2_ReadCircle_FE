@@ -4,6 +4,18 @@ import mockPostData from '../components/mockPost.json'
 
 const PostViewPage = () => {
     const [post, setPost] = useState(null);
+    const [isFavorited, setIsFavorited] = useState(false); 
+    
+    const handleFavoriteClick = () => {
+      setIsFavorited(!isFavorited);
+      if (!isFavorited) {
+          alert('게시글을 찜하였습니다.');
+      } else {
+          alert('게시글의 찜을 취소하였습니다.');
+      }
+  };
+
+
     useEffect(() => {
         setPost(mockPostData);
     }, []);
@@ -35,7 +47,9 @@ const PostViewPage = () => {
                           <span>{post.condition}</span>
                         </div>
                         <button className='message'>Message</button>
-                        <button className='wish'>Wish List</button>
+                        <button className='wish' onClick={handleFavoriteClick}>
+                          {isFavorited ? '찜 취소' : '찜하기'}
+                        </button>
                     </div>
                 </div>
                 <div className='description'>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/scss/PostCreatePage.scss';
 
 const PostCreatePage = () => {
@@ -6,8 +7,15 @@ const PostCreatePage = () => {
     const [selectedStatus, setSelectedStatus] = useState('');
     const [selectedPurpose, setSelectedPurpose] = useState('');
     const [imagePreview, setImagePreview] = useState(null);
+    const [formData, setFormData] = useState({
+        title: '',
+        price: '',
+        description: '',
+    });
 
     const categoryBtn = ['고전', '과학', '만화', '소설', '시', '어린이', '에세이', '역사', '외국어', '자기계발', '컴퓨터', '기타'];
+    
+    const navigate = useNavigate();
 
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
@@ -28,6 +36,25 @@ const PostCreatePage = () => {
         }
     };
 
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log('등록된 포스트:', formData);
+        alert('포스트가 등록되었습니다.');
+        navigate('/');
+    };
+
+    const handleCancel = () => {
+        navigate('/');
+    };
+
     return (
         <div className="write-page">
             <div className="write-container">
@@ -35,10 +62,16 @@ const PostCreatePage = () => {
                     <div className="write-left">
                         <div className="title-input">
                             <label>제목</label>
-                            <input type="text" placeholder="제목을 입력하세요" />
+                            <input
+                                type="text"
+                                name="title"
+                                placeholder="제목을 입력하세요"
+                                value={formData.title}
+                                onChange={handleInputChange}
+                            />
                         </div>
                         <div className="image-input">
-                        <label>이미지 업로드</label>
+                            <label>이미지 업로드</label>
                             <div className="image-preview-container">
                                 {imagePreview ? (
                                     <img src={imagePreview} alt="preview" className="image-preview" />
@@ -109,7 +142,13 @@ const PostCreatePage = () => {
                         </div>
                         <div className="price-input">
                             <label>가격</label>
-                            <input type="number" placeholder="가격을 입력하세요" />
+                            <input
+                                type="number"
+                                name="price"
+                                placeholder="가격을 입력하세요"
+                                value={formData.price}
+                                onChange={handleInputChange}
+                            />
                             <span className="unit">원</span>
                         </div>
                         <div className="purpose-input">
@@ -152,13 +191,19 @@ const PostCreatePage = () => {
 
                 <div className="description-input">
                     <label>설명</label>
-                    <textarea placeholder="설명을 입력하세요" rows="5"></textarea>
+                    <textarea
+                        name="description"
+                        placeholder="설명을 입력하세요"
+                        rows="5"
+                        value={formData.description}
+                        onChange={handleInputChange}
+                    ></textarea>
                 </div>
             </div>
 
-            <div className='button-container'>
-                <button className='submit'>등록</button>
-                <button className='cancel'>나가기</button>
+            <div className="button-container">
+                <button className="submit" onClick={handleSubmit}>등록</button>
+                <button className="cancel" onClick={handleCancel}>나가기</button>
             </div>
         </div>
     );
