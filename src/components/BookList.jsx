@@ -12,7 +12,7 @@ const BookList = () => {
   // 필터 초기 상태 정의
   const [filters, setFilters] = useState({
     category: [], // 빈 배열로 초기화
-    condition: "",
+    condition: [],
     forSale: false,
     forExchange: false,
     isFavorite: false,
@@ -25,7 +25,10 @@ const BookList = () => {
         !filters.category.includes(book.category)
       )
         return false;
-      if (filters.condition && book.condition !== filters.condition)
+      if (
+        filters.condition?.length > 0 &&
+        !filters.condition.includes(book.condition)
+      )
         return false;
       if (filters.forSale && !book.forSale) return false;
       if (filters.forExchange && !book.forExchange) return false;
@@ -39,8 +42,8 @@ const BookList = () => {
     <>
       <Header />
       <SearchBar />
+      <FilterSidebar onFilterChange={setFilters} />
       <div className="book-page">
-        <FilterSidebar onFilterChange={setFilters} />
         <div className="book-list">
           {filteredBooks.map((book) => (
             <BookCard key={book.postId} book={book} />

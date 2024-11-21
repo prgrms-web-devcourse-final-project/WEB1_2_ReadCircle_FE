@@ -4,7 +4,7 @@ import "../styles/scss/FilterSidebar.scss";
 const FilterSidebar = ({ onFilterChange }) => {
   const [filters, setFilters] = useState({
     category: [],
-    condition: "",
+    condition: [],
     priceRange: "",
     forSale: false,
     forExchange: false,
@@ -37,6 +37,15 @@ const FilterSidebar = ({ onFilterChange }) => {
     handleFilterChange("category", updatedCategory);
   };
 
+  // Condition 상태 필터링 함수
+  const handleConditionSelection = (condition) => {
+    const updatedCondition = filters.condition.includes(condition)
+      ? filters.condition.filter((item) => item !== condition)
+      : [...filters.condition, condition];
+
+    handleFilterChange("condition", updatedCondition);
+  };
+
   return (
     <div className="filter-sidebar">
       <div className="filter-group">
@@ -58,11 +67,11 @@ const FilterSidebar = ({ onFilterChange }) => {
             {["최상", "상", "중", "하", "최하"].map((cond) => (
               <label key={cond}>
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="condition"
                   value={cond}
-                  checked={filters.condition === cond}
-                  onChange={() => handleFilterChange("condition", cond)}
+                  checked={filters.cond}
+                  onChange={() => handleConditionSelection(cond)}
                 />
                 {cond}
               </label>
@@ -71,7 +80,7 @@ const FilterSidebar = ({ onFilterChange }) => {
         )}
       </div>
 
-      <div className="filter-group">
+      {/* <div className="filter-group">
         <div className="filter-header" onClick={() => toggleExpand("price")}>
           가격 {isExpanded.price ? "-" : "+"}
         </div>
@@ -80,11 +89,11 @@ const FilterSidebar = ({ onFilterChange }) => {
             {["~1만원", "1만원~3만원", "3만원~5만원"].map((range) => (
               <label key={range}>
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="priceRange"
                   value={range}
-                  checked={filters.priceRange === range}
-                  onChange={() => handleFilterChange("priceRange", range)}
+                  checked={filters.priceRange.includes(range)}
+                  onChange={() => handleCheckboxChange("priceRange", range)}
                 />
                 {range}
               </label>
@@ -93,13 +102,13 @@ const FilterSidebar = ({ onFilterChange }) => {
               <input
                 type="text"
                 placeholder="직접 입력"
-                onBlur={(e) => handleFilterChange("priceRange", e.target.value)}
+                onBlur={(e) => handleManualPriceInput(e.target.value)}
               />
               <button>적용</button>
             </div>
           </div>
         )}
-      </div>
+      </div> */}
 
       <div className="filter-group">
         <label>
