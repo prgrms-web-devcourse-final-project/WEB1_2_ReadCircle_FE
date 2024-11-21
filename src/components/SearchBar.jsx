@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import "../styles/scss/SearchBar.scss";
 
-const SearchBar = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+const SearchBar = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    onSearch(value.trim());
+  };
 
-  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  // const [dropdownOpen, setDropdownOpen] = useState(false);
+  // const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   return (
     <div className="search-bar">
@@ -22,6 +28,8 @@ const SearchBar = () => {
           type="text"
           placeholder="Book name or writer name"
           className="search-input__field"
+          value={searchTerm}
+          onChange={handleSearchChange}
         />
       </div>
       {/* {dropdownOpen && (

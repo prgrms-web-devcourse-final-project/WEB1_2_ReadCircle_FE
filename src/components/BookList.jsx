@@ -16,8 +16,20 @@ const BookList = () => {
     forExchange: false,
     isFavorite: false,
   });
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredBooks = dummyData
+  const getSearchResults = () => {
+    if (!searchTerm) return dummyData;
+    return dummyData.filter(
+      (book) =>
+        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        book.userId.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const searchResults = getSearchResults();
+
+  const filteredBooks = searchResults
     .filter((book) => {
       if (
         filters.category?.length > 0 &&
@@ -40,7 +52,7 @@ const BookList = () => {
   return (
     <>
       <Header />
-      <SearchBar />
+      <SearchBar onSearch={setSearchTerm} />
       <div className="book-page">
         <FilterSidebar onFilterChange={setFilters} />
         <div className="book-list">
