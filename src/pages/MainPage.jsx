@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoBookOutline } from "react-icons/io5";
 import { FaDumbbell } from "react-icons/fa";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
@@ -46,11 +47,22 @@ const MainPage = () => {
     },
   ];
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (query) => {
+    navigate(`/BookList?query=${encodeURIComponent(query)}`);
+  };
+
   return (
     <>
       <Header />
       <div className="main">
-        <SearchBar />
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          onSearchSubmit={handleSearchSubmit}
+        />
         <div className="main__banner">
           <img src="src/assets/banner.png" alt="Banner" />
         </div>

@@ -1,14 +1,14 @@
 .book-page {
-  display: flex; // FilterSidebar와 book-list를 가로로 배치
-  gap: 16px; // 사이 간격 추가
+  display: flex;
+  gap: 16px;
 }
 
 .filter-sidebar {
-  position: sticky; // 스크롤에 따라 고정
-  top: 80px; // 헤더 높이와 동일하게 설정
-  width: 250px; // 고정된 너비
-  height: 160px; // 뷰포트 높이에서 헤더를 제외한 높이
-  overflow-y: auto; // 내부에 컨텐츠가 많으면 스크롤 가능하도록 설정
+  position: sticky;
+  top: 80px;
+  width: 250px;
+  height: 160px;
+  overflow-y: auto;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -16,10 +16,10 @@
 }
 
 .book-list {
-  flex: 1; // 남은 공간을 모두 차지
+  flex: 1;
   display: grid;
-  grid-template-columns: repeat(5, 1fr); // 카드 5열 구성
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
-  padding: 16px;
-  overflow-y: auto; // 책 목록 자체에도 스크롤 가능
+  padding-top: 20px;
+  overflow-y: auto;
 }

@@ -9,7 +9,7 @@ const Header = () => {
         ReadCircle
       </Link>
       <nav className="header__nav">
-        <Link to="/new">New</Link>
+        <Link to="/BookList">BookList</Link>
         <Link to="/sell">Sell</Link>
         <Link to="/buy">Buy</Link>
         <Link to="/exchange">Exchange</Link>
