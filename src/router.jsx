@@ -1,13 +1,13 @@
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
 import MainPage from "./pages/MainPage";
-import BookList from "./components/BookList";
+import BookListPage from "./pages/BookListPage";
 
 const routes = [
   { path: "/", element: <MainPage /> },
   { path: "/join", element: <JoinPage /> },
   { path: "/login", element: <LoginPage /> },
-  { path: "/BookList", element: <BookList /> },
+  { path: "/BookList", element: <BookListPage /> },
 ];
 
 export default routes;
