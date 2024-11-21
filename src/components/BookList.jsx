@@ -9,9 +9,8 @@ import FilterSidebar from "./FilterSidebar";
 import { dummyData } from "../data";
 
 const BookList = () => {
-  // 필터 초기 상태 정의
   const [filters, setFilters] = useState({
-    category: [], // 빈 배열로 초기화
+    category: [],
     condition: [],
     forSale: false,
     forExchange: false,

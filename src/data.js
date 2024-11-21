@@ -3,7 +3,7 @@ export const dummyData = [
     postId: "1", // String - Number
     userId: "userTest", // userId가 보통 고유한 id값이 아닌가?
     title: "원피스",
-    category: "소설/시", // 카테고리 제한사항 , category - bookCategory
+    category: "만화", // 카테고리 제한사항 , category - bookCategory
     postCreatedAt: "2024-11-20T10:20:27.17997",
     postUpdatedAt: "2024-11-20T10:20:27.17997", // 없는 결과
     bookImage: "src/assets/book1.png", // 이미지 경로
@@ -50,7 +50,7 @@ export const dummyData = [
     postId: "4",
     userId: "userTest4",
     title: "진격의 거인",
-    category: "인문학",
+    category: "인문",
     postCreatedAt: "2024-11-16T10:20:27.17997",
     postUpdatedAt: "2024-11-16T10:20:27.17997",
     bookImage: "src/assets/book4.png",
@@ -65,7 +65,7 @@ export const dummyData = [
     postId: "5",
     userId: "userTest5",
     title: "원펀맨",
-    category: "컴퓨터/모바일",
+    category: "컴퓨터/IT",
     postCreatedAt: "2024-11-17T10:20:27.17997",
     postUpdatedAt: "2024-11-17T10:20:27.17997",
     bookImage: "src/assets/book5.png",
@@ -80,7 +80,7 @@ export const dummyData = [
     postId: "6",
     userId: "userTest6",
     title: "짱구는 못말려",
-    category: "인문학",
+    category: "어린이",
     postCreatedAt: "2024-11-6T10:20:27.17997",
     postUpdatedAt: "2024-11-6T10:20:27.17997",
     bookImage: "src/assets/book1.png",
@@ -95,7 +95,7 @@ export const dummyData = [
     postId: "7",
     userId: "userTest7",
     title: "도라에몽",
-    category: "컴퓨터/모바일",
+    category: "기술/공학",
     postCreatedAt: "2024-11-5T10:20:27.17997",
     postUpdatedAt: "2024-11-5T10:20:27.17997",
     bookImage: "src/assets/book2.png",
