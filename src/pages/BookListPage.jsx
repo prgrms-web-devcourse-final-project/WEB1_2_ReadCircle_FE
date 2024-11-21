@@ -6,7 +6,7 @@ import SearchBar from "../components/SearchBar";
 import FloatingButton from "../components/FloatingButton";
 import FilterSidebar from "../components/FilterSidebar";
 
-import "../styles/scss/BookList.scss";
+import "../styles/scss/BookListPage.scss";
 import { dummyData } from "../data";
 
 const BookListPage = () => {
@@ -75,8 +75,12 @@ const BookListPage = () => {
         onSearchSubmit={handleSearchSubmit}
       />
       <div className="book-page">
-        <FilterSidebar onFilterChange={setFilters} />
-        <BookList books={filteredBooks} filters={filters} />
+        <div className="filter-sidebar-container">
+          <FilterSidebar onFilterChange={setFilters} />
+        </div>
+        <div className="book-list-container">
+          <BookList books={filteredBooks} filters={filters} />
+        </div>
       </div>
       <FloatingButton />
     </>
