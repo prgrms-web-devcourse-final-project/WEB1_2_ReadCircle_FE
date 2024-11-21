@@ -9,13 +9,13 @@ const SearchBar = () => {
 
   return (
     <div className="search-bar">
-      <button
+      {/* <button
         className="search-bar__hamburger"
         onClick={toggleDropdown}
         style={{ fontWeight: "700" }}
       >
         ☰
-      </button>
+      </button> */}
       <div className="search-input">
         <FiSearch className="search-input__icon" />
         <input
@@ -24,7 +24,7 @@ const SearchBar = () => {
           className="search-input__field"
         />
       </div>
-      {dropdownOpen && (
+      {/* {dropdownOpen && (
         <div className="search-bar__dropdown">
           <a href="#">소설 / 시</a>
           <a href="#">자기계발</a>
@@ -32,7 +32,7 @@ const SearchBar = () => {
           <a href="#">인문학</a>
           <a href="#">컴퓨터 / 모바일</a>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

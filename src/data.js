@@ -1,7 +1,7 @@
 export const dummyData = [
   {
     postId: "1", // String - Number
-    userId: "userTest", // userId가 보통 고유한 id값이 아닌가?
+    userId: "userTest", // 로그인 아이디
     title: "원피스",
     category: "만화", // 카테고리 제한사항 , category - bookCategory
     postCreatedAt: "2024-11-20T10:20:27.17997",
