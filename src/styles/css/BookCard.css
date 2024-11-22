@@ -1,0 +1,121 @@
+.book-card {
+  width: 161px;
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #fff;
+  transition: transform 0.3s;
+  position: relative;
+}
+.book-card:hover {
+  transform: scale(1.05);
+}
+.book-card .book-link {
+  text-decoration: none;
+  color: inherit;
+}
+.book-card .book-link .book-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 12px;
+}
+.book-card .book-link .book-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.book-card .book-link .book-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.book-card .book-link .book-info .category.novel-poetry {
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+.book-card .book-link .book-info .category.self-development {
+  background-color: #d9edf7;
+  color: #31708f;
+}
+.book-card .book-link .book-info .category.business {
+  background-color: #fcf8e3;
+  color: #8a6d3b;
+}
+.book-card .book-link .book-info .category.humanities {
+  background-color: #f2e6ff;
+  color: #6a1b9a;
+}
+.book-card .book-link .book-info .category.it {
+  background-color: #eeeeee;
+  color: #212121;
+}
+.book-card .book-link .book-info .condition.best {
+  color: #4caf50;
+}
+.book-card .book-link .book-info .condition.good {
+  color: #2196f3;
+}
+.book-card .book-link .book-info .condition.fair {
+  color: #ffc107;
+}
+.book-card .book-link .book-info .condition.poor {
+  color: #ff5722;
+}
+.book-card .book-link .book-info .condition.worst {
+  color: #b71c1c;
+}
+.book-card .book-link .book-options {
+  margin-bottom: 8px;
+}
+.book-card .book-link .book-options .option {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.book-card .book-link .book-options .option.sale {
+  background-color: #dff0d8;
+  color: #3c763d;
+  margin-right: 4px;
+}
+.book-card .book-link .book-options .option.exchange {
+  background-color: #d9edf7;
+  color: #31708f;
+}
+.book-card .book-link .book-price {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+.book-card .bookmark-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid transparent;
+  font-size: 24px;
+  color: #d45555;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.book-card .bookmark-button:hover {
+  border: 2px solid #d45555;
+  background-color: transparent;
+  color: #d45555;
+}
+.book-card .bookmark-button.active {
+  color: #d45555;
+}
+.book-card .bookmark-button.active:hover {
+  border: 2px solid #d45555;
+  background-color: transparent;
+  color: #d45555;
+}
