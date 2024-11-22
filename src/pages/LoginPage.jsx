@@ -5,6 +5,7 @@ import Logo from '../assets/Logo.svg';
 import '../styles/css/LoginPage.css'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Header from '../components/Header';
 
 const LoginPage = () => {
     const [id, setId] = useState('');
@@ -35,6 +36,7 @@ const LoginPage = () => {
 
     return (
         <>
+            <Header />
             <img src={LoginImage} alt="" />
             <div className="logos">
                 <img src={Logo} alt="" />

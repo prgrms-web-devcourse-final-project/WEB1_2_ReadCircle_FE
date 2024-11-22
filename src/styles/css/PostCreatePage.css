@@ -1,0 +1,243 @@
+.write-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 30px;
+  font-family: "Inter", sans-serif;
+  flex-direction: column;
+}
+.write-page .top-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 140px;
+  max-width: 800px;
+  width: 100%;
+}
+.write-page .top-container .write-left,
+.write-page .top-container .write-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 55px;
+}
+.write-page .description-input {
+  margin-top: 55px;
+}
+.write-page label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+.write-page .title-input input,
+.write-page .price-input input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+}
+.write-page .image-preview-container {
+  position: relative;
+  width: 210px;
+  height: 297px;
+  border: 1px dashed #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #ccc;
+}
+.write-page .image-placeholder {
+  font-size: 14px;
+  color: #888;
+}
+.write-page .image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.write-page .image-upload-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.write-page input,
+.write-page select,
+.write-page textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000000;
+  margin-bottom: 15px;
+}
+.write-page input:focus,
+.write-page select:focus,
+.write-page textarea:focus {
+  outline: none;
+}
+.write-page input[type=number] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+}
+.write-page textarea {
+  resize: none;
+}
+.write-page .write-right .category-input,
+.write-page .write-right .status-input,
+.write-page .write-right .price-input,
+.write-page .write-right .purpose-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.write-page .write-right .category-input label,
+.write-page .write-right .status-input label,
+.write-page .write-right .price-input label,
+.write-page .write-right .purpose-input label {
+  text-align: left;
+}
+.write-page .write-right .category-input input,
+.write-page .write-right .category-input select,
+.write-page .write-right .status-input input,
+.write-page .write-right .status-input select,
+.write-page .write-right .price-input input,
+.write-page .write-right .price-input select,
+.write-page .write-right .purpose-input input,
+.write-page .write-right .purpose-input select {
+  flex: 1;
+  margin-bottom: 0;
+}
+.write-page .title-input,
+.write-page .image-input,
+.write-page .description-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.write-page .title-input label,
+.write-page .image-input label,
+.write-page .description-input label {
+  margin-bottom: 10px;
+}
+.write-page .title-input input,
+.write-page .title-input textarea,
+.write-page .image-input input,
+.write-page .image-input textarea,
+.write-page .description-input input,
+.write-page .description-input textarea {
+  margin-bottom: 15px;
+}
+.write-page .price-input {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+.write-page .price-input .unit {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ccc;
+}
+.write-page .category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+.write-page .category-buttons .category-button {
+  width: calc(50% - 5px);
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin-right: -1px;
+}
+.write-page .category-buttons .category-button:not(:last-child) {
+  margin-bottom: -1px;
+}
+.write-page .category-buttons .category-button:hover {
+  background-color: #e0e0e0;
+}
+.write-page .category-buttons .category-button.selected {
+  background-color: #069F03;
+  color: #ffffff;
+}
+.write-page .status-input,
+.write-page .purpose-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.write-page .status-input label,
+.write-page .purpose-input label {
+  text-align: left;
+}
+.write-page .status-input .radio-group,
+.write-page .purpose-input .radio-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.write-page .status-input .radio-group label,
+.write-page .purpose-input .radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: normal;
+  line-height: 10px;
+}
+.write-page .status-input .radio-group label input[type=radio],
+.write-page .purpose-input .radio-group label input[type=radio] {
+  width: 10px;
+  height: 10px;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  background-color: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.write-page .status-input .radio-group label input[type=radio]:checked,
+.write-page .purpose-input .radio-group label input[type=radio]:checked {
+  border-color: #069F03;
+  background-color: #069F03;
+}
+.write-page .status-input .radio-group label input[type=radio]:hover,
+.write-page .purpose-input .radio-group label input[type=radio]:hover {
+  border-color: #069F03;
+}
+.write-page .button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+.write-page .button-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 100px;
+  cursor: pointer;
+  border: none;
+  border-radius: 30px;
+  transition: background-color 0.3s;
+}
+.write-page .button-container button.submit, .write-page .button-container button.cancel {
+  background-color: #3E6604;
+  color: #ffffff;
+}
+.write-page .button-container button.submit:hover, .write-page .button-container button.cancel:hover {
+  background-color: #385c04;
+}
