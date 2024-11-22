@@ -1,0 +1,250 @@
+.edit-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 30px;
+  font-family: "Inter", sans-serif;
+  flex-direction: column;
+}
+.edit-page .edit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 55px;
+  max-width: 800px;
+  width: 100%;
+}
+.edit-page .edit-container .top-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 140px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.edit-page .edit-container .top-container .edit-left,
+.edit-page .edit-container .top-container .edit-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 55px;
+}
+.edit-page .edit-container .description-input {
+  margin-top: 55px;
+}
+.edit-page .edit-container label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+.edit-page .edit-container .title-input input,
+.edit-page .edit-container .price-input input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+}
+.edit-page .edit-container .image-preview-container {
+  position: relative;
+  width: 210px;
+  height: 297px;
+  border: 1px dashed #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #ccc;
+}
+.edit-page .edit-container .image-placeholder {
+  font-size: 14px;
+  color: #888;
+}
+.edit-page .edit-container .image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.edit-page .edit-container .image-upload-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.edit-page .edit-container input,
+.edit-page .edit-container select,
+.edit-page .edit-container textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000000;
+  margin-bottom: 15px;
+}
+.edit-page .edit-container input:focus,
+.edit-page .edit-container select:focus,
+.edit-page .edit-container textarea:focus {
+  outline: none;
+}
+.edit-page .edit-container input[type=number] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+}
+.edit-page .edit-container textarea {
+  resize: none;
+}
+.edit-page .edit-container .edit-right .category-input,
+.edit-page .edit-container .edit-right .status-input,
+.edit-page .edit-container .edit-right .price-input,
+.edit-page .edit-container .edit-right .purpose-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.edit-page .edit-container .edit-right .category-input label,
+.edit-page .edit-container .edit-right .status-input label,
+.edit-page .edit-container .edit-right .price-input label,
+.edit-page .edit-container .edit-right .purpose-input label {
+  text-align: left;
+}
+.edit-page .edit-container .edit-right .category-input input,
+.edit-page .edit-container .edit-right .category-input select,
+.edit-page .edit-container .edit-right .status-input input,
+.edit-page .edit-container .edit-right .status-input select,
+.edit-page .edit-container .edit-right .price-input input,
+.edit-page .edit-container .edit-right .price-input select,
+.edit-page .edit-container .edit-right .purpose-input input,
+.edit-page .edit-container .edit-right .purpose-input select {
+  flex: 1;
+  margin-bottom: 0;
+}
+.edit-page .edit-container .title-input,
+.edit-page .edit-container .image-input,
+.edit-page .edit-container .description-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.edit-page .edit-container .title-input label,
+.edit-page .edit-container .image-input label,
+.edit-page .edit-container .description-input label {
+  margin-bottom: 10px;
+}
+.edit-page .edit-container .title-input input,
+.edit-page .edit-container .title-input textarea,
+.edit-page .edit-container .image-input input,
+.edit-page .edit-container .image-input textarea,
+.edit-page .edit-container .description-input input,
+.edit-page .edit-container .description-input textarea {
+  margin-bottom: 15px;
+}
+.edit-page .edit-container .price-input {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+.edit-page .edit-container .price-input .unit {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ccc;
+}
+.edit-page .edit-container .category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+.edit-page .edit-container .category-buttons .category-button {
+  width: calc(50% - 5px);
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin-right: -1px;
+}
+.edit-page .edit-container .category-buttons .category-button:not(:last-child) {
+  margin-bottom: -1px;
+}
+.edit-page .edit-container .category-buttons .category-button:hover {
+  background-color: #e0e0e0;
+}
+.edit-page .edit-container .category-buttons .category-button.selected {
+  background-color: #069F03;
+  color: #ffffff;
+}
+.edit-page .edit-container .status-input,
+.edit-page .edit-container .purpose-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.edit-page .edit-container .status-input label,
+.edit-page .edit-container .purpose-input label {
+  text-align: left;
+}
+.edit-page .edit-container .status-input .radio-group,
+.edit-page .edit-container .purpose-input .radio-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.edit-page .edit-container .status-input .radio-group label,
+.edit-page .edit-container .purpose-input .radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: normal;
+  line-height: 10px;
+}
+.edit-page .edit-container .status-input .radio-group label input[type=radio],
+.edit-page .edit-container .purpose-input .radio-group label input[type=radio] {
+  width: 10px;
+  height: 10px;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  background-color: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.edit-page .edit-container .status-input .radio-group label input[type=radio]:checked,
+.edit-page .edit-container .purpose-input .radio-group label input[type=radio]:checked {
+  border-color: #069F03;
+  background-color: #069F03;
+}
+.edit-page .edit-container .status-input .radio-group label input[type=radio]:hover,
+.edit-page .edit-container .purpose-input .radio-group label input[type=radio]:hover {
+  border-color: #069F03;
+}
+.edit-page .editBtn-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+.edit-page .editBtn-container button {
+  padding: 10px 20px;
+  width: 100px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 30px;
+  transition: background-color 0.3s;
+}
+.edit-page .editBtn-container button.submit, .edit-page .editBtn-container button.delete, .edit-page .editBtn-container button.cancel {
+  background-color: #3E6604;
+  color: #ffffff;
+}
+.edit-page .editBtn-container button.submit:hover, .edit-page .editBtn-container button.delete:hover, .edit-page .editBtn-container button.cancel:hover {
+  background-color: #385c04;
+}
