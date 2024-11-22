@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Logo from '../assets/Logo.svg';
 import '../styles/css/JoinPage.css';
