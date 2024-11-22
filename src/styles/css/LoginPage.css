@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100vw;
+}
+* img {
+  width: 100%;
+}
+* .logos {
+  margin: 40px auto !important;
+  text-align: center;
+}
+* .logos img {
+  width: 170px;
+  height: auto;
+  margin-bottom: 20px;
+}
+* .logos h2 {
+  font-size: 26px;
+}
+* .login_area {
+  width: 50%;
+  margin: 0 auto;
+}
+* .login_area p {
+  font-size: 12px;
+  color: #121212;
+  margin-bottom: 10px;
+}
+* .login_area input {
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  border-bottom: solid #999999 2px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+* .login_area input::placeholder {
+  color: #999999;
+}
+* .login_area input:focus {
+  outline: none;
+}
+* .login_area .error_message {
+  color: red;
+}
+* .btn_area {
+  width: 100%;
+  margin: 20px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+* .btn_area button {
+  width: 120px;
+  height: 50px;
+  outline: none;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 0;
+}
+* .btn_area button a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 50px;
+  text-decoration: none;
+  color: #121212;
+}
+* .btn_area .login_btn {
+  background: #27AE60;
+}
+* .btn_area .join_btn {
+  background: #999999;
+  margin-right: 20px;
+}
