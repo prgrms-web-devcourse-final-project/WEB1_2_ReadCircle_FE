@@ -4,6 +4,7 @@ import Logo from '../assets/Logo.svg';
 import '../styles/css/JoinPage.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Header from '../components/Header';
 
 const JoinPage = () => {
     // 초기 값 세팅
@@ -159,6 +160,7 @@ const JoinPage = () => {
 
     return (
         <>
+            <Header />
             <div className="logos">
                 <img src={Logo} alt="" />
                 <h2>회원 가입</h2>
