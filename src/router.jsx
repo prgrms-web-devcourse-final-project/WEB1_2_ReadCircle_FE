@@ -1,17 +1,13 @@
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
 import MainPage from "./pages/MainPage";
-import PostCreatePage from "./pages/PostCreatePage";
-import PostViewPage from "./pages/PostViewPage";
-import PostEditPage from "./pages/PostEditPage";
+import BookListPage from "./pages/BookListPage";
 
 const routes = [
-    { path: '/', element: <MainPage /> },
-    { path: '/join', element: <JoinPage /> },
-    { path: '/login', element: <LoginPage /> },
-    { path: '/write', element: <PostCreatePage />},
-    { path: '/view', element: <PostViewPage />},
-    { path: '/edit', element: <PostEditPage />},
-]
+  { path: "/", element: <MainPage /> },
+  { path: "/join", element: <JoinPage /> },
+  { path: "/login", element: <LoginPage /> },
+  { path: "/BookList", element: <BookListPage /> },
+];
 
 export default routes;
