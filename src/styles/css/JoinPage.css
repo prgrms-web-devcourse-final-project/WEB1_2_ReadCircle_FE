@@ -1,0 +1,87 @@
+* {
+  overflow: hidden;
+  width: 100vw;
+}
+* .logos {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+* .logos img {
+  width: 170px;
+  height: auto;
+}
+* .logos h2 {
+  font-size: 26px;
+}
+* .form_area {
+  width: 60%;
+  margin: 20px auto;
+}
+* .form_area div {
+  width: 100%;
+  margin-bottom: 30px;
+}
+* .form_area div span {
+  font-size: 12px;
+  color: red;
+}
+* .form_area p {
+  font-size: 12px;
+  color: #121212;
+  margin-bottom: 10px;
+}
+* .form_area input {
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  border-bottom: solid #999999 2px;
+  padding: 10px;
+}
+* .form_area input::placeholder {
+  color: #999999;
+}
+* .form_area input:focus {
+  outline: none;
+}
+* .form_area .profile_area label {
+  display: block;
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  margin: 0 auto;
+}
+* .form_area .profile_area label img {
+  width: 100%;
+  height: 100%;
+}
+* .form_area .profile_area label p {
+  width: 100%;
+  display: block;
+  margin: 10px auto 0;
+  font-size: 12px;
+  text-align: center;
+  color: navy;
+}
+* .form_area .profile_area #file {
+  display: none;
+}
+* button {
+  width: 120px;
+  height: 50px;
+  outline: none;
+  display: block;
+  margin: 0 auto;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+}
+* .join_btn {
+  cursor: pointer;
+  color: #fff;
+  background: #27AE60;
+}
+* .de_join_btn {
+  color: #000;
+  background: #999999;
+}
