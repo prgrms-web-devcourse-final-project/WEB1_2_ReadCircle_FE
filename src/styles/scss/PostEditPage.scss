@@ -25,6 +25,7 @@ $hover-color: #e0e0e0;
     .top-container {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
       gap: 140px;
       width: 100%;
       margin-bottom: 10px;
@@ -32,6 +33,7 @@ $hover-color: #e0e0e0;
       .edit-left,
       .edit-right {
         display: flex;
+        align-items: flex-start;
         flex-direction: column;
         gap: 55px;
       }
