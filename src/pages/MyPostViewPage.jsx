@@ -1,17 +1,44 @@
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { usePostView } from '../components/usePostView';
-import '../styles/scss/PostViewPage.scss';
+import '../styles/scss/MyPostViewPage.scss';
 
-const PostView = () => {
+const MyPostView = () => {
     const {
         post,
-        isFavorited,
         comments,
         newComment,
         setNewComment,
-        handleFavoriteClick,
         handleAddComment,
-    } = usePostView();
+    } = usePostView(false); // 찜 버튼 비활성화
+    const navigate = useNavigate();
+
+    const handleEditPost = () => {
+        if (post) {
+            navigate(`/edit/${post.id}`, { state: { post } });
+        }
+    };
+
+    const handleDeletePost = async () => {
+        if (window.confirm('게시글을 삭제하시겠습니까?')) {
+            try {
+                // 실제 삭제 API 호출
+                const response = await fetch(`http://example.com/posts/${post.id}`, {
+                    method: 'DELETE',
+                });
+
+                if (response.ok) {
+                    alert('게시글이 삭제되었습니다.');
+                    navigate('/');
+                } else {
+                    alert('삭제에 실패했습니다. 다시 시도해주세요.');
+                }
+            } catch (error) {
+                console.error('삭제 오류:', error);
+                alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        }
+    };
 
     if (!post) {
         return <div>Loading...</div>;
@@ -41,14 +68,19 @@ const PostView = () => {
                             <div className='status'>
                                 <span>{post.condition}</span>
                             </div>
-                            <button className='wish' onClick={handleFavoriteClick}>
-                                {isFavorited ? '찜 취소' : '찜하기'}
-                            </button>
                         </div>
                     </div>
                     <div className='description'>
                         <p>{post.content}</p>
                     </div>
+                </div>
+                <div className='action-buttons'>
+                    <button className='edit' onClick={handleEditPost}>
+                        수정
+                    </button>
+                    <button className='delete' onClick={handleDeletePost}>
+                        삭제
+                    </button>
                 </div>
                 {/* 댓글 섹션 */}
                 <div className='comment-section'>
@@ -76,4 +108,4 @@ const PostView = () => {
     );
 };
 
-export default PostView;
+export default MyPostView;

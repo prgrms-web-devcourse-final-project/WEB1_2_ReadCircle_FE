@@ -111,6 +111,41 @@
     word-wrap: break-word;
 }
 
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+
+    button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &.edit {
+            background-color: #3E6604;
+            color: white;
+
+            &:hover {
+                background-color: color.scale(#3E6604, $lightness: -10%);
+            }
+        }
+
+        &.delete {
+            background-color: #3E6604;
+            color: white;
+
+            &:hover {
+                background-color: color.scale(#3E6604, $lightness: -10%);
+            }
+        }
+    }
+}
+
 .comment-section {
     margin-top: 30px;
     padding: 20px;

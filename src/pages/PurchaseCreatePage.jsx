@@ -1,22 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/scss/PostCreatePage.scss';
+import '../styles/scss/PurchaseCreatePage.scss';
 import Header from '../components/Header';
 import axios from 'axios';
 import { searchBooks } from '../api'; // 네이버 API 호출 함수
 
-const PostCreatePage = () => {
+const PurchaseCreatePage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [selectedBook, setSelectedBook] = useState(null); // 선택된 책 정보
+    const [selectedBook, setSelectedBook] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState('');
     const [calculatedPrice, setCalculatedPrice] = useState('');
-    const [selectedPurpose, setSelectedPurpose] = useState('');
     const [imagePreview, setImagePreview] = useState(null);
     const [formData, setFormData] = useState({
         title: '',
         category: '',
-        description: '',
     });
     const [imageFile, setImageFile] = useState(null);
 
@@ -63,10 +61,6 @@ const PostCreatePage = () => {
         }
     };
 
-    const handlePurposeChange = (event) => {
-        setSelectedPurpose(event.target.value);
-    };
-
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -86,18 +80,16 @@ const PostCreatePage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!formData.title || !formData.category || !selectedStatus || !calculatedPrice || !selectedPurpose) {
+        if (!formData.title || !formData.category || !selectedStatus) {
             alert('모든 필드를 입력해 주세요.');
             return;
         }
 
         const postData = new FormData();
         postData.append('title', formData.title);
-        postData.append('content', formData.description);
         postData.append('price', calculatedPrice); // 계산된 가격
         postData.append('category', formData.category);
         postData.append('bookCondition', selectedStatus);
-        postData.append('tradeType', selectedPurpose);
         postData.append('userId', 'user123');
         postData.append('bookImage', imageFile);
 
@@ -239,43 +231,23 @@ const PostCreatePage = () => {
                                 />
                                 <span className="unit">원</span> 
                             </div>
-                            <div className="purpose-input">
-                                <label>목적</label>
-                                <div className="radio-group">
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="purpose"
-                                            value="sell"
-                                            checked={selectedPurpose === 'sell'}
-                                            onChange={handlePurposeChange}
-                                        />
-                                        판매
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="purpose"
-                                            value="exchange"
-                                            checked={selectedPurpose === 'exchange'}
-                                            onChange={handlePurposeChange}
-                                        />
-                                        교환
-                                    </label>
+                            <div className='account-input'>
+                                <input
+                                    type='text'
+                                    placeholder='예금주'
+                                />
+                                <div>
+                                    <input
+                                        type='text'
+                                        placeholder='은행'
+                                    />
+                                    <input
+                                        type='number'
+                                        placeholder='계좌번호'
+                                    />
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="description-input">
-                        <label>설명</label>
-                        <textarea
-                            name="description"
-                            placeholder="설명을 입력하세요"
-                            rows="5"
-                            value={formData.description}
-                            onChange={handleInputChange}
-                        ></textarea>
                     </div>
 
                     <div className="button-container">
@@ -288,4 +260,4 @@ const PostCreatePage = () => {
     );
 };
 
-export default PostCreatePage;
+export default PurchaseCreatePage;

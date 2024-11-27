@@ -5,6 +5,9 @@ import BookListPage from "./pages/BookListPage";
 import PostCreatePage from "./pages/PostCreatePage";
 import PostViewPage from "./pages/PostViewPage";
 import PostEditPage from "./pages/PostEditPage";
+import PurchaseCreatePage from "./pages/PurchaseCreatePage";
+import PurchaseViewPage from "./pages/PurchaseViewPage";
+import MyPostViewPage from "./pages/MyPostViewPage";
 
 const routes = [
   { path: "/", element: <MainPage /> },
@@ -14,6 +17,9 @@ const routes = [
   { path: "/create", element: <PostCreatePage /> },
   { path: "/view", element: <PostViewPage /> },
   { path: "/edit", element: <PostEditPage /> },
+  { path: "/purchase-create", element: <PurchaseCreatePage /> },
+  { path: "/purchase-view", element: <PurchaseViewPage /> },
+  { path: "/myview", element: <MyPostViewPage /> },
 ];
 
 export default routes;

@@ -1,17 +1,24 @@
+import { useEffect, useState } from 'react';
+import '../styles/scss/PurchaseViewPage.scss';
+import mockPostData from '../components/mockPost.json';
 import Header from '../components/Header';
-import { usePostView } from '../components/usePostView';
-import '../styles/scss/PostViewPage.scss';
 
-const PostView = () => {
-    const {
-        post,
-        isFavorited,
-        comments,
-        newComment,
-        setNewComment,
-        handleFavoriteClick,
-        handleAddComment,
-    } = usePostView();
+const PurchaseViewPage = () => {
+    const [post, setPost] = useState(null);
+    const [isFavorited, setIsFavorited] = useState(false);
+
+    const handleFavoriteClick = () => {
+        setIsFavorited(!isFavorited);
+        if (!isFavorited) {
+            alert('게시글을 찜하였습니다.');
+        } else {
+            alert('게시글의 찜을 취소하였습니다.');
+        }
+    };
+
+    useEffect(() => {
+        setPost(mockPostData);
+    }, []);
 
     if (!post) {
         return <div>Loading...</div>;
@@ -44,36 +51,16 @@ const PostView = () => {
                             <button className='wish' onClick={handleFavoriteClick}>
                                 {isFavorited ? '찜 취소' : '찜하기'}
                             </button>
+                            <button className='cart'>장바구니</button>
                         </div>
                     </div>
                     <div className='description'>
                         <p>{post.content}</p>
                     </div>
                 </div>
-                {/* 댓글 섹션 */}
-                <div className='comment-section'>
-                    <div className='comment-input'>
-                        <input
-                            type='text'
-                            placeholder='댓글을 입력하세요'
-                            value={newComment}
-                            onChange={(e) => setNewComment(e.target.value)}
-                        />
-                        <button onClick={handleAddComment}>작성</button>
-                    </div>
-                    {comments.length > 0 && (
-                        <div className='comments'>
-                            {comments.map((comment) => (
-                                <div key={comment.id} className='comment'>
-                                    <strong>{comment.userId}</strong> {comment.content}
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
             </div>
         </>
     );
 };
 
-export default PostView;
+export default PurchaseViewPage;
