@@ -177,3 +177,74 @@
         }
     }
 }
+
+.bank-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+
+    .input-group {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        width: 100%;
+
+        label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            width: 80px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+
+            &:focus {
+                border-color: #3E6604;
+            }
+        }
+    }
+
+    .input-group input {
+        height: 50px;
+    }
+}
+
+.submit-button {
+    background-color: #3E6604;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: color.scale(#3E6604, $lightness: -10%);
+    }
+}
+
+.cancel-button {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: color.scale(#ccc, $lightness: -10%);
+    }
+}

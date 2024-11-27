@@ -4,6 +4,7 @@ import '../styles/scss/PurchaseCreatePage.scss';
 import Header from '../components/Header';
 import axios from 'axios';
 import { searchBooks } from '../api'; // 네이버 API 호출 함수
+import SearchModal from '../components/SearchModal';
 
 const PurchaseCreatePage = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -15,8 +16,12 @@ const PurchaseCreatePage = () => {
     const [formData, setFormData] = useState({
         title: '',
         category: '',
+        depositorName: '',  // 예금주
+        bankName: '',       // 은행
+        accountNumber: '',  // 계좌번호
     });
     const [imageFile, setImageFile] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
     const navigate = useNavigate();
 
@@ -27,6 +32,7 @@ const PurchaseCreatePage = () => {
         try {
             const results = await searchBooks(searchQuery);
             setSearchResults(results);
+            setIsModalOpen(true); // 모달 열기
         // eslint-disable-next-line no-unused-vars
         } catch (error) {
             alert('책 검색에 실패했습니다.');
@@ -35,6 +41,7 @@ const PurchaseCreatePage = () => {
 
     // 검색 결과 중 책 선택
     const handleBookSelect = (book) => {
+        console.log("선택된 책:", book);
         setSelectedBook(book);
         setFormData({
             ...formData,
@@ -42,9 +49,9 @@ const PurchaseCreatePage = () => {
             category: book.category || '카테고리 정보 없음',
         });
         setSearchResults([]);
+        setIsModalOpen(false); // 모달 닫기
     };
 
-    // 상태 변경 및 가격 계산
     const handleStatusChange = (event) => {
         const status = event.target.value;
         setSelectedStatus(status);
@@ -53,9 +60,9 @@ const PurchaseCreatePage = () => {
             const basePrice = parseInt(selectedBook.discount || selectedBook.price, 10);
             let calculated = 0;
 
-            if (status === 'good') calculated = basePrice * 0.7; // 상
-            else if (status === 'fair') calculated = basePrice * 0.6; // 중
-            else if (status === 'poor') calculated = basePrice * 0.4; // 하
+            if (status === 'good') calculated = basePrice * 0.7;
+            else if (status === 'fair') calculated = basePrice * 0.6;
+            else if (status === 'poor') calculated = basePrice * 0.4;
 
             setCalculatedPrice(Math.round(calculated));
         }
@@ -80,22 +87,33 @@ const PurchaseCreatePage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!formData.title || !formData.category || !selectedStatus) {
+        if (!formData.title || !formData.category || !selectedStatus || !formData.depositorName || !formData.bankName || !formData.accountNumber) {
             alert('모든 필드를 입력해 주세요.');
             return;
         }
 
+        if (!selectedBook || !selectedBook.isbn) {
+            alert('책을 선택해 주세요.');
+            return;
+        }
+
         const postData = new FormData();
+        postData.append('userId', 'user123'); // 유저 아이디
+        postData.append('bank', formData.bankName); // 은행
+        postData.append('account', formData.accountNumber); // 계좌번호
+        postData.append('accountOwner', formData.depositorName); // 예금주
+        postData.append('isbn', selectedBook.isbn); // ISBN
+        postData.append('bookCondition', selectedStatus); // 책 상태 (상/중/하)
+        postData.append('price', calculatedPrice); // 가격
+
+        // 기존 데이터
         postData.append('title', formData.title);
-        postData.append('price', calculatedPrice); // 계산된 가격
         postData.append('category', formData.category);
-        postData.append('bookCondition', selectedStatus);
-        postData.append('userId', 'user123');
         postData.append('bookImage', imageFile);
 
         try {
             const response = await axios.post(
-                'http://13.209.5.86:5000/api/posts/create',
+                'http://13.209.5.86:5000/api/posts/purchases',
                 postData,
             );
 
@@ -120,7 +138,6 @@ const PurchaseCreatePage = () => {
             <Header />
             <div className="write-page">
                 <div className="write-container">
-                    {/* 책 검색 섹션 */}
                     <div className="search-book">
                         <div className="search-container">
                             <input
@@ -129,20 +146,8 @@ const PurchaseCreatePage = () => {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
-                            <button className='searchBtn' onClick={handleSearch}>검색</button>
+                            <button className="searchBtn" onClick={handleSearch}>검색</button>
                         </div>
-                        {searchResults.length > 0 && (
-                            <div className="search-results">
-                                <ul>
-                                    {searchResults.map((book, index) => (
-                                        <li key={index} onClick={() => handleBookSelect(book)}>
-                                            <strong>{book.title}</strong>
-                                            <p>{book.category || '카테고리 정보 없음'}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
                     </div>
 
                     {/* 입력 필드 */}
@@ -157,7 +162,7 @@ const PurchaseCreatePage = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            
+
                             <div className="image-input">
                                 <label>이미지 업로드</label>
                                 <div className="image-preview-container">
@@ -178,13 +183,13 @@ const PurchaseCreatePage = () => {
 
                         <div className="write-right">
                             <div className="category-input">
-                                    <label>카테고리</label>
-                                    <input
-                                        type="text"
-                                        name="category"
-                                        value={formData.category}
-                                        onChange={handleInputChange}
-                                    />
+                                <label>카테고리</label>
+                                <input
+                                    type="text"
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleInputChange}
+                                />
                             </div>
                             <div className="status-input">
                                 <label>상태</label>
@@ -229,24 +234,42 @@ const PurchaseCreatePage = () => {
                                     value={calculatedPrice}
                                     readOnly
                                 />
-                                <span className="unit">원</span> 
+                                <span className="unit">원</span>
                             </div>
-                            <div className='account-input'>
-                                <input
-                                    type='text'
-                                    placeholder='예금주'
-                                />
-                                <div>
+
+                            <div className="bank-info-container">
+                                <div className="input-group">
+                                    <label htmlFor="depositorName">예금주</label>
                                     <input
-                                        type='text'
-                                        placeholder='은행'
+                                        type="text"
+                                        name="depositorName"
+                                        id="depositorName"
+                                        value={formData.depositorName}
+                                        onChange={handleInputChange}
                                     />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="bankName">은행</label>
                                     <input
-                                        type='number'
-                                        placeholder='계좌번호'
+                                        type="text"
+                                        name="bankName"
+                                        id="bankName"
+                                        value={formData.bankName}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="accountNumber">계좌번호</label>
+                                    <input
+                                        type="text"
+                                        name="accountNumber"
+                                        id="accountNumber"
+                                        value={formData.accountNumber}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -256,6 +279,14 @@ const PurchaseCreatePage = () => {
                     </div>
                 </div>
             </div>
+
+            {/* 모달 사용 */}
+            <SearchModal
+                isModalOpen={isModalOpen}
+                closeModal={() => setIsModalOpen(false)}
+                searchResults={searchResults}
+                onBookSelect={handleBookSelect}
+            />
         </>
     );
 };

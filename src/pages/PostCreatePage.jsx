@@ -4,11 +4,12 @@ import '../styles/scss/PostCreatePage.scss';
 import Header from '../components/Header';
 import axios from 'axios';
 import { searchBooks } from '../api'; // 네이버 API 호출 함수
+import SearchModal from '../components/SearchModal';
 
 const PostCreatePage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [selectedBook, setSelectedBook] = useState(null); // 선택된 책 정보
+    const [selectedBook, setSelectedBook] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState('');
     const [calculatedPrice, setCalculatedPrice] = useState('');
     const [selectedPurpose, setSelectedPurpose] = useState('');
@@ -17,18 +18,20 @@ const PostCreatePage = () => {
         title: '',
         category: '',
         description: '',
-    });
+    }); // 폼 데이터
     const [imageFile, setImageFile] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const navigate = useNavigate();
 
-    // 책 검색
+    // 책 검색 처리
     const handleSearch = async () => {
         if (!searchQuery) return;
 
         try {
             const results = await searchBooks(searchQuery);
             setSearchResults(results);
+            setIsModalOpen(true); // 모달 열기
         // eslint-disable-next-line no-unused-vars
         } catch (error) {
             alert('책 검색에 실패했습니다.');
@@ -43,10 +46,11 @@ const PostCreatePage = () => {
             title: book.title,
             category: book.category || '카테고리 정보 없음',
         });
-        setSearchResults([]);
+        setSearchResults([]); 
+        setIsModalOpen(false); // 모달 닫기
     };
 
-    // 상태 변경 및 가격 계산
+    // 책 상태 변경 및 가격 계산
     const handleStatusChange = (event) => {
         const status = event.target.value;
         setSelectedStatus(status);
@@ -55,9 +59,9 @@ const PostCreatePage = () => {
             const basePrice = parseInt(selectedBook.discount || selectedBook.price, 10);
             let calculated = 0;
 
-            if (status === 'good') calculated = basePrice * 0.7; // 상
-            else if (status === 'fair') calculated = basePrice * 0.6; // 중
-            else if (status === 'poor') calculated = basePrice * 0.4; // 하
+            if (status === 'good') calculated = basePrice * 0.7;
+            else if (status === 'fair') calculated = basePrice * 0.6;
+            else if (status === 'poor') calculated = basePrice * 0.4;
 
             setCalculatedPrice(Math.round(calculated));
         }
@@ -94,7 +98,7 @@ const PostCreatePage = () => {
         const postData = new FormData();
         postData.append('title', formData.title);
         postData.append('content', formData.description);
-        postData.append('price', calculatedPrice); // 계산된 가격
+        postData.append('price', calculatedPrice);
         postData.append('category', formData.category);
         postData.append('bookCondition', selectedStatus);
         postData.append('tradeType', selectedPurpose);
@@ -139,21 +143,8 @@ const PostCreatePage = () => {
                             />
                             <button className='searchBtn' onClick={handleSearch}>검색</button>
                         </div>
-                        {searchResults.length > 0 && (
-                            <div className="search-results">
-                                <ul>
-                                    {searchResults.map((book, index) => (
-                                        <li key={index} onClick={() => handleBookSelect(book)}>
-                                            <strong>{book.title}</strong>
-                                            <p>{book.category || '카테고리 정보 없음'}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
                     </div>
 
-                    {/* 입력 필드 */}
                     <div className="top-container">
                         <div className="write-left">
                             <div className="title-input">
@@ -284,6 +275,14 @@ const PostCreatePage = () => {
                     </div>
                 </div>
             </div>
+
+            {/* 책 검색 모달 */}
+            <SearchModal
+                isModalOpen={isModalOpen}
+                closeModal={() => setIsModalOpen(false)}
+                searchResults={searchResults}
+                onBookSelect={handleBookSelect}
+            />
         </>
     );
 };
