@@ -16,7 +16,6 @@ $hover-color: #e0e0e0;
   flex-direction: column;
 
   .write-container {
-    display: flex;
     flex-direction: column;
     gap: 55px;
     max-width: 800px;
@@ -99,7 +98,6 @@ $hover-color: #e0e0e0;
     }
 
     .title-input input,
-    .category-input,
     .price-input input {
       width: 100%;
       padding: 10px;
@@ -185,6 +183,7 @@ $hover-color: #e0e0e0;
 
     .title-input,
     .image-input,
+    .category-input,
     .description-input {
       display: flex;
       flex-direction: column;
@@ -219,11 +218,41 @@ $hover-color: #e0e0e0;
       }
     }
 
-    .category-input {
-      input {
-        border: none;
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    
+      .category-button {
+        width: calc(50% - 5px);
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border: 1px solid $border-color;
+        border-radius: 0;
+        margin: 0;
+        background-color: $secondary-color;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    
+        &:not(:last-child) {
+          margin-bottom: -1px;
+          margin-right: -1px;
+        }
+    
+        &:hover {
+          background-color: $hover-color;
+        }
+    
+        &.selected {
+          background-color: $primary-color;
+          color: $secondary-color;
+        }
       }
     }
+    
 
     .status-input,
     .purpose-input {
@@ -287,6 +316,7 @@ $hover-color: #e0e0e0;
       cursor: pointer;
       border: none;
       border-radius: 30px;
+      margin: 0;
       transition: background-color 0.3s;
 
       &.submit, 

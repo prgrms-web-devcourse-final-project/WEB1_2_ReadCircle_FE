@@ -25,6 +25,11 @@ const PurchaseCreatePage = () => {
 
     const navigate = useNavigate();
 
+    const categoryBtn = [
+        '고전', '과학', '만화', '소설', '시', '어린이', '에세이', '역사', 
+        '외국어', '자기계발', '컴퓨터', '기타'
+    ];
+
     // 책 검색
     const handleSearch = async () => {
         if (!searchQuery) return;
@@ -32,7 +37,7 @@ const PurchaseCreatePage = () => {
         try {
             const results = await searchBooks(searchQuery);
             setSearchResults(results);
-            setIsModalOpen(true); // 모달 열기
+            setIsModalOpen(true);
         // eslint-disable-next-line no-unused-vars
         } catch (error) {
             alert('책 검색에 실패했습니다.');
@@ -49,7 +54,7 @@ const PurchaseCreatePage = () => {
             category: book.category || '카테고리 정보 없음',
         });
         setSearchResults([]);
-        setIsModalOpen(false); // 모달 닫기
+        setIsModalOpen(false);
     };
 
     const handleStatusChange = (event) => {
@@ -84,6 +89,13 @@ const PurchaseCreatePage = () => {
         });
     };
 
+    const handleCategoryClick = (category) => {
+        setFormData({
+            ...formData,
+            category,
+        });
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -103,8 +115,8 @@ const PurchaseCreatePage = () => {
         postData.append('account', formData.accountNumber); // 계좌번호
         postData.append('accountOwner', formData.depositorName); // 예금주
         postData.append('isbn', selectedBook.isbn); // ISBN
-        postData.append('bookCondition', selectedStatus); // 책 상태 (상/중/하)
-        postData.append('price', calculatedPrice); // 가격
+        postData.append('bookCondition', selectedStatus);
+        postData.append('price', calculatedPrice);
 
         // 기존 데이터
         postData.append('title', formData.title);
@@ -182,15 +194,19 @@ const PurchaseCreatePage = () => {
                         </div>
 
                         <div className="write-right">
-                            <div className="category-input">
+                            <div className="category-buttons">
                                 <label>카테고리</label>
-                                <input
-                                    type="text"
-                                    name="category"
-                                    value={formData.category}
-                                    onChange={handleInputChange}
-                                />
+                                {categoryBtn.map((category, index) => (
+                                    <button
+                                        key={index}
+                                        className={`category-button ${formData.category === category ? 'selected' : ''}`}
+                                        onClick={() => handleCategoryClick(category)}
+                                    >
+                                        {category}
+                                    </button>
+                                ))}
                             </div>
+
                             <div className="status-input">
                                 <label>상태</label>
                                 <div className="radio-group">
@@ -269,7 +285,6 @@ const PurchaseCreatePage = () => {
                                     />
                                 </div>
                             </div>
-
                         </div>
                     </div>
 

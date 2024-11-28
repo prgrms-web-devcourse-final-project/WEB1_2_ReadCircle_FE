@@ -127,6 +127,19 @@ const PostCreatePage = () => {
         navigate('/');
     };
 
+    const categoryBtn = [
+        '고전', '과학', '만화', '소설', '시', '어린이', '에세이', '역사', 
+        '외국어', '자기계발', '컴퓨터', '기타'
+    ];
+
+    // 카테고리 버튼 클릭 처리
+    const handleCategoryClick = (category) => {
+        setFormData({
+            ...formData,
+            category,
+        });
+    };
+
     return (
         <>
             <Header />
@@ -176,15 +189,19 @@ const PostCreatePage = () => {
                         </div>
 
                         <div className="write-right">
-                            <div className="category-input">
-                                    <label>카테고리</label>
-                                    <input
-                                        type="text"
-                                        name="category"
-                                        value={formData.category}
-                                        onChange={handleInputChange}
-                                    />
+                            <div className="category-buttons">
+                                <label>카테고리</label>
+                                {categoryBtn.map((category, index) => (
+                                    <button
+                                        key={index}
+                                        className={`category-button ${formData.category === category ? 'selected' : ''}`}
+                                        onClick={() => handleCategoryClick(category)}
+                                    >
+                                        {category}
+                                    </button>
+                                ))}
                             </div>
+
                             <div className="status-input">
                                 <label>상태</label>
                                 <div className="radio-group">
