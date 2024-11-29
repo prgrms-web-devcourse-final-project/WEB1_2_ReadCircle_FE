@@ -8,6 +8,7 @@ import MainPage from "./pages/MainPage";
 import BookListPage from "./pages/BookListPage";
 import ShopPage from "./pages/ShopPage";
 import Market from "./pages/MarketPage";
+import SearchResultPage from "./pages/SearchResultPage";
 
 const routes = [
   { path: "/join", element: <JoinPage /> },
@@ -22,6 +23,8 @@ const routes = [
   { path: "/BookList", element: <BookListPage /> },
   { path: "/shop", element: <ShopPage /> },
   { path: "/market", element: <Market /> },
+  { path: "/market", element: <Market /> },
+  { path: "/searchresult", element: <SearchResultPage /> },
 ];
 
 export default routes;

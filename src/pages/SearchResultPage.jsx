@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { loadDirectTradePosts, loadECommerceBooks } from "../store/postSlice";
+import { loadDirectTradePosts, loadECommerceBooks } from "../redux/postSlice";
 import SearchResult from "../components/SearchResult";
 import Header from "../components/Header";
 import Search from "../components/Search";
