@@ -18,6 +18,7 @@ const routes = [
   // HareuBang
   { path: "/", element: <MainPage /> },
   { path: "/BookList", element: <BookListPage /> },
+  { path: "/shop", element: <ShopPage /> },
 ];
 
 export default routes;
