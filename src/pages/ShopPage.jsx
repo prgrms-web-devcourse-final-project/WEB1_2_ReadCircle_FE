@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import FilterSidebar from "../components/FilterSidebar";
 import Search from "../components/Search";
 import BookList from "../components/BookList";
+import FloatingButton from "../components/FloatingButton";
 import "../styles/scss/Shop_Market.scss";
 
 const Shop = () => {
@@ -137,6 +138,7 @@ const Shop = () => {
           />
         </div>
       </div>
+      <FloatingButton />
     </>
   );
 };
