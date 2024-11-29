@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import BookList from "../components/BookList";
 import Header from "../components/Header";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/Search";
 import FloatingButton from "../components/FloatingButton";
 import FilterSidebar from "../components/FilterSidebar";
 

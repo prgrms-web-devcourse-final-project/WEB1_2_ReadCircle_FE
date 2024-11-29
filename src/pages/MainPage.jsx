@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoBookOutline } from "react-icons/io5";
@@ -9,7 +8,7 @@ import { FaComputer } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import "./../styles/scss/MainPage.scss";
 import Header from "../components/Header";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/Search";
 import FloatingButton from "../components/FloatingButton";
 
 import { dummyData } from "../data";
