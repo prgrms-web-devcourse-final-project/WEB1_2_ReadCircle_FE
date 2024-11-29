@@ -27,9 +27,11 @@ const Market = () => {
     const fetchBooks = async () => {
       try {
         const books = await fetchDirectTradePosts();
+        console.log("Fetched Books:", books);
         setBooksData(books);
       } catch (error) {
         console.error("Error fetching books:", error);
+        console.log("Detailed Error:", error);
       } finally {
         setLoading(false);
       }
