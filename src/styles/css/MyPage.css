@@ -1,0 +1,247 @@
+@charset "UTF-8";
+* {
+  list-style: none;
+}
+* .profile_area {
+  width: 100%;
+  height: auto;
+  margin-top: 50px;
+}
+* .profile_area .profile_image {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  margin: 0 auto;
+  border: none;
+}
+* .profile_area .profile_image .user_profile {
+  background: #e6e6e6;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+}
+* .profile_area .profile_image .modi_btn {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  background: none;
+  cursor: pointer;
+}
+* .profile_area .user_nick {
+  font-size: 24px;
+  margin-top: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+* .profile_area .user_nick .name_btn {
+  width: 20px;
+  height: 20px;
+  background: none;
+  margin: 0;
+  margin-left: 20px;
+}
+* .title_area {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10%;
+  margin-top: 80px;
+}
+* .title_area li {
+  text-align: center;
+  font-size: 32px;
+  color: #3E6604;
+  cursor: pointer;
+}
+* .title_area li.on,
+* .title_area li:hover {
+  color: #069F03;
+}
+* .post_area {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 100px;
+  padding: 0 8%;
+}
+* .post_area li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+* .post_area li .post {
+  width: 20%;
+  max-width: 155px;
+  min-width: 155px;
+  margin-right: 40px;
+}
+* .post_area li .post img {
+  width: 100%;
+  height: 155px;
+}
+* .post_area li .post p {
+  font-size: 12px;
+}
+* .post_area li .post .book_title {
+  margin-top: 10px;
+}
+* .post_area li .post .middle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+* .post_area li .post .middle .category {
+  width: 48px;
+  height: 20px;
+  border-radius: 20px;
+  background: #EEF1F1;
+  text-align: center;
+  line-height: 20px;
+}
+* .post_area li .post .middle .quality {
+  width: auto;
+}
+* .post_area li .post .bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+* .post_area li .post .bottom div {
+  display: flex;
+  align-items: center;
+}
+* .post_area li .post .bottom div .status {
+  width: 35px;
+  height: 14px;
+  position: relative;
+}
+* .post_area li .post .bottom div .status:nth-child(1) {
+  margin-right: 10px;
+}
+* .post_area li .post .bottom div .status::after {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 20px;
+  font-size: 10px;
+  color: #fff;
+  text-align: center;
+  line-height: 14px;
+}
+* .post_area li .post .bottom div .status.sell::after {
+  content: "판매";
+  background: #27AE60;
+}
+* .post_area li .post .bottom div .status.trade::after {
+  content: "교환";
+  background: #2980B9;
+}
+* .post_area li .post .bottom .price {
+  text-align: right;
+}
+* .post_area li .post .block {
+  width: 100%;
+  height: 30px;
+  background: #3E494A;
+  margin-top: 10px;
+}
+* .modal {
+  width: 50%;
+  max-width: 400px;
+  padding: 50px;
+  border: 1px solid #666666;
+}
+* .modal div {
+  margin-top: 20px;
+}
+* .modal .profile_nick h2,
+* .modal .profile_password h2 {
+  font-size: 20px;
+}
+* .modal .profile_nick span,
+* .modal .profile_password span {
+  height: 10px;
+  font-size: 12px;
+  color: red;
+  display: block;
+  margin-top: 10px;
+}
+* .modal .profile_nick button,
+* .modal .profile_password button {
+  width: 70px;
+  height: 30px;
+  margin: 10px auto;
+  background: #e6e6e6;
+  pointer-events: none;
+}
+* .modal .profile_nick button.on,
+* .modal .profile_password button.on {
+  background: #27AE60;
+  color: #fff;
+  pointer-events: all;
+}
+* .modal input {
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  border-bottom: solid #999999 2px;
+  padding: 10px;
+  margin-top: 10px;
+  outline: none;
+}
+* .modal .profile_image label {
+  display: block;
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  margin: 0 auto;
+}
+* .modal .profile_image label img {
+  width: 100%;
+  height: 100%;
+}
+* .modal .profile_image p {
+  width: auto;
+  padding: 5px;
+  border-radius: 10px;
+  display: block;
+  margin: 10px auto 0;
+  font-size: 12px;
+  text-align: center;
+  color: #000;
+  background: #e6e6e6;
+  pointer-events: none;
+}
+* .modal .profile_image p.on {
+  background: #27AE60;
+  color: #fff;
+  cursor: pointer;
+  pointer-events: all;
+}
+* .modal .profile_image #file {
+  display: none;
+}
+* .modal .close_modal {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  color: #000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

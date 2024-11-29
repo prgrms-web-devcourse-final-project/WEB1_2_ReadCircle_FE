@@ -1,0 +1,289 @@
+*{
+    list-style: none;
+
+    .profile_area {
+        width: 100%;
+        height: auto;
+        margin-top: 50px;
+        
+        .profile_image {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            margin: 0 auto;
+            border: none;
+            
+            .user_profile {
+                background: #e6e6e6;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                display: block;
+            }
+
+            .modi_btn {
+                width: 32px;
+                height: 32px;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                margin: 0;
+                background: none;
+                cursor: pointer;
+            }
+        }
+
+        .user_nick {
+            font-size: 24px;
+            margin-top: 40px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .name_btn {
+                width: 20px;
+                height: 20px;
+                background: none;
+                margin: 0;
+                margin-left: 20px;
+            }
+        }
+    }
+
+    .title_area {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10%;
+        margin-top: 80px;
+
+        li {
+            text-align: center;
+            font-size: 32px;
+            color: #3E6604;
+            cursor: pointer;
+        }
+
+        li.on,
+        li:hover {
+            color: #069F03;
+        }
+    }
+
+    .post_area {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 100px;
+        padding: 0 8%;
+
+        li {
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            .post {
+                width: 20%;
+                max-width: 155px;
+                min-width: 155px;
+                margin-right: 40px;
+    
+                img {
+                    width: 100%;
+                    height: 155px;
+                }
+    
+                p {
+                    font-size: 12px;
+                }
+    
+                .book_title {
+                    margin-top: 10px;
+                }
+    
+                .middle {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-top: 10px;
+    
+                    .category {
+                        width: 48px;
+                        height: 20px;
+                        border-radius: 20px;
+                        background: #EEF1F1;
+                        text-align: center;
+                        line-height: 20px;
+                    }
+    
+                    .quality {
+                        width: auto;
+                    }
+                }
+    
+                .bottom {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-top: 10px;
+    
+                    div {
+                        display: flex;
+                        align-items: center;
+    
+                        .status {
+                            width: 35px;
+                            height: 14px;
+                            position: relative;
+                        }
+    
+                        .status:nth-child(1) {
+                            margin-right: 10px;
+                        }
+                        
+                        .status::after {
+                            width: 100%;
+                            height: 100%;
+                            display: block;
+                            border-radius: 20px;
+                            font-size: 10px;
+                            color: #fff;
+                            text-align: center;
+                            line-height: 14px;
+                        }
+    
+                        .status.sell::after {
+                            content: '판매';
+                            background: #27AE60;
+                        }
+    
+                        .status.trade::after {
+                            content: '교환';
+                            background: #2980B9;
+                        }
+                    }
+    
+                    .price {
+                        text-align: right;
+                    }
+                }
+    
+                .block {
+                    width: 100%;
+                    height: 30px;
+                    background: #3E494A;
+                    margin-top: 10px;
+                }
+            }
+        }
+
+        
+    }
+
+    .modal {
+        width: 50%;
+        max-width: 400px;
+        padding: 50px;
+        border: 1px solid #666666;
+
+        div {
+            margin-top: 20px;
+        }
+
+        .profile_nick, 
+        .profile_password {
+            h2 {
+                font-size: 20px;
+            }
+            
+            span {
+                height: 10px;
+                font-size: 12px;
+                color: red;
+                display: block;
+                margin-top: 10px;
+            }
+
+            button {
+                width: 70px;
+                height: 30px;
+                margin: 10px auto;
+                background: #e6e6e6;
+                pointer-events: none;
+            }
+
+            button.on {
+                background: #27AE60;
+                color: #fff;
+                pointer-events: all;
+            }
+        }
+
+        input {
+            font-size: 16px;
+            width: 100%;
+            border: none;
+            border-bottom: solid #999999 2px;
+            padding: 10px;
+            margin-top: 10px;
+            outline: none;
+        }
+
+        .profile_image {
+            label {
+                display: block;
+                width: 100px;
+                height: auto;
+                cursor: pointer;
+                margin: 0 auto;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            p {
+                width: auto;
+                padding: 5px;
+                border-radius: 10px;
+                display: block;
+                margin: 10px auto 0;
+                font-size: 12px;
+                text-align: center;
+                color: #000;
+                background: #e6e6e6;
+                pointer-events: none;
+            }
+            
+            p.on {
+                background: #27AE60;
+                color: #fff;
+                cursor: pointer;
+                pointer-events: all;
+            }
+
+            #file {
+                display: none;
+            }
+        }
+
+        .close_modal {
+            width: 50px;
+            height: 50px;
+            font-size: 30px;
+            color: #000;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+}

@@ -1,5 +1,5 @@
 * {
-    width: 100%;
+    height: auto;
 
     .logos {
         width: 100%;
@@ -77,6 +77,16 @@
                 display: none;
             }
         }
+
+        .address_area {
+            button {
+                margin-top: 20px;
+            }
+
+            .detail_input {
+                margin-top: 40px;
+            }
+        }
     }
 
     button {
@@ -89,10 +99,10 @@
         border-radius: 10px;
         text-align: center;
         margin-bottom: 30px;
+        cursor: pointer;
     }
     
     .join_btn {
-        cursor: pointer;
         color: #fff;
         background: #27AE60;
     }
@@ -100,6 +110,39 @@
     .de_join_btn {
         color: #000;
         background: #999999;
+    }
+
+    .modal_area {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: center;
+        align-items: start;
+
+        .daum_post {
+            width: 400px !important;
+            height: 480px !important;
+            padding: 30px;
+            background: rgba(0,0,0,.6);
+            margin: 0;
+            position: relative;
+            display: flex;
+            justify-content: end;
+        }
+
+        .close_modal {
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,.5);
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            margin: 0;
+        }
     }
     
 }
