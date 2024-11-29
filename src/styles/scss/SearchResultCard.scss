@@ -1,0 +1,72 @@
+.book-card__int {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  width: 280px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.book-category {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  background-color: #4caf50; // 초록 계열
+  color: white;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.book-image {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+  }
+}
+
+.book-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.book-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin: 8px 0 4px;
+}
+
+.book-author,
+.book-year {
+  font-size: 14px;
+  color: #666;
+  margin: 2px 0;
+}
+
+.stock-info {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  font-size: 14px;
+  color: #444;
+  margin-top: 8px;
+
+  p {
+    margin: 4px 0;
+  }
+}
