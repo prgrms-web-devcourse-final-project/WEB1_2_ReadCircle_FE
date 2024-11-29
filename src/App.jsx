@@ -1,10 +1,12 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import routes from './router';
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import routes from "./router";
 
 const router = createBrowserRouter(routes);
 
 export default function App() {
   return (
-    <RouterProvider router = {router} />
-  )
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
