@@ -68,6 +68,7 @@ const MainPage = () => {
                 따라 매입가를 결정합니다.
               </p>
               <div className="resource-link">
+                {/* 판매 경로 입력(이커머스) */}
                 <Link to="/">
                   판매하러 가기 <span>→</span>
                 </Link>
