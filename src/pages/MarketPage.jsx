@@ -23,38 +23,19 @@ const Market = () => {
     forExchange: false, // 교환
   });
 
-  // 데이터 가져오기
-  const fetchBooks = async () => {
-    setLoading(true);
-    try {
-      const response = await api.get("/api/posts");
-      const mappedBooks = response.data.content.map((book) => ({
-        book_id: book.postId,
-        title: book.title,
-        thumbnail: book.bookImage,
-        category: book.bookCategory,
-        isbn: book.isbn,
-        author: book.author,
-        publisher: book.publisher,
-        publish_date: book.publishDate,
-        book_condition: book.bookCondition,
-        price: book.price,
-        isForSale: !book.tradeStatus,
-        tradeType: book.tradeType,
-        nickname: book.nickname,
-      }));
-      setBooksData(mappedBooks);
-    } catch (error) {
-      console.error("Error fetching books:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 검색, 필터 변경 시 데이터 가져오기
   useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const books = await fetchDirectTradePosts();
+        setBooksData(books);
+      } catch (error) {
+        console.error("Error fetching books:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchBooks();
-  }, [searchTerm, filters]);
+  }, []);
 
   // 검색 이벤트 핸들러
   const handleSearchSubmit = (term) => {
@@ -150,6 +131,7 @@ const Market = () => {
           <BookList
             books={filteredBooks}
             onCardClick={(bookId) =>
+              // 직거래 책 상세 페이지 경로
               (window.location.href = `/marketDetailPage/${bookId}`)
             }
             showDeliveryFee={false}
