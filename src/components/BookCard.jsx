@@ -1,83 +1,70 @@
-import React, { useState } from "react";
-import { FaRegBookmark } from "react-icons/fa";
-import { FaBookmark } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import "../styles/scss/BookCard.scss";
+import React from "react";
+import "./../styles/scss/BookCard.scss";
 
-const BookCard = ({ book }) => {
-  const [isFavorite, setIsFavorite] = useState(book.isFavorite);
-
-  const handleBookmarkClick = () => {
-    setIsFavorite((prevState) => !prevState);
-  };
-
-  // 카테고리 및 상태 클래스 변환
-  const getCategoryClass = (category) => {
-    switch (category) {
-      case "소설/시":
-        return "novel-poetry";
-      case "자기계발":
-        return "self-development";
-      case "경제경영":
-        return "business";
-      case "인문학":
-        return "humanities";
-      case "컴퓨터/모바일":
-        return "it";
-      default:
-        return "";
-    }
-  };
-
-  const getConditionClass = (condition) => {
-    switch (condition) {
-      case "최상":
-        return "best";
-      case "상":
-        return "good";
-      case "중":
-        return "fair";
-      case "하":
-        return "poor";
-      case "최하":
-        return "worst";
-      default:
-        return "";
-    }
-  };
-
+const BookCard = ({
+  title,
+  details,
+  condition,
+  tradeType,
+  price,
+  deliveryFee,
+  thumbnail,
+  nickname,
+  onClick,
+  showActions,
+  isForSale,
+}) => {
   return (
-    <div className="book-card">
-      <Link to={`/book/${book.postId}`} className="book-link">
-        <div
-          className={`bookmark-button ${isFavorite ? "active" : ""}`}
-          onClick={(e) => {
-            e.preventDefault(); // 클릭 시 페이지 이동 방지
-            handleBookmarkClick();
-          }}
-        >
-          {isFavorite ? <FaBookmark /> : <FaRegBookmark />}
+    <div
+      className={`book-card__ind ${isForSale ? "" : "sold-out"}`}
+      onClick={onClick}
+    >
+      {!isForSale && (
+        <div className="overlay">
+          <span className="sold-out-text">판매 완료</span>
         </div>
+      )}
 
-        <img src={book.bookImage} alt={book.title} className="book-image" />
-        <h3 className="book-title">{book.title}</h3>
-        <div className="book-info">
-          <span className={`category ${getCategoryClass(book.category)}`}>
-            {book.category}
-          </span>
-          <span className={`condition ${getConditionClass(book.condition)}`}>
-            {book.condition}
-          </span>
-        </div>
-        <div className="book-options">
-          {book.forSale && <span className="option sale">판매</span>}
-          {book.forExchange && <span className="option exchange">교환</span>}
-        </div>
-        <div className="book-price">{book.price}원</div>
+      <div className="card-left">
+        <img className="card-image" src={thumbnail} alt={`${title} 썸네일`} />
+      </div>
 
-        {/* 유저 닉네임 선택 */}
-        <div className="book-user">{book.userId}</div>
-      </Link>
+      <div className="card-center">
+        <h2 className="card-title">{title}</h2>
+        <p className="card-details">{details}</p>
+      </div>
+
+      <div className="card-right">
+        <div className="horizontal-info">
+          <p className="condition">{condition}</p>
+
+          <div className="price-delivery">
+            <p className="price">{price}</p>
+            {deliveryFee && (
+              <p className="delivery-fee">배송료: {deliveryFee}</p>
+            )}
+          </div>
+
+          {tradeType && (
+            <div className="trade-type">
+              <p>{tradeType}</p>
+            </div>
+          )}
+
+          {nickname && (
+            <div className="nickname">
+              <p>{nickname}</p>
+            </div>
+          )}
+
+          {showActions && (
+            <div className="action-buttons">
+              <button className="primary-button">장바구니</button>
+              <button className="secondary-button">구매</button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
