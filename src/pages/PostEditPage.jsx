@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import '../styles/scss/PostEditPage.scss';
 import mockPostData from '../components/mockPost.json'; // 예시로 mock 데이터를 사용
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header'; // Header 컴포넌트 임포트
 
 const PostEditPage = () => {
     const [selectedCategory, setSelectedCategory] = useState('');
@@ -112,162 +113,164 @@ const PostEditPage = () => {
     };
 
     return (
-        <div className="edit-page">
-            <div className="edit-container">
-                <div className="top-container">
-                    <div className="edit-left">
-                        <div className="title-input">
-                            <label>제목</label>
-                            <input
-                                type="text"
-                                name="title"
-                                value={formData.title}
-                                onChange={handleInputChange}
-                                placeholder="제목을 입력하세요"
-                            />
-                        </div>
-                        <div className="image-input">
-                            <label>이미지 업로드</label>
-                            <div className="image-preview-container">
-                                {imagePreview ? (
-                                    <img src={imagePreview} alt="preview" className="image-preview" />
-                                ) : (
-                                    <div className="image-placeholder">이미지를 추가하세요</div>
-                                )}
+        <>
+            <Header />
+            <div className="edit-page">
+                <div className="edit-container">
+                    <div className="top-container">
+                        <div className="edit-left">
+                            <div className="title-input">
+                                <label>제목</label>
                                 <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                    className="image-upload-input"
+                                    type="text"
+                                    name="title"
+                                    value={formData.title}
+                                    onChange={handleInputChange}
+                                    placeholder="제목을 입력하세요"
                                 />
                             </div>
+                            <div className="image-input">
+                                <label>이미지 업로드</label>
+                                <div className="image-preview-container">
+                                    {imagePreview ? (
+                                        <img src={imagePreview} alt="preview" className="image-preview" />
+                                    ) : (
+                                        <div className="image-placeholder">이미지를 추가하세요</div>
+                                    )}
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                        className="image-upload-input"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="edit-right">
+                            <div className="category-input">
+                                <label>카테고리</label>
+                                <div className="category-buttons">
+                                    {categoryBtn.map((category, index) => (
+                                        <button
+                                            key={index}
+                                            className={`category-button ${
+                                                selectedCategory === category ? 'selected' : ''
+                                            }`}
+                                            onClick={() => handleCategoryClick(category)}
+                                        >
+                                            {category}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="status-input">
+                                <label>상태</label>
+                                <div className="radio-group">
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="status"
+                                            value="good"
+                                            checked={selectedStatus === 'good'}
+                                            onChange={handleStatusChange}
+                                        />
+                                        상
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="status"
+                                            value="fair"
+                                            checked={selectedStatus === 'fair'}
+                                            onChange={handleStatusChange}
+                                        />
+                                        중
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="status"
+                                            value="poor"
+                                            checked={selectedStatus === 'poor'}
+                                            onChange={handleStatusChange}
+                                        />
+                                        하
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="price-input">
+                                <label>가격</label>
+                                <input
+                                    type="number"
+                                    name="price"
+                                    value={formData.price}
+                                    onChange={handleInputChange}
+                                    placeholder="가격을 입력하세요"
+                                />
+                                <span className="unit">원</span>
+                            </div>
+                            <div className="purpose-input">
+                                <label>목적</label>
+                                <div className="radio-group">
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="purpose"
+                                            value="sell"
+                                            checked={selectedPurpose === 'sell'}
+                                            onChange={handlePurposeChange}
+                                        />
+                                        판매
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="purpose"
+                                            value="exchange"
+                                            checked={selectedPurpose === 'exchange'}
+                                            onChange={handlePurposeChange}
+                                        />
+                                        교환
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="purpose"
+                                            value="purchase"
+                                            checked={selectedPurpose === 'purchase'}
+                                            onChange={handlePurposeChange}
+                                        />
+                                        구매
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="edit-right">
-                        <div className="category-input">
-                            <label>카테고리</label>
-                            <div className="category-buttons">
-                                {categoryBtn.map((category, index) => (
-                                    <button
-                                        key={index}
-                                        className={`category-button ${
-                                            selectedCategory === category ? 'selected' : ''
-                                        }`}
-                                        onClick={() => handleCategoryClick(category)}
-                                    >
-                                        {category}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="status-input">
-                            <label>상태</label>
-                            <div className="radio-group">
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="status"
-                                        value="good"
-                                        checked={selectedStatus === 'good'}
-                                        onChange={handleStatusChange}
-                                    />
-                                    상
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="status"
-                                        value="fair"
-                                        checked={selectedStatus === 'fair'}
-                                        onChange={handleStatusChange}
-                                    />
-                                    중
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="status"
-                                        value="poor"
-                                        checked={selectedStatus === 'poor'}
-                                        onChange={handleStatusChange}
-                                    />
-                                    하
-                                </label>
-                            </div>
-                        </div>
-                        <div className="price-input">
-                            <label>가격</label>
-                            <input
-                                type="number"
-                                name="price"
-                                value={formData.price}
-                                onChange={handleInputChange}
-                                placeholder="가격을 입력하세요"
-                            />
-                            <span className="unit">원</span>
-                        </div>
-                        <div className="purpose-input">
-                            <label>목적</label>
-                            <div className="radio-group">
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="purpose"
-                                        value="sell"
-                                        checked={selectedPurpose === 'sell'}
-                                        onChange={handlePurposeChange}
-                                    />
-                                    판매
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="purpose"
-                                        value="exchange"
-                                        checked={selectedPurpose === 'exchange'}
-                                        onChange={handlePurposeChange}
-                                    />
-                                    교환
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="purpose"
-                                        value="purchase"
-                                        checked={selectedPurpose === 'purchase'}
-                                        onChange={handlePurposeChange}
-                                    />
-                                    구매
-                                </label>
-                            </div>
-                        </div>
+                    <div className="description-input">
+                        <label>설명</label>
+                        <textarea
+                            name="content"
+                            value={formData.content}
+                            onChange={handleInputChange}
+                            placeholder="설명을 입력하세요"
+                            rows="5"
+                        ></textarea>
                     </div>
                 </div>
 
-                <div className="description-input">
-                    <label>설명</label>
-                    <textarea
-                        name="content"
-                        value={formData.content}
-                        onChange={handleInputChange}
-                        placeholder="설명을 입력하세요"
-                        rows="5"
-                    ></textarea>
+                <div className="editBtn-container">
+                    <button onClick={handleSubmit} className="submit">
+                        수정
+                    </button>
+                    <button onClick={handleDelete} className="delete">
+                        삭제
+                    </button>
+                    <button className="cancel">나가기</button>
                 </div>
             </div>
-
-            <div className="editBtn-container">
-                <button onClick={handleSubmit} className="submit">
-                    수정
-                </button>
-                <button onClick={handleDelete} className="delete">
-                    삭제
-                </button>
-                <button className="cancel">나가기</button>
-
-            </div>
-        </div>
+        </>
     );
 };
 
