@@ -1,27 +1,23 @@
-import React, { useState } from "react";
-import { FaRegCommentDots } from "react-icons/fa6";
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/scss/FloatingButton.scss";
 
 const FloatingButton = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const toggleModal = () => setModalOpen(!modalOpen);
+  const handleClick = () => {
+    if (location.pathname.includes("/shop")) {
+      navigate("/createShop");
+    } else if (location.pathname.includes("/market")) {
+      navigate("/createMarket");
+    }
+  };
 
   return (
-    <>
-      <button className="floating-button" onClick={toggleModal}>
-        {modalOpen ? "X" : <FaRegCommentDots />}
-      </button>
-      {modalOpen && (
-        <div className="modal">
-          <div className="modal__content">
-            <h3>홍길동</h3>
-            <p>"홍길동"님이 채팅을 요청합니다.</p>
-            <button>채팅</button>
-          </div>
-        </div>
-      )}
-    </>
+    <button className="floating-button" onClick={handleClick}>
+      +
+    </button>
   );
 };
 
