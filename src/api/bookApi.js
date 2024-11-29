@@ -2,11 +2,30 @@ import axios from "axios";
 
 const BASE_URL = "http://13.209.5.86:5000";
 
+// 로컬 스토리지에서 토큰 가져오기
+const getAuthToken = () => {
+  return localStorage.getItem("auth_token");
+};
+
+// axios 인스턴스 설정
+const api = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true, // 쿠키 전송 허용
+});
+
 // 직거래 게시글 조회
-export const fetchDirectTradePosts = async (token) => {
-  const response = await axios.get(`${BASE_URL}/api/posts`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+export const fetchDirectTradePosts = async () => {
+  const token = getAuthToken();
+  const config = token
+    ? {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    : {};
+
+  const response = await api.get("/api/posts", config);
   return response.data.map((post) => ({
     id: post.postId,
     isbn: post.isbn,
@@ -29,7 +48,8 @@ export const fetchDirectTradePosts = async (token) => {
 
 // 이커머스 게시글 조회
 export const fetchECommerceBooks = async () => {
-  const response = await axios.get(`${BASE_URL}/api/books`);
+  // const response = await axios.get(`${BASE_URL}/api/books`);
+  const response = await api.get("/api/books");
   return response.data.content.map((book) => ({
     id: book.id,
     isbn: book.isbn,
