@@ -10,8 +10,10 @@ export const fetchDirectTradePosts = async (token) => {
   });
   return response.data.map((post) => ({
     id: post.postId,
-    category: post.bookCategory,
+    isbn: post.isbn,
     title: post.title,
+    content: post.content,
+    category: post.bookCategory,
     author: post.author,
     publisher: post.publisher,
     publishDate: post.publishDate,
@@ -20,6 +22,7 @@ export const fetchDirectTradePosts = async (token) => {
     price: post.price,
     tradeType: post.tradeType,
     thumbnailUrl: post.bookAPIImage,
+    ninkname: post.ninkname,
     createdAt: post.postCreatedAt,
     updatedAt: post.postUpdatedAt,
   }));
@@ -30,8 +33,10 @@ export const fetchECommerceBooks = async () => {
   const response = await axios.get(`${BASE_URL}/api/books`);
   return response.data.content.map((book) => ({
     id: book.id,
-    category: book.category,
+    isbn: book.isbn,
     title: book.title,
+    // content: post.content,
+    category: book.category,
     author: book.author,
     publisher: book.publisher,
     publishDate: book.publishDate,
