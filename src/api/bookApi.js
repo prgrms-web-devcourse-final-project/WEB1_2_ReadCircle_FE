@@ -1,4 +1,3 @@
-// src/api/api.js
 import axios from "axios";
 
 const BASE_URL = "http://13.209.5.86:5000";
