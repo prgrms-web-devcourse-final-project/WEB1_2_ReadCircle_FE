@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchDirectTradePosts, fetchECommerceBooks } from "../api/api";
+import { fetchDirectTradePosts, fetchECommerceBooks } from "../api/bookApi";
 
 // Thunk: 직거래 게시글 로드
 export const loadDirectTradePosts = createAsyncThunk(
