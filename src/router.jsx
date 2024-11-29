@@ -5,7 +5,6 @@ import PostCreatePage from "./pages/PostCreatePage";
 import PostViewPage from "./pages/PostViewPage";
 import PostEditPage from "./pages/PostEditPage";
 import MainPage from "./pages/MainPage";
-import BookListPage from "./pages/BookListPage";
 import ShopPage from "./pages/ShopPage";
 import Market from "./pages/MarketPage";
 import SearchResultPage from "./pages/SearchResultPage";
@@ -20,7 +19,6 @@ const routes = [
 
   // HareuBang
   { path: "/", element: <MainPage /> },
-  { path: "/BookList", element: <BookListPage /> },
   { path: "/shop", element: <ShopPage /> },
   { path: "/market", element: <Market /> },
   { path: "/market", element: <Market /> },
