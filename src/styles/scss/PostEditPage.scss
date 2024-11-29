@@ -157,7 +157,7 @@ $hover-color: #e0e0e0;
 
       .unit {
         position: absolute;
-        right: 10px;
+        right: -300px;
         bottom: 10px;
         font-size: 14px;
         font-weight: bold;
@@ -183,9 +183,12 @@ $hover-color: #e0e0e0;
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
         margin-right: -1px;
+        margin-left: -1px;
 
         &:not(:last-child) {
           margin-bottom: -1px;
+          margin-left: -1px;
+
         }
 
         &:hover {

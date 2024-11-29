@@ -31,7 +31,7 @@ const PostCreatePage = () => {
         try {
             const results = await searchBooks(searchQuery);
             setSearchResults(results);
-            setIsModalOpen(true); // 모달 열기
+            setIsModalOpen(true);
         // eslint-disable-next-line no-unused-vars
         } catch (error) {
             alert('책 검색에 실패했습니다.');
@@ -47,7 +47,7 @@ const PostCreatePage = () => {
             category: book.category || '카테고리 정보 없음',
         });
         setSearchResults([]); 
-        setIsModalOpen(false); // 모달 닫기
+        setIsModalOpen(false);
     };
 
     // 책 상태 변경 및 가격 계산
@@ -59,9 +59,9 @@ const PostCreatePage = () => {
             const basePrice = parseInt(selectedBook.discount || selectedBook.price, 10);
             let calculated = 0;
 
-            if (status === 'good') calculated = basePrice * 0.7;
-            else if (status === 'fair') calculated = basePrice * 0.6;
-            else if (status === 'poor') calculated = basePrice * 0.4;
+            if (status === '상') calculated = basePrice * 0.7;
+            else if (status === '중') calculated = basePrice * 0.6;
+            else if (status === '하') calculated = basePrice * 0.4;
 
             setCalculatedPrice(Math.round(calculated));
         }
@@ -75,7 +75,8 @@ const PostCreatePage = () => {
         const file = event.target.files[0];
         if (file) {
             setImagePreview(URL.createObjectURL(file));
-            setImageFile(file);
+            const fileUrl = URL.createObjectURL(file)
+            setImageFile(fileUrl);
         }
     };
 
@@ -89,28 +90,59 @@ const PostCreatePage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+    
+        const accessToken = localStorage.getItem('accessToken'); 
+        console.log('Access Token:', accessToken);
+    
+        if (!accessToken) {
+            alert('로그인 상태가 아닙니다.');
+            return;
+        }
+    
         if (!formData.title || !formData.category || !selectedStatus || !calculatedPrice || !selectedPurpose) {
             alert('모든 필드를 입력해 주세요.');
             return;
         }
-
+    
         const postData = new FormData();
-        postData.append('title', formData.title);
-        postData.append('content', formData.description);
-        postData.append('price', calculatedPrice);
-        postData.append('category', formData.category);
-        postData.append('bookCondition', selectedStatus);
-        postData.append('tradeType', selectedPurpose);
-        postData.append('userId', 'user123');
-        postData.append('bookImage', imageFile);
-
+        
+        postData.append(
+            "postDTO", 
+            new Blob(
+                [
+                    JSON.stringify({
+                        title: formData.title,
+                        content: formData.description,
+                        price: calculatedPrice,
+                        bookCategory: formData.category,
+                        bookCondition: selectedStatus,
+                        tradeType: selectedPurpose,
+                        // userId
+                    })
+                ],
+                { type: "application/json" }
+            )
+        );
+    
+        postData.append("bookImage", imageFile);
+    
+        for (let [key, value] of postData.entries()) {
+            console.log(`${key}:`, value);
+        }
+    
         try {
+            // 서버로 POST 요청 보내기
             const response = await axios.post(
                 'http://13.209.5.86:5000/api/posts/create',
                 postData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "multipart/form-data",
+                    }
+                }
             );
-
+    
             if (response.data.success) {
                 alert('게시글이 성공적으로 작성되었습니다.');
                 navigate('/');
@@ -209,8 +241,8 @@ const PostCreatePage = () => {
                                         <input
                                             type="radio"
                                             name="status"
-                                            value="good"
-                                            checked={selectedStatus === 'good'}
+                                            value="상"
+                                            checked={selectedStatus === '상'}
                                             onChange={handleStatusChange}
                                         />
                                         상
@@ -219,8 +251,8 @@ const PostCreatePage = () => {
                                         <input
                                             type="radio"
                                             name="status"
-                                            value="fair"
-                                            checked={selectedStatus === 'fair'}
+                                            value="중"
+                                            checked={selectedStatus === '중'}
                                             onChange={handleStatusChange}
                                         />
                                         중
@@ -229,8 +261,8 @@ const PostCreatePage = () => {
                                         <input
                                             type="radio"
                                             name="status"
-                                            value="poor"
-                                            checked={selectedStatus === 'poor'}
+                                            value="하"
+                                            checked={selectedStatus === '하'}
                                             onChange={handleStatusChange}
                                         />
                                         하
@@ -243,9 +275,9 @@ const PostCreatePage = () => {
                                     type="number"
                                     name="price"
                                     value={calculatedPrice}
-                                    readOnly
+                                    className='calculated-price'
                                 />
-                                <span className="unit">원</span> 
+                                <span className='unit'>원</span>
                             </div>
                             <div className="purpose-input">
                                 <label>목적</label>
@@ -254,8 +286,8 @@ const PostCreatePage = () => {
                                         <input
                                             type="radio"
                                             name="purpose"
-                                            value="sell"
-                                            checked={selectedPurpose === 'sell'}
+                                            value="판매"
+                                            checked={selectedPurpose === '판매'}
                                             onChange={handlePurposeChange}
                                         />
                                         판매
@@ -264,8 +296,8 @@ const PostCreatePage = () => {
                                         <input
                                             type="radio"
                                             name="purpose"
-                                            value="exchange"
-                                            checked={selectedPurpose === 'exchange'}
+                                            value="교환"
+                                            checked={selectedPurpose === '교환'}
                                             onChange={handlePurposeChange}
                                         />
                                         교환
@@ -287,7 +319,7 @@ const PostCreatePage = () => {
                     </div>
 
                     <div className="button-container">
-                        <button className="submit" onClick={handleSubmit}>등록</button>
+                        <button className="submit" type="submit" onClick={handleSubmit}>등록</button>
                         <button className="cancel" onClick={handleCancel}>나가기</button>
                     </div>
                 </div>

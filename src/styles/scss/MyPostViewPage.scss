@@ -86,24 +86,6 @@
     text-align: center;
 }
 
-.wish {
-    background-color: #3E6604;
-    width: 200px;
-    color: #fff;
-    border: none;
-    border-radius: 30px;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 20px;
-    margin-top: 15px;
-    transition: background-color 0.3s;
-    text-align: center;
-}
-
-.message:hover, .wish:hover {
-    background-color: color.scale(#3E6604, $lightness: -10%);
-}
-
 .description {
     margin: 20px;
     font-size: 16px;
@@ -114,12 +96,14 @@
 .action-buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 20px;
-    width: 100%;
+    gap: 20px;
+    margin: 20px;
+    width: 80%;
 
     button {
         padding: 10px 20px;
+        margin: 0;
+        width: 100px;
         border: none;
         border-radius: 30px;
         font-size: 16px;

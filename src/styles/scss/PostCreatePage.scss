@@ -202,19 +202,15 @@ $hover-color: #e0e0e0;
     .price-input {
       position: relative;
       display: flex;
-      align-items: center;
-      
-      input {
-        padding-right: 40px;
-      }
+      align-items: flex-start;
 
       .unit {
         position: absolute;
-        right: 0;
+        right: -100px;
         bottom: 0;
         font-size: 14px;
         font-weight: bold;
-        color: #888;
+        color: #ccc;
       }
     }
 

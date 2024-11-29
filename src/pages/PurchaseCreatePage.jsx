@@ -120,7 +120,7 @@ const PurchaseCreatePage = () => {
 
         // 기존 데이터
         postData.append('title', formData.title);
-        postData.append('category', formData.category);
+        postData.append('bookCategory', formData.category);
         postData.append('bookImage', imageFile);
 
         try {

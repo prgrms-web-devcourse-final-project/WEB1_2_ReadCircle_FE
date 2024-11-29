@@ -1,50 +1,82 @@
-import { useEffect, useState } from 'react';
-import mockPostData from './mockPost.json';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export const usePostView = (withFavorite = true) => {
+export const usePostView = (postId) => {
     const [post, setPost] = useState(null);
-    const [isFavorited, setIsFavorited] = useState(false);
-    const [comments, setComments] = useState([]); // 댓글 목록
-    const [newComment, setNewComment] = useState(''); // 새 댓글 입력 값
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState('');
 
-    const mockUserId = 'user123'; // 작성자 ID (임시)
-
+    // 게시글 정보 가져오기
     useEffect(() => {
-        setPost(mockPostData);
-    }, []);
+        const postId = 1; 
+        const fetchPost = async () => {
+            try {
+                const accessToken = localStorage.getItem('accessToken');
+                const response = await axios.get(
+                    `http://13.209.5.86:5000/api/posts/${postId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        }
+                    }
+                );
 
-    const handleFavoriteClick = () => {
-        if (withFavorite) {
-            setIsFavorited(!isFavorited);
-            if (!isFavorited) {
-                alert('게시글을 찜하였습니다.');
-            } else {
-                alert('게시글의 찜을 취소하였습니다.');
+                if (response.data) {
+                    const { postId, userId, title, content, category, postCreatedAt, bookImage, price, bookCondition, tradeType, trade_status } = response.data;
+                    setPost({
+                        postId,
+                        userId,
+                        title,
+                        content,
+                        category,
+                        postCreatedAt,
+                        bookImage,
+                        price,
+                        bookCondition,
+                        tradeType,
+                        trade_status,
+                    });
+                }
+            } catch (error) {
+                console.error('게시글 상세 조회 오류:', error);
             }
+        };
+
+        fetchPost();
+    }, [postId]);
+
+    // 댓글 추가 함수
+    const handleAddComment = async () => {
+        const postId = 1;
+        if (newComment.trim() === '') return;
+
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            const response = await axios.post(
+                `http://13.209.5.86:5000/api/posts/${postId}/comments`, 
+                { content: newComment },
+                { headers: { Authorization: `Bearer ${accessToken}` } }
+            );
+            if (response.data.success) {
+                setComments([...comments, { userId: 'user123', content: newComment }]);
+                setNewComment('');
+            }
+        } catch (error) {
+            console.error('댓글 추가 오류:', error);
         }
     };
 
-    const handleAddComment = () => {
-        if (newComment.trim()) {
-            const newCommentData = {
-                id: comments.length + 1,
-                userId: mockUserId,
-                content: newComment,
-            };
-            setComments([...comments, newCommentData]);
-            setNewComment('');
-        } else {
-            alert('댓글을 입력하세요.');
-        }
+    // 찜 버튼
+    const handleFavoriteClick = (event) => {
+        event.preventDefault();
     };
 
     return {
         post,
-        isFavorited,
         comments,
         newComment,
         setNewComment,
-        handleFavoriteClick,
         handleAddComment,
+        handleFavoriteClick,
     };
 };

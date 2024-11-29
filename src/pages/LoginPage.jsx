@@ -16,15 +16,17 @@ const LoginPage = () => {
     const loginFn = async() => {
         try {
             const response = await axios.post(
-                'http://localhost:5000/api/auth/login', {
+                'http://13.209.5.86:5000/api/auth/login', {
                     userId: id,
                     password: pw
                 }
             )
+
+            const {accessToken, refreshToken} = response.data.data;
     
-            const { token } = response.data;
-            localStorage.setItem('jwt', token);
-            
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
+
             alert('로그인 성공');
             navigate('/');
 

@@ -1,17 +1,18 @@
 import Header from '../components/Header';
 import { usePostView } from '../components/usePostView';
+import { useParams } from 'react-router-dom';
 import '../styles/scss/PostViewPage.scss';
 
 const PostView = () => {
+    const { postId } = useParams();
     const {
         post,
-        isFavorited,
         comments,
         newComment,
         setNewComment,
-        handleFavoriteClick,
         handleAddComment,
-    } = usePostView();
+        handleFavoriteClick,
+    } = usePostView(postId);
 
     if (!post) {
         return <div>Loading...</div>;
@@ -39,10 +40,10 @@ const PostView = () => {
                                 <span>{post.userId}</span>
                             </div>
                             <div className='status'>
-                                <span>{post.condition}</span>
+                                <span>{post.bookCondition}</span>
                             </div>
                             <button className='wish' onClick={handleFavoriteClick}>
-                                {isFavorited ? '찜 취소' : '찜하기'}
+                                찜하기
                             </button>
                         </div>
                     </div>

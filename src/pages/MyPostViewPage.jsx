@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { usePostView } from '../components/usePostView';
 import '../styles/scss/MyPostViewPage.scss';
+import axios from 'axios';
 
 const MyPostView = () => {
     const {
@@ -10,31 +11,40 @@ const MyPostView = () => {
         newComment,
         setNewComment,
         handleAddComment,
-    } = usePostView(false); // 찜 버튼 비활성화
+    } = usePostView(false);
     const navigate = useNavigate();
 
-    const handleEditPost = () => {
+    function handleEditPost() {
         if (post) {
-            navigate(`/edit/${post.id}`, { state: { post } });
+            navigate('/edit');
         }
-    };
+    }
 
-    const handleDeletePost = async () => {
-        if (window.confirm('게시글을 삭제하시겠습니까?')) {
+    // 게시글 삭제 처리
+    const handleDelete = async () => {
+        const isConfirmed = window.confirm('정말로 이 포스트를 삭제하시겠습니까?');
+        if (isConfirmed) {
             try {
-                // 실제 삭제 API 호출
-                const response = await fetch(`http://example.com/posts/${post.id}`, {
-                    method: 'DELETE',
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    alert('로그인 상태가 아닙니다.');
+                    return;
+                }
+
+                const response = await axios.delete(`http://13.209.5.86:5000/api/posts/${postId}`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
                 });
 
-                if (response.ok) {
-                    alert('게시글이 삭제되었습니다.');
-                    navigate('/');
+                if (response.data.success) {
+                    alert('포스트가 삭제되었습니다.');
+                    navigate('/'); // 삭제 후 메인 페이지로 이동
                 } else {
-                    alert('삭제에 실패했습니다. 다시 시도해주세요.');
+                    alert('게시글 삭제에 실패했습니다.');
                 }
             } catch (error) {
-                console.error('삭제 오류:', error);
+                console.error('게시글 삭제 오류:', error);
                 alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
             }
         }
@@ -66,7 +76,7 @@ const MyPostView = () => {
                                 <span>{post.userId}</span>
                             </div>
                             <div className='status'>
-                                <span>{post.condition}</span>
+                                <span>{post.bookCondition}</span>
                             </div>
                         </div>
                     </div>
@@ -78,7 +88,7 @@ const MyPostView = () => {
                     <button className='edit' onClick={handleEditPost}>
                         수정
                     </button>
-                    <button className='delete' onClick={handleDeletePost}>
+                    <button className='delete' onClick={handleDelete}>
                         삭제
                     </button>
                 </div>
