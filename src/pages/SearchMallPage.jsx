@@ -1,4 +1,3 @@
-// 더미 데이터 테스트
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
