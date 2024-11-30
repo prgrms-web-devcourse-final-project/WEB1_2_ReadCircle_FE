@@ -11,7 +11,7 @@ const Header = () => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await fetch("/api/auth/me", {
+        const response = await fetch("/api/users/me", {
           method: "GET",
           credentials: "include", // 쿠키 포함
         });
