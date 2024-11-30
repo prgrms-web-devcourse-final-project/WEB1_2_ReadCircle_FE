@@ -7,7 +7,7 @@ import Header from "../components/Header";
 import "../styles/scss/SearchMallPage.scss";
 
 const SearchMallPage = () => {
-  const { ISBN } = useParams();
+  const { isbn } = useParams();
   const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState("new");
   const { isLoading, error } = useSelector((state) => state.posts);
@@ -23,13 +23,19 @@ const SearchMallPage = () => {
       .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
   };
 
-  const filteredDirectTradePosts = sortByUpdatedAt.filter(
-    (post) => post.isbn === ISBN && post.forSale
-  );
+  // 직거래 게시글 필터링 및 정렬
+  const filteredDirectTradePosts = sortByUpdatedAt(
+    useSelector((state) => state.posts.directTradePosts)
+  ).filter((post) => post.isbn === isbn && post.forSale);
 
-  const filteredECommerceBooks = sortByUpdatedAt.filter(
-    (book) => book.isbn === ISBN && book.forSale
-  );
+  // 이커머스 게시글 필터링 및 정렬
+  const filteredECommerceBooks = sortByUpdatedAt(
+    useSelector((state) => state.posts.eCommerceBooks)
+  ).filter((book) => book.isbn === isbn && book.forSale);
+
+  // console.log(isbn);
+  // console.log(filteredDirectTradePosts);
+  // console.log(filteredECommerceBooks);
 
   // 판매 상태 및 업데이트(updatedAt)순 정렬 로직 (판매 완료 상품도 출력)
   // const sortBooks = (books) => {
@@ -73,30 +79,28 @@ const SearchMallPage = () => {
     );
   }
 
+  console.log(representativeBook);
+
   return (
     <>
       <Header />
       <div className="book-details-container">
         <div className="book-header">
           <div className="book-info">
-            <h1 className="book-title">{bookData.representative.title}</h1>
+            <h1 className="book-title">{representativeBook.title}</h1>
             <p className="book-meta">
-              {bookData.representative.author} (지은이){" "}
-              {bookData.representative.category}{" "}
-              {bookData.representative.publisher}{" "}
-              {bookData.representative.publishDate}
+              {representativeBook.author} (지은이) {representativeBook.category}{" "}
+              {representativeBook.publisher} {representativeBook.publishDate}
             </p>
           </div>
 
           <div className="book-content">
             <img
-              src={bookData.representative.thumbnailUrl}
-              alt={bookData.representative.title}
+              src={representativeBook.thumbnailUrl}
+              alt={representativeBook.title}
               className="book-thumbnail"
             />
-            <p className="book-description">
-              {bookData.representative.content}
-            </p>
+            <p className="book-description">{representativeBook.content}</p>
           </div>
         </div>
         <div className="category-buttons">

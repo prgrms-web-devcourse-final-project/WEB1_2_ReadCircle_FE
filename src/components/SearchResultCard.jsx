@@ -5,7 +5,7 @@ import "../styles/scss/SearchResultCard.scss";
 const SearchResultCard = ({ book }) => {
   return (
     <div className="book-card__int">
-      <Link to={`/searchmall/${book.ISBN}`}>
+      <Link to={`/searchmall/${book.isbn}`}>
         <div className="book-category">
           <span>{book.category}</span>
         </div>
@@ -13,7 +13,7 @@ const SearchResultCard = ({ book }) => {
           <img src={book.thumbnailUrl} alt={book.title} />
         </div>
         <div className="book-details">
-          <h3 className="book-isbn">ISBN: {book.ISBN}</h3>
+          <h3 className="book-isbn">ISBN: {book.isbn}</h3>
           <h3 className="book-title">{book.title}</h3>
           <p className="book-author">by {book.author}</p>
           <p className="book-year">Published: {book.publishDate}</p>

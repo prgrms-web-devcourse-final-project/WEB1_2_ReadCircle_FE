@@ -6,7 +6,7 @@ const SearchResult = ({ books = [] }) => {
   return (
     <div className="book-list">
       {books.length ? (
-        books.map((book) => <SearchResultCard key={book.ISBN} book={book} />)
+        books.map((book) => <SearchResultCard key={book.isbn} book={book} />)
       ) : (
         <p>No results found</p>
       )}
