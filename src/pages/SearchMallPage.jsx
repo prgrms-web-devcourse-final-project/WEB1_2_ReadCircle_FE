@@ -11,9 +11,7 @@ const SearchMallPage = () => {
   const { ISBN } = useParams();
   const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState("new");
-  const { directTradePosts, eCommerceBooks, isLoading, error } = useSelector(
-    (state) => state.posts
-  );
+  const { isLoading, error } = useSelector((state) => state.posts);
 
   useEffect(() => {
     dispatch(loadDirectTradePosts());
