@@ -79,6 +79,7 @@ const Header = () => {
               {/* 로그인 버튼 / 프로필 이미지, 로그아웃 버튼 */}
               <div className="header__dropdown">
                 <Link to="/mypage">My Page</Link>
+                {/* 장바구니 */}
                 <Link to="/cart">Cart</Link>
                 <button onClick={handleLogout}>Logout</button>
               </div>

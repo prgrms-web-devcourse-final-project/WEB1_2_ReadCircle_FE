@@ -66,7 +66,7 @@ const BookCard = ({
                 className="primary-button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigate("/basket"); // 장바구니 페이지로 이동
+                  navigate("/cart"); // 장바구니 페이지로 이동
                 }}
               >
                 장바구니
