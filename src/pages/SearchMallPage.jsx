@@ -33,10 +33,6 @@ const SearchMallPage = () => {
     useSelector((state) => state.posts.eCommerceBooks)
   ).filter((book) => book.isbn === isbn && book.forSale);
 
-  // console.log(isbn);
-  // console.log(filteredDirectTradePosts);
-  // console.log(filteredECommerceBooks);
-
   // 판매 상태 및 업데이트(updatedAt)순 정렬 로직 (판매 완료 상품도 출력)
   // const sortBooks = (books) => {
   //   return books.slice().sort((a, b) => {
@@ -78,8 +74,6 @@ const SearchMallPage = () => {
       </div>
     );
   }
-
-  console.log(representativeBook);
 
   return (
     <>
