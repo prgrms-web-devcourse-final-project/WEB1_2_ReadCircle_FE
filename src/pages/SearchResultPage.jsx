@@ -15,78 +15,47 @@ const SearchResultPage = () => {
   const [categoryFilters, setCategoryFilters] = useState([]);
   const [books, setBooks] = useState([]);
 
-  // Redux 상태 값 가져오기
-  const { directTradePosts, eCommerceBooks, isLoading, error } = useSelector(
-    (state) => state.posts
-  );
+  const { isLoading, error } = useSelector((state) => state.posts);
 
   // 데이터 병합 로직
   const mergeBooks = (ecommerceBooks, directBooks) => {
     const bookMap = new Map();
 
-    // 이커머스 데이터 처리
-    ecommerceBooks.forEach((book) => {
-      const {
-        isbn: ISBN,
-        title,
-        category,
-        author,
-        publisher,
-        publishDate,
-        forSale,
-        thumbnailUrl,
-      } = book;
-      if (!bookMap.has(ISBN)) {
-        bookMap.set(ISBN, {
-          ISBN,
+    const processBooks = (books, countType) => {
+      books.forEach((book) => {
+        const {
+          isbn,
           title,
           category,
           author,
           publisher,
           publishDate,
+          forSale,
           thumbnailUrl,
-          newCount: 0,
-          usedCount: 0,
+        } = book;
+        if (!bookMap.has(isbn)) {
+          bookMap.set(isbn, {
+            isbn,
+            title,
+            category,
+            author,
+            publisher,
+            publishDate,
+            thumbnailUrl,
+            newCount: 0,
+            usedCount: 0,
+          });
+        }
+        const current = bookMap.get(isbn);
+        bookMap.set(isbn, {
+          ...current,
+          [countType]: current[countType] + (forSale ? 1 : 0),
         });
-      }
-      const current = bookMap.get(ISBN);
-      bookMap.set(ISBN, {
-        ...current,
-        newCount: current.newCount + (forSale ? 1 : 0),
       });
-    });
+    };
 
-    // 직거래 데이터 처리
-    directBooks.forEach((book) => {
-      const {
-        isbn: ISBN,
-        title,
-        category,
-        author,
-        publisher,
-        publishDate,
-        forSale,
-        thumbnailUrl,
-      } = book;
-      if (!bookMap.has(ISBN)) {
-        bookMap.set(ISBN, {
-          ISBN,
-          title,
-          category,
-          author,
-          publisher,
-          publishDate,
-          thumbnailUrl,
-          newCount: 0,
-          usedCount: 0,
-        });
-      }
-      const current = bookMap.get(ISBN);
-      bookMap.set(ISBN, {
-        ...current,
-        usedCount: current.usedCount + (forSale ? 1 : 0),
-      });
-    });
+    processBooks(ecommerceBooks, "newCount");
+    processBooks(directBooks, "usedCount");
 
     // 판매 완료된 데이터 제외 및 필터링
     return Array.from(bookMap.values()).filter(
@@ -136,13 +105,9 @@ const SearchResultPage = () => {
 
   const filteredBooks = filterBooks();
 
-  const handleSearchSubmit = (query, mode) => {
-    if (mode === "navigate") {
-      setSearchParams({ query });
-      setSearchTerm(query);
-    } else if (mode === "filter") {
-      setSearchTerm(query);
-    }
+  const handleSearchSubmit = (query) => {
+    setSearchTerm(query);
+    setSearchParams({ query });
   };
 
   const handleCategoryFilterChange = (filters) => {
