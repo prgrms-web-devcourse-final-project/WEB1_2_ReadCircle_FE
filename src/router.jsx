@@ -24,7 +24,7 @@ const routes = [
   { path: "/market", element: <Market /> },
   { path: "/market", element: <Market /> },
   { path: "/searchresult", element: <SearchResultPage /> },
-  { path: "/searchmall", element: <SearchMallPage /> },
+  { path: "/searchmall/:isbn", element: <SearchMallPage /> },
 ];
 
 export default routes;
