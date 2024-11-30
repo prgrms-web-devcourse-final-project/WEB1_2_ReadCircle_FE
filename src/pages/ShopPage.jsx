@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { fetchECommerceBooks } from "../api/bookApi";
+import { useSelector, useDispatch } from "react-redux";
+import { loadECommerceBooks } from "../redux/postSlice";
 import Header from "../components/Header";
 import FilterSidebar from "../components/FilterSidebar";
 import Search from "../components/Search";
@@ -8,8 +9,11 @@ import FloatingButton from "../components/FloatingButton";
 import "../styles/scss/Shop_Market.scss";
 
 const Shop = () => {
-  const [booksData, setBooksData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { eCommerceBooks, isLoading, error } = useSelector(
+    (state) => state.posts
+  );
+
   // 필터와 검색 상태
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
@@ -21,36 +25,20 @@ const Shop = () => {
     sortOrder: "newest", // 'newest' or 'oldest'
   });
 
-  const fetchBooks = async () => {
-    setLoading(true);
-    try {
-      const books = await fetchECommerceBooks();
-      console.log("Fetched Books:", books);
-      setBooksData(books);
-    } catch (error) {
-      console.error("Error fetching books:", error);
-      console.log("Detailed Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchBooks();
-  }, []);
+    dispatch(loadECommerceBooks());
+  }, [dispatch]);
 
-  const handleSearchSubmit = async (term) => {
+  const handleSearchSubmit = (term) => {
     setSearchTerm(term.toLowerCase());
-    await fetchBooks();
   };
 
-  const handleFilterChange = async (newFilters) => {
+  const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
-    await fetchBooks();
   };
 
   const filteredBooks = useMemo(() => {
-    return booksData
+    return eCommerceBooks
       .filter((book) => {
         // 검색
         if (
@@ -103,9 +91,10 @@ const Shop = () => {
           return new Date(a.publish_date) - new Date(b.publish_date);
         }
       });
-  }, [booksData, filters, searchTerm]);
+  }, [eCommerceBooks, filters, searchTerm]);
 
-  if (loading) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <>
