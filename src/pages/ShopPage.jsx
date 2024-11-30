@@ -124,6 +124,7 @@ const Shop = () => {
             books={booksData}
             onFilterChange={handleFilterChange}
             isCondition={true}
+            isTradeType={false}
             isForSale={true}
             isPrice={true}
           />
