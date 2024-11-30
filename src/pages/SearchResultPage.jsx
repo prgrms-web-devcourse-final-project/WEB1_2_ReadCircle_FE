@@ -83,6 +83,11 @@ const SearchResultPage = () => {
     fetchData();
   }, [dispatch]);
 
+  // 카테고리 알파벳, 한글 사전 순으로 정렬
+  const sortedCategories = Array.from(
+    new Set(books.map((book) => book.category))
+  ).sort((a, b) => a.localeCompare(b));
+
   // 필터링 로직
   const filterBooks = () => {
     let results = books;
@@ -120,10 +125,9 @@ const SearchResultPage = () => {
 
   const handleCategoryFilterChange = (filters) => {
     setCategoryFilters(filters.category);
-  };
-
-  const handleSortChange = (order) => {
-    setSortOrder(order);
+    if (filters.sortOrder) {
+      setSortOrder(filters.sortOrder);
+    }
   };
 
   return (
@@ -139,12 +143,8 @@ const SearchResultPage = () => {
         <div className="filter-sidebar-container">
           <FilterSidebar
             books={books}
-            onFilterChange={(filters) => {
-              handleCategoryFilterChange(filters);
-              if (filters.sortOrder) {
-                handleSortChange(filters.sortOrder);
-              }
-            }}
+            categories={sortedCategories}
+            onFilterChange={handleCategoryFilterChange}
             isCondition={false}
             isTradeType={false}
             isForSale={false}

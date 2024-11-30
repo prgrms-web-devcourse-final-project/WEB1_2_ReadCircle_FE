@@ -4,6 +4,7 @@ import "../styles/scss/FilterSidebar.scss";
 const FilterSidebar = ({
   books,
   onFilterChange,
+  categories = [], // 사전 순 정렬
   isCondition, // 책 상태
   isTradeType, // 판매 교환
   isForSale, // 판매 상태
@@ -20,15 +21,12 @@ const FilterSidebar = ({
     sortOrder: "newest", // 'newest' or 'oldest' (출간연도 기준)
   });
 
-  // 출력된 책들의 카테고리 정보 가져오기
-  const uniqueCategories = Array.from(
-    new Set(books.map((book) => book.category))
-  );
-
   const handleFilterChange = (key, value) => {
-    const newFilters = { ...filters, [key]: value };
-    setFilters(newFilters);
-    onFilterChange(newFilters);
+    setFilters((prevFilters) => {
+      const newFilters = { ...prevFilters, [key]: value };
+      onFilterChange(newFilters); // 부모에게 전달
+      return newFilters;
+    });
   };
 
   const handleCheckboxChange = (key) => {
@@ -47,7 +45,7 @@ const FilterSidebar = ({
       <div className="filter-group">
         <div className="filter-header">카테고리</div>
         <div className="filter-options">
-          {uniqueCategories.map((cat) => (
+          {categories.map((cat) => (
             <label key={cat}>
               <input
                 type="checkbox"

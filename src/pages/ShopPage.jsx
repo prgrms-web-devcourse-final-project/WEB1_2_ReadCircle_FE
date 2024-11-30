@@ -14,6 +14,17 @@ const Shop = () => {
     (state) => state.posts
   );
 
+  const categories = useMemo(() => {
+    const uniqueCategories = Array.from(
+      new Set(eCommerceBooks.map((book) => book.category))
+    );
+
+    return uniqueCategories.sort(
+      (a, b) => a.localeCompare(b)
+      // a.localeCompare(b, "ko", { sensitivity: "base" })
+    );
+  }, [eCommerceBooks]);
+
   // 필터와 검색 상태
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
@@ -111,6 +122,7 @@ const Shop = () => {
         <div className="filter-sidebar-container">
           <FilterSidebar
             books={eCommerceBooks}
+            categories={categories}
             onFilterChange={handleFilterChange}
             isCondition={true}
             isTradeType={false}
