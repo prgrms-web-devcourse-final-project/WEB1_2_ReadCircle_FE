@@ -58,7 +58,6 @@ const Shop = () => {
           return false;
         }
 
-        console.log(book);
         // 상태 정렬
         if (
           filters.condition.length &&
