@@ -47,6 +47,7 @@ export const fetchDirectTradePosts = async () => {
     : {};
 
   const response = await api.get("/api/posts", config);
+  console.log(response.data.content);
   return response.data.content.map((post) => ({
     id: post.postId,
     isbn: post.isbn,
@@ -60,7 +61,7 @@ export const fetchDirectTradePosts = async () => {
     forSale: post.tradeStatus, // 판매 상태 (판매 완료, 판매 교환)
     price: post.price,
     tradeType: post.tradeType,
-    thumbnailUrl: post.bookAPIImage,
+    thumbnailUrl: `${BASE_URL}${encodeURIComponent(post.bookAPIImage)}`,
     ninkname: post.ninkname,
     createdAt: post.postCreatedAt,
     updatedAt: post.postUpdatedAt,
