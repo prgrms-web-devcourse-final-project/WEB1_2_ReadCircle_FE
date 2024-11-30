@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import "../styles/scss/FilterSidebar.scss";
 
-const FilterSidebar = ({ books, onFilterChange, isTradeType }) => {
+const FilterSidebar = ({
+  books,
+  onFilterChange,
+  isCondition, // 책 상태
+  isTradeType, // 판매 교환
+  isForSale, // 판매 상태
+  isPrice,
+}) => {
   const [filters, setFilters] = useState({
     category: [],
     condition: [],
@@ -59,26 +66,28 @@ const FilterSidebar = ({ books, onFilterChange, isTradeType }) => {
       </div>
 
       {/* 상태 */}
-      <div className="filter-group">
-        <div className="filter-header">상태</div>
-        <div className="filter-options">
-          {["상", "중", "하"].map((cond) => (
-            <label key={cond}>
-              <input
-                type="checkbox"
-                checked={filters.condition.includes(cond)}
-                onChange={() => {
-                  const updatedCondition = filters.condition.includes(cond)
-                    ? filters.condition.filter((item) => item !== cond)
-                    : [...filters.condition, cond];
-                  handleFilterChange("condition", updatedCondition);
-                }}
-              />
-              {cond}
-            </label>
-          ))}
+      {isCondition && (
+        <div className="filter-group">
+          <div className="filter-header">상태</div>
+          <div className="filter-options">
+            {["상", "중", "하"].map((cond) => (
+              <label key={cond}>
+                <input
+                  type="checkbox"
+                  checked={filters.condition.includes(cond)}
+                  onChange={() => {
+                    const updatedCondition = filters.condition.includes(cond)
+                      ? filters.condition.filter((item) => item !== cond)
+                      : [...filters.condition, cond];
+                    handleFilterChange("condition", updatedCondition);
+                  }}
+                />
+                {cond}
+              </label>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 판매-교환 */}
       {isTradeType && (
@@ -108,46 +117,50 @@ const FilterSidebar = ({ books, onFilterChange, isTradeType }) => {
       )}
 
       {/* 판매 상태 필터 */}
-      <div className="filter-group">
-        <div className="filter-header">판매 상태</div>
-        <div className="filter-options">
-          <label>
-            <input
-              type="checkbox"
-              checked={filters.showForSale}
-              onChange={() => handleCheckboxChange("showForSale")}
-            />
-            판매 중
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={filters.showSoldOut}
-              onChange={() => handleCheckboxChange("showSoldOut")}
-            />
-            판매 완료
-          </label>
+      {isForSale && (
+        <div className="filter-group">
+          <div className="filter-header">판매 상태</div>
+          <div className="filter-options">
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.showForSale}
+                onChange={() => handleCheckboxChange("showForSale")}
+              />
+              판매 중
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.showSoldOut}
+                onChange={() => handleCheckboxChange("showSoldOut")}
+              />
+              판매 완료
+            </label>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 가격 */}
-      <div className="filter-group">
-        <div className="filter-header">가격 범위</div>
-        <div className="filter-options">
-          <input
-            type="number"
-            placeholder="최소 가격"
-            value={filters.priceRange.min}
-            onChange={(e) => handlePriceChange("min", e.target.value)}
-          />
-          <input
-            type="number"
-            placeholder="최대 가격"
-            value={filters.priceRange.max}
-            onChange={(e) => handlePriceChange("max", e.target.value)}
-          />
+      {isPrice && (
+        <div className="filter-group">
+          <div className="filter-header">가격 범위</div>
+          <div className="filter-options">
+            <input
+              type="number"
+              placeholder="최소 가격"
+              value={filters.priceRange.min}
+              onChange={(e) => handlePriceChange("min", e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="최대 가격"
+              value={filters.priceRange.max}
+              onChange={(e) => handlePriceChange("max", e.target.value)}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 출간연도 */}
       <div className="filter-group">

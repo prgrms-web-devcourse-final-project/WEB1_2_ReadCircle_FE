@@ -163,7 +163,10 @@ const SearchResultPage = () => {
           <FilterSidebar
             books={books}
             onFilterChange={handleCategoryFilterChange}
+            isCondition={false}
             isTradeType={false}
+            isForSale={false}
+            isPrice={false}
           />
         </div>
         <div className="book-list-container">

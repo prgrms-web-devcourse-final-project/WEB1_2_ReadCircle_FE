@@ -123,6 +123,9 @@ const Shop = () => {
           <FilterSidebar
             books={booksData}
             onFilterChange={handleFilterChange}
+            isCondition={true}
+            isForSale={true}
+            isPrice={true}
           />
         </div>
         <div className="book-list-container">

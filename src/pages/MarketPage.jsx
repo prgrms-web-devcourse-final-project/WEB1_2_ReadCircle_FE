@@ -130,7 +130,10 @@ const Market = () => {
           <FilterSidebar
             books={booksData}
             onFilterChange={handleFilterChange}
+            isCondition={true}
             isTradeType={true}
+            isForSale={true}
+            isPrice={true}
           />
         </div>
         <div className="book-list-container">
