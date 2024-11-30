@@ -69,7 +69,7 @@ const MainPage = () => {
               </p>
               <div className="resource-link">
                 {/* 판매 경로 입력(이커머스) */}
-                <Link to="/">
+                <Link to="/purchase-create">
                   판매하러 가기 <span>→</span>
                 </Link>
               </div>

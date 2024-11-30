@@ -143,7 +143,7 @@ const Market = () => {
             books={filteredBooks}
             onCardClick={(bookId) =>
               // 직거래 책 상세 페이지 경로
-              navigate(`/marketDetailPage/${bookId}`)
+              navigate(`/view`)
             }
             showDeliveryFee={false}
             showActions={false}

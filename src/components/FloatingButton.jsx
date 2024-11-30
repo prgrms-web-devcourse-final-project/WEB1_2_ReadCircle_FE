@@ -9,10 +9,10 @@ const FloatingButton = () => {
   const handleClick = () => {
     if (location.pathname.includes("/shop")) {
       // 이커머스 상품 판매 페이지(판매 게시글)로 이동
-      navigate("/createShop");
+      navigate("/purchase-create");
     } else if (location.pathname.includes("/market")) {
       // 직거래 상품 판매 페이지(판매 게시글)로 이동
-      navigate("/createMarket");
+      navigate("/create");
     }
   };
 
