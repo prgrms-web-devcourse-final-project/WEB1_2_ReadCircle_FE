@@ -16,7 +16,28 @@ const api = axios.create({
   withCredentials: true, // 쿠키 전송 허용
 });
 
-// 직거래 게시글 조회
+// 이커머스(Shop) 게시글 조회
+export const fetchECommerceBooks = async () => {
+  const response = await api.get("/api/books");
+  return response.data.data.content.map((book) => ({
+    id: book.id,
+    isbn: book.isbn,
+    title: book.title,
+    // content: post.content,
+    category: book.category,
+    author: book.author,
+    publisher: book.publisher,
+    publishDate: book.publishDate,
+    condition: book.bookCondition,
+    price: book.price,
+    forSale: book.forSale,
+    thumbnailUrl: book.thumbnailUrl,
+    createdAt: book.createdAt,
+    updatedAt: book.updatedAt,
+  }));
+};
+
+// 직거래(Market) 게시글 조회
 export const fetchDirectTradePosts = async () => {
   const token = getAuthToken();
   const config = token
@@ -26,7 +47,8 @@ export const fetchDirectTradePosts = async () => {
     : {};
 
   const response = await api.get("/api/posts", config);
-  return response.data.map((post) => ({
+  console.log(response.data.content);
+  return response.data.content.map((post) => ({
     id: post.postId,
     isbn: post.isbn,
     title: post.title,
@@ -43,27 +65,5 @@ export const fetchDirectTradePosts = async () => {
     ninkname: post.ninkname,
     createdAt: post.postCreatedAt,
     updatedAt: post.postUpdatedAt,
-  }));
-};
-
-// 이커머스 게시글 조회
-export const fetchECommerceBooks = async () => {
-  // const response = await axios.get(`${BASE_URL}/api/books`);
-  const response = await api.get("/api/books");
-  return response.data.content.map((book) => ({
-    id: book.id,
-    isbn: book.isbn,
-    title: book.title,
-    // content: post.content,
-    category: book.category,
-    author: book.author,
-    publisher: book.publisher,
-    publishDate: book.publishDate,
-    condition: book.bookCondition,
-    price: book.price,
-    forSale: book.forSale,
-    thumbnailUrl: book.thumbnailUrl,
-    createdAt: book.createdAt,
-    updatedAt: book.updatedAt,
   }));
 };

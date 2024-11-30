@@ -58,10 +58,11 @@ const Shop = () => {
           return false;
         }
 
+        console.log(book);
         // 상태 정렬
         if (
           filters.condition.length &&
-          !filters.condition.includes(book.book_condition)
+          !filters.condition.includes(book.condition)
         ) {
           return false;
         }

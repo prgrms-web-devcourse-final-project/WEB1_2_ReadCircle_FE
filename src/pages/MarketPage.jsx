@@ -66,7 +66,7 @@ const Market = () => {
         // 상태 필터링
         if (
           filters.condition.length &&
-          !filters.condition.includes(book.book_condition)
+          !filters.condition.includes(book.condition)
         ) {
           return false;
         }
