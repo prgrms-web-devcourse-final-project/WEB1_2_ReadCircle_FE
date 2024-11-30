@@ -59,7 +59,7 @@ const SearchMallPage = () => {
 
   // 직거래 책 상세 페이지로 이동
   const handleCardClickDirect = (id) => {
-    navigate(`/view`);
+    navigate(`/view/${id}`);
   };
 
   if (isLoading) {
