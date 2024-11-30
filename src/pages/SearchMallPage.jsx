@@ -20,13 +20,31 @@ const SearchMallPage = () => {
     dispatch(loadECommerceBooks());
   }, [dispatch]);
 
-  const filteredDirectTradePosts = directTradePosts.filter(
+  const sortByUpdatedAt = (items) => {
+    return items
+      .slice()
+      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  };
+
+  const filteredDirectTradePosts = sortByUpdatedAt.filter(
     (post) => post.isbn === ISBN && post.forSale
   );
 
-  const filteredECommerceBooks = eCommerceBooks.filter(
+  const filteredECommerceBooks = sortByUpdatedAt.filter(
     (book) => book.isbn === ISBN && book.forSale
   );
+
+  // 판매 상태 및 업데이트(updatedAt)순 정렬 로직 (판매 완료 상품도 출력)
+  // const sortBooks = (books) => {
+  //   return books.slice().sort((a, b) => {
+  //     if (a.forSale !== b.forSale) {
+  //       // 판매 중 상품이 우선
+  //       return a.forSale ? -1 : 1;
+  //     }
+  //     // 같은 판매 상태에서는 최신 업데이트 순
+  //     return new Date(b.updatedAt) - new Date(a.updatedAt);
+  //   });
+  // };
 
   // 대표책 선택
   const representativeBook =
