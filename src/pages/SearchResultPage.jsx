@@ -13,6 +13,7 @@ const SearchResultPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") || "");
   const [categoryFilters, setCategoryFilters] = useState([]);
+  const [sortOrder, setSortOrder] = useState("newest");
   const [books, setBooks] = useState([]);
 
   const { isLoading, error } = useSelector((state) => state.posts);
@@ -89,6 +90,7 @@ const SearchResultPage = () => {
     if (searchTerm.trim()) {
       results = results.filter(
         (book) =>
+          book.isbn.toLowerCase().includes(searchTerm.toLowerCase()) ||
           book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           book.author.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -99,6 +101,12 @@ const SearchResultPage = () => {
         categoryFilters.includes(book.category)
       );
     }
+
+    results = results.sort((a, b) => {
+      const dateA = new Date(a.publishDate);
+      const dateB = new Date(b.publishDate);
+      return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
+    });
 
     return results;
   };
@@ -114,6 +122,10 @@ const SearchResultPage = () => {
     setCategoryFilters(filters.category);
   };
 
+  const handleSortChange = (order) => {
+    setSortOrder(order);
+  };
+
   return (
     <>
       <Header />
@@ -127,7 +139,12 @@ const SearchResultPage = () => {
         <div className="filter-sidebar-container">
           <FilterSidebar
             books={books}
-            onFilterChange={handleCategoryFilterChange}
+            onFilterChange={(filters) => {
+              handleCategoryFilterChange(filters);
+              if (filters.sortOrder) {
+                handleSortChange(filters.sortOrder);
+              }
+            }}
             isCondition={false}
             isTradeType={false}
             isForSale={false}
