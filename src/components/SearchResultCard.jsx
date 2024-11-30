@@ -19,8 +19,8 @@ const SearchResultCard = ({ book }) => {
           <p className="book-year">Published: {book.publishDate}</p>
           <p className="book-publisher">publisher: {book.publisher}</p>
           <div className="stock-info">
-            <p>New: {book.newCount} copies</p>
-            <p>Used: {book.usedCount} copies</p>
+            <p>New: {book.newCount} </p>
+            <p>Used: {book.usedCount} </p>
           </div>
         </div>
       </Link>

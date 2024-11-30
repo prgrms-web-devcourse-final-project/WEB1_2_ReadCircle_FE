@@ -9,6 +9,11 @@
   width: 280px;
   position: relative;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 .book-category {
