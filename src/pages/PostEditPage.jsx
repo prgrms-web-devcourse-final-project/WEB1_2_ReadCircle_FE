@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const PostEditPage = () => {
     // const { postId } = useParams();
-    const postId = 1; 
+    const postId = 2; 
     const [imagePreview, setImagePreview] = useState(null);
     const [formData, setFormData] = useState({
         title: '',

@@ -8,7 +8,7 @@ export const usePostView = (postId) => {
 
     // 게시글 정보 가져오기
     useEffect(() => {
-        const postId = 1; 
+        const postId = 2; 
         const fetchPost = async () => {
             try {
                 const accessToken = localStorage.getItem('accessToken');
@@ -47,7 +47,7 @@ export const usePostView = (postId) => {
 
     // 댓글 추가 함수
     const handleAddComment = async () => {
-        const postId = 1;
+        const postId = 2;
         if (newComment.trim() === '') return;
 
         try {
