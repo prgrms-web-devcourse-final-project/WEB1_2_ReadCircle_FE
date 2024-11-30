@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { fetchDirectTradePosts } from "../api/bookApi";
+import { useDispatch, useSelector } from "react-redux";
+import { loadDirectTradePosts } from "../redux/postSlice";
 import Header from "../components/Header";
 import FilterSidebar from "../components/FilterSidebar";
 import Search from "../components/Search";
@@ -8,8 +9,11 @@ import FloatingButton from "../components/FloatingButton";
 import "../styles/scss/Shop_Market.scss";
 
 const Market = () => {
-  const [booksData, setBooksData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { directTradePosts, isLoading, error } = useSelector(
+    (state) => state.posts
+  );
+
   // 필터와 검색 상태
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
@@ -23,39 +27,23 @@ const Market = () => {
     forExchange: false, // 교환
   });
 
-  const fetchBooks = async () => {
-    setLoading(true);
-    try {
-      const books = await fetchDirectTradePosts();
-      console.log("Fetched Books:", books);
-      setBooksData(books);
-    } catch (error) {
-      console.error("Error fetching books:", error);
-      console.log("Detailed Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchBooks();
-  }, []);
+    dispatch(loadDirectTradePosts());
+  }, [dispatch]);
 
   // 검색 이벤트 핸들러
   const handleSearchSubmit = async (term) => {
     setSearchTerm(term.toLowerCase());
-    await fetchBooks();
   };
 
   // 필터 변경 이벤트 핸들러
   const handleFilterChange = async (newFilters) => {
     setFilters(newFilters);
-    await fetchBooks();
   };
 
   // 필터링된 책 목록
   const filteredBooks = useMemo(() => {
-    return booksData
+    return directTradePosts
       .filter((book) => {
         // 검색
         if (
@@ -89,10 +77,10 @@ const Market = () => {
 
         // 판매 상태 필터링
         if (filters.showForSale && !filters.showSoldOut) {
-          return book.isForSale;
+          return book.forSale;
         }
         if (!filters.showForSale && filters.showSoldOut) {
-          return !book.isForSale;
+          return !book.forSale;
         }
 
         // 가격 필터링
@@ -107,14 +95,14 @@ const Market = () => {
       .sort((a, b) => {
         // 최신순 정렬
         if (filters.sortOrder === "newest") {
-          return new Date(b.publish_date) - new Date(a.publish_date);
+          return new Date(b.publishDate) - new Date(a.publishDate);
         }
-        return new Date(a.publish_date) - new Date(b.publish_date);
+        return new Date(a.publishDate) - new Date(b.publishDate);
       });
-  }, [booksData, filters, searchTerm]);
+  }, [directTradePosts, filters, searchTerm]);
 
-  if (loading) return <div>Loading...</div>;
-
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
   return (
     <>
       <Header />
@@ -128,7 +116,7 @@ const Market = () => {
       <div className="shop-page">
         <div className="filter-sidebar-container">
           <FilterSidebar
-            books={booksData}
+            books={directTradePosts}
             onFilterChange={handleFilterChange}
             isCondition={true}
             isTradeType={true}

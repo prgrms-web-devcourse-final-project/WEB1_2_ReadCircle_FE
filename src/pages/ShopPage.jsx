@@ -69,11 +69,11 @@ const Shop = () => {
         // // 판매 상태 필터링
         if (filters.showForSale && !filters.showSoldOut) {
           // 판매 중만 체크된 경우
-          return book.isForSale;
+          return book.forSale;
         }
         if (!filters.showForSale && filters.showSoldOut) {
           // 판매 완료만 체크된 경우
-          return !book.isForSale;
+          return !book.forSale;
         }
 
         // 가격 정렬
@@ -86,9 +86,9 @@ const Shop = () => {
       })
       .sort((a, b) => {
         if (filters.sortOrder === "newest") {
-          return new Date(b.publish_date) - new Date(a.publish_date);
+          return new Date(b.publishDate) - new Date(a.publishDate);
         } else {
-          return new Date(a.publish_date) - new Date(b.publish_date);
+          return new Date(a.publishDate) - new Date(b.publishDate);
         }
       });
   }, [eCommerceBooks, filters, searchTerm]);
@@ -110,7 +110,7 @@ const Shop = () => {
       <div className="shop-page">
         <div className="filter-sidebar-container">
           <FilterSidebar
-            books={booksData}
+            books={eCommerceBooks}
             onFilterChange={handleFilterChange}
             isCondition={true}
             isTradeType={false}
