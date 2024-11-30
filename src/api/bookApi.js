@@ -47,7 +47,6 @@ export const fetchDirectTradePosts = async () => {
     : {};
 
   const response = await api.get("/api/posts", config);
-  console.log(response.data.content);
   return response.data.content.map((post) => ({
     id: post.postId,
     isbn: post.isbn,

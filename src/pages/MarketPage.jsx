@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadDirectTradePosts } from "../redux/postSlice";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import FilterSidebar from "../components/FilterSidebar";
 import Search from "../components/Search";
@@ -13,6 +14,7 @@ const Market = () => {
   const { directTradePosts, isLoading, error } = useSelector(
     (state) => state.posts
   );
+  const navigate = useNavigate();
 
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(
@@ -141,7 +143,7 @@ const Market = () => {
             books={filteredBooks}
             onCardClick={(bookId) =>
               // 직거래 책 상세 페이지 경로
-              (window.location.href = `/marketDetailPage/${bookId}`)
+              navigate(`/marketDetailPage/${bookId}`)
             }
             showDeliveryFee={false}
             showActions={false}

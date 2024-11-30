@@ -1,5 +1,6 @@
 import React from "react";
 import "./../styles/scss/BookCard.scss";
+import { useNavigate } from "react-router-dom";
 
 const BookCard = ({
   title,
@@ -14,6 +15,8 @@ const BookCard = ({
   showActions,
   isForSale,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <div
       className={`book-card__ind ${isForSale ? "" : "sold-out"}`}
@@ -59,8 +62,24 @@ const BookCard = ({
 
           {showActions && (
             <div className="action-buttons">
-              <button className="primary-button">장바구니</button>
-              <button className="secondary-button">구매</button>
+              <button
+                className="primary-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate("/basket"); // 장바구니 페이지로 이동
+                }}
+              >
+                장바구니
+              </button>
+              <button
+                className="secondary-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate("/buy"); // 구매 페이지로 이동
+                }}
+              >
+                구매
+              </button>
             </div>
           )}
         </div>

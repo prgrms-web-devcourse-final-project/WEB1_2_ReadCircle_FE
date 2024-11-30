@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loadECommerceBooks } from "../redux/postSlice";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import FilterSidebar from "../components/FilterSidebar";
 import Search from "../components/Search";
@@ -13,6 +14,7 @@ const Shop = () => {
   const { eCommerceBooks, isLoading, error } = useSelector(
     (state) => state.posts
   );
+  const navigate = useNavigate();
 
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(
@@ -135,7 +137,7 @@ const Shop = () => {
             books={filteredBooks}
             onCardClick={(bookId) =>
               // 이커머스 책 상세 페이지 경로
-              (window.location.href = `/shopDetailPage/${bookId}`)
+              navigate(`/shopDetailPage/${bookId}`)
             }
             showDeliveryFee={true} // 배송비 표시
             showActions={true} // 장바구니, 구매 버튼 표시
