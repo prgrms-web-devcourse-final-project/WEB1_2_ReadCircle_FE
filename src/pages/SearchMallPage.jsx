@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadDirectTradePosts, loadECommerceBooks } from "../redux/postSlice";
 import BookList from "../components/BookList";
@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import "../styles/scss/SearchMallPage.scss";
 
 const SearchMallPage = () => {
+  const navigate = useNavigate();
   const { isbn } = useParams();
   const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState("new");
@@ -51,10 +52,14 @@ const SearchMallPage = () => {
       ? filteredECommerceBooks[0]
       : filteredDirectTradePosts[0];
 
-  // 이커머스 / 직거래 상세 페이지 이동
-  const handleCardClick = (id) => {
-    navigator(`/shopDetail/${id}`);
-    navigator(`/marketDetail/${id}`);
+  // 이커머스 책 상세 페이지로 이동
+  const handleCardClickECommerce = (id) => {
+    navigate(`/shopDetail/${id}`);
+  };
+
+  // 직거래 책 상세 페이지로 이동
+  const handleCardClickDirect = (id) => {
+    navigate(`/marketDetail/${id}`);
   };
 
   if (isLoading) {
@@ -120,7 +125,7 @@ const SearchMallPage = () => {
           {selectedCategory === "new" ? (
             <BookList
               books={filteredECommerceBooks}
-              onCardClick={handleCardClick}
+              onCardClick={handleCardClickECommerce}
               showDeliveryFee={true}
               showActions={true}
               showNickname={false}
@@ -128,7 +133,7 @@ const SearchMallPage = () => {
           ) : (
             <BookList
               books={filteredDirectTradePosts}
-              onCardClick={handleCardClick}
+              onCardClick={handleCardClickDirect}
               showDeliveryFee={false}
               showActions={false}
               showNickname={true}
