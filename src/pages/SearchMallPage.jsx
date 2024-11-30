@@ -116,7 +116,7 @@ const SearchMallPage = () => {
           </button>
         </div>
 
-        <div className="book-list">
+        <div className="book-list__mall">
           {selectedCategory === "new" ? (
             <BookList
               books={filteredECommerceBooks}
