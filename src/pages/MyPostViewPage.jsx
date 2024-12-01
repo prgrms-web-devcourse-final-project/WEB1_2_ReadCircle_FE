@@ -1,18 +1,54 @@
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { usePostView } from '../components/usePostView';
-import { useParams } from 'react-router-dom';
-import '../styles/scss/PostViewPage.scss';
+import '../styles/scss/MyPostViewPage.scss';
+import axios from 'axios';
 
-const PostView = () => {
-    const { postId } = useParams();
+const MyPostView = () => {
     const {
         post,
         comments,
         newComment,
         setNewComment,
         handleAddComment,
-        handleFavoriteClick,
-    } = usePostView(postId);
+    } = usePostView(false);
+    const navigate = useNavigate();
+
+    function handleEditPost() {
+        if (post) {
+            navigate('/edit');
+        }
+    }
+
+    // 게시글 삭제 처리
+    const handleDelete = async () => {
+        const isConfirmed = window.confirm('정말로 이 포스트를 삭제하시겠습니까?');
+        if (isConfirmed) {
+            try {
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    alert('로그인 상태가 아닙니다.');
+                    return;
+                }
+
+                const response = await axios.delete(`http://13.209.5.86:5000/api/posts/${postId}`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+
+                if (response.data.success) {
+                    alert('포스트가 삭제되었습니다.');
+                    navigate('/'); // 삭제 후 메인 페이지로 이동
+                } else {
+                    alert('게시글 삭제에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('게시글 삭제 오류:', error);
+                alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        }
+    };
 
     if (!post) {
         return <div>Loading...</div>;
@@ -42,14 +78,19 @@ const PostView = () => {
                             <div className='status'>
                                 <span>{post.bookCondition}</span>
                             </div>
-                            <button className='wish' onClick={handleFavoriteClick}>
-                                찜하기
-                            </button>
                         </div>
                     </div>
                     <div className='description'>
                         <p>{post.content}</p>
                     </div>
+                </div>
+                <div className='action-buttons'>
+                    <button className='edit' onClick={handleEditPost}>
+                        수정
+                    </button>
+                    <button className='delete' onClick={handleDelete}>
+                        삭제
+                    </button>
                 </div>
                 {/* 댓글 섹션 */}
                 <div className='comment-section'>
@@ -77,4 +118,4 @@ const PostView = () => {
     );
 };
 
-export default PostView;
+export default MyPostView;

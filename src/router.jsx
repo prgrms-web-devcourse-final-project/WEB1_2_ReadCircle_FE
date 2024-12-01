@@ -9,6 +9,9 @@ import ShopPage from "./pages/ShopPage";
 import Market from "./pages/MarketPage";
 import SearchResultPage from "./pages/SearchResultPage";
 import SearchMallPage from "./pages/SearchMallPage";
+import PurchaseCreatePage from "./pages/PurchaseCreatePage";
+import PurchaseViewPage from "./pages/PurchaseViewPage";
+import MyPostViewPage from "./pages/MyPostViewPage";
 
 const routes = [
   { path: "/join", element: <JoinPage /> },
@@ -17,14 +20,15 @@ const routes = [
   { path: "/create", element: <PostCreatePage /> },
   { path: "/view", element: <PostViewPage /> },
   { path: "/edit", element: <PostEditPage /> },
-
-  // HareuBang
   { path: "/", element: <MainPage /> },
   { path: "/shop", element: <ShopPage /> },
   { path: "/market", element: <Market /> },
   { path: "/market", element: <Market /> },
   { path: "/searchresult", element: <SearchResultPage /> },
   { path: "/searchmall/:isbn", element: <SearchMallPage /> },
+  { path: "/purchase-create", element: <PurchaseCreatePage /> },
+  { path: "/purchase-view", element: <PurchaseViewPage /> },
+  { path: "/myview", element: <MyPostViewPage /> },
 ];
 
 export default routes;
