@@ -1,24 +1,31 @@
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
-import MainPage from "./pages/MainPage";
-import BookListPage from "./pages/BookListPage";
 import MyPage from "./pages/MyPage";
 import PostCreatePage from "./pages/PostCreatePage";
 import PostViewPage from "./pages/PostViewPage";
 import PostEditPage from "./pages/PostEditPage";
+import MainPage from "./pages/MainPage";
+import ShopPage from "./pages/ShopPage";
+import Market from "./pages/MarketPage";
+import SearchResultPage from "./pages/SearchResultPage";
+import SearchMallPage from "./pages/SearchMallPage";
 import PurchaseCreatePage from "./pages/PurchaseCreatePage";
 import PurchaseViewPage from "./pages/PurchaseViewPage";
 import MyPostViewPage from "./pages/MyPostViewPage";
 
 const routes = [
-  { path: "/", element: <MainPage /> },
   { path: "/join", element: <JoinPage /> },
   { path: "/login", element: <LoginPage /> },
-  { path: "/BookList", element: <BookListPage /> },
   { path: "/mypage", element: <MyPage /> },
   { path: "/create", element: <PostCreatePage /> },
   { path: "/view", element: <PostViewPage /> },
   { path: "/edit", element: <PostEditPage /> },
+  { path: "/", element: <MainPage /> },
+  { path: "/shop", element: <ShopPage /> },
+  { path: "/market", element: <Market /> },
+  { path: "/market", element: <Market /> },
+  { path: "/searchresult", element: <SearchResultPage /> },
+  { path: "/searchmall/:isbn", element: <SearchMallPage /> },
   { path: "/purchase-create", element: <PurchaseCreatePage /> },
   { path: "/purchase-view", element: <PurchaseViewPage /> },
   { path: "/myview", element: <MyPostViewPage /> },

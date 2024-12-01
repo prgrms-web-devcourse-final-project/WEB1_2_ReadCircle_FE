@@ -1,212 +1,170 @@
-.main {
-  box-sizing: border-box;
+@charset "UTF-8";
+@import "../vendor/slick.css";
+@import "../vendor/slick-theme.css";
 
-  &__search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    position: relative;
-    padding: 0 20px;
+main {
+  text-align: center;
+  background-color: #fff;
+  margin-top: 30px;
 
-    input {
-      width: 324px;
-      height: 42px;
-      padding: 0 10px;
-      background-color: #fafafa;
-      border: 1px solid #495560;
-      border-radius: 12px;
-      font-size: 16px;
-    }
-
-    .main__hamburger {
-      font-size: 24px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-right: 10px;
-    }
-
-    .main__dropdown {
-      position: absolute;
-      top: 50px;
-      left: 40%;
-      transform: translateX(-50%);
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 10px;
-      z-index: 10;
-
-      a {
-        display: block;
-        margin: 5px 0;
-        text-decoration: none;
-        color: #333;
-      }
-    }
-  }
-
-  &__banner {
-    img {
-      width: 100%;
-      margin: 0;
-      height: auto;
-    }
-  }
-
-  &__categories {
-    margin: 20px 0;
-    padding: 0 20px;
-
-    &-title {
-      margin-left: 290px;
+  .hero {
+    h1 {
+      font-size: 48px;
+      line-height: 1.3;
       margin-bottom: 20px;
-      font-size: 1.5rem;
-      font-weight: bold;
+
+      .highlight {
+        color: #1abc9c;
+        font-weight: bold;
+      }
     }
 
-    &-list {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
+    p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 20px auto;
+      line-height: 1.8;
+      color: #555;
+    }
 
-      .category {
-        text-decoration: none;
-        text-align: center;
-        width: 120px;
-
-        &__box {
-          width: 98px;
-          height: 100px;
-          margin: 0 auto;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 8px;
-          transition: transform 0.2s;
-
-          &:hover {
-            transform: scale(1.1);
-          }
-        }
-
-        &__name {
-          display: inline-block;
-          margin-top: 10px;
-          margin-bottom: 20px;
-          font-size: 14px;
-          font-weight: 700;
-          color: #333;
-          transition: transform 0.2s;
-
-          .category:hover & {
-            transform: scale(1.1);
-          }
-        }
-      }
+    .cta {
+      margin-top: 15px;
+      padding: 12px 30px;
     }
   }
 
-  &__title {
-    margin-left: 300px;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-
-  &__products {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 20px 300px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-
-    .product {
-      text-align: center;
-      margin-bottom: 30px; /* product 아래 간격*/
-
-      img {
-        width: 120px;
-        border-radius: 4px;
-      }
-
-      &__info {
-        margin-top: 10px;
-
-        h3 {
-          font-size: 16px;
-        }
-
-        p {
-          color: #808080;
-        }
-      }
-    }
-  }
-
-  &__floating-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: #ffa432;
-    border: none;
-    border-radius: 50%;
-    font-size: 24px;
-    color: #fff;
+  .innovation {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  }
+    background-color: #042029;
+    color: #fff;
+    padding: 80px 20px;
 
-  .modal {
-    position: fixed;
-    top: 61%;
-    left: 88%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    padding: 20px;
-    z-index: 1000;
-    width: 300px;
-    height: 500px;
-    text-align: center;
+    &__container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 1200px;
 
-    &__content {
-      h3 {
-        font-size: 20px;
-        margin-bottom: 10px;
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
       }
+    }
 
-      p {
-        font-size: 16px;
+    &__text {
+      order: 1;
+      max-width: 600px;
+      margin-bottom: 30px;
+      padding-right: 0;
+
+      h2 {
+        font-size: 36px;
+        color: #1abc9c;
         margin-bottom: 20px;
       }
 
-      button {
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #ffa432;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
+      p {
+        margin: 20px 0;
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      .resource-link a {
+        color: #1abc9c;
+        text-decoration: none;
+        font-weight: bold;
+
+        &:hover {
+          color: #148f77;
+        }
+
+        span {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .innovation-slider {
+      order: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .slick-list {
+        overflow: hidden;
+        padding: 10px 0;
+      }
+
+      .slick-track {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .slick-slide {
+        display: flex !important; // 슬라이더 내부 요소들이 flexbox로 정렬되도록 강제
+        justify-content: center;
+        align-items: center;
+      }
+
+      .card {
+        flex: 1 1 280px;
+        margin: 15px;
+        min-width: 280px;
+        background: #fff;
+        color: #333;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+
+        h3 {
+          font-size: 24px;
+          margin-bottom: 10px;
+          font-weight: bold;
+        }
+
+        p {
+          font-size: 16px;
+          color: #555;
+          line-height: 1.5;
+        }
+      }
+
+      .note {
+        font-size: 14px;
+        margin-top: 10px;
+        color: #ccc;
+        text-align: center;
       }
     }
   }
 
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+  @media (max-width: 768px) {
+    .innovation {
+      padding: 60px 10px;
+
+      &__container {
+        align-items: center;
+      }
+
+      &__text {
+        padding-right: 0;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .innovation-slider {
+        width: 100%;
+
+        .card {
+          margin-bottom: 15px;
+        }
+      }
+    }
   }
 }

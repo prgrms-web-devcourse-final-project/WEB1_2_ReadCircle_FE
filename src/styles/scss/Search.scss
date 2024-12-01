@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  margin: 30px 0;
   position: relative;
   padding: 0 20px;
 
@@ -10,11 +10,11 @@
     display: flex;
     align-items: center;
     padding: 10px 15px;
-    border: 1px solid #ddd;
+    border: 3px solid #001e2b;
     border-radius: 20px;
     background-color: #f9f9f9;
     width: 350px;
-    height: 24px;
+    height: 46px;
 
     &__icon {
       font-size: 20px;
