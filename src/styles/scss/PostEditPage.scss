@@ -11,6 +11,7 @@ $hover-color: #e0e0e0;
   align-items: center;
   height: 100vh;
   padding: 30px;
+  margin-top: 150px;
   font-family: "Inter", sans-serif;
   flex-direction: column;
 
@@ -24,14 +25,15 @@ $hover-color: #e0e0e0;
     .top-container {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
       gap: 140px;
       width: 100%;
       margin-bottom: 10px;
 
       .edit-left,
       .edit-right {
-        flex: 1;
         display: flex;
+        align-items: flex-start;
         flex-direction: column;
         gap: 55px;
       }
@@ -126,7 +128,6 @@ $hover-color: #e0e0e0;
 
         input,
         select {
-          flex: 1;
           margin-bottom: 0;
         }
       }
@@ -156,7 +157,7 @@ $hover-color: #e0e0e0;
 
       .unit {
         position: absolute;
-        right: 10px;
+        right: -300px;
         bottom: 10px;
         font-size: 14px;
         font-weight: bold;
@@ -177,13 +178,17 @@ $hover-color: #e0e0e0;
         justify-content: center;
         text-align: center;
         border: 1px solid $border-color;
+        border-radius: 0;
         background-color: $secondary-color;
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
         margin-right: -1px;
+        margin-left: -1px;
 
         &:not(:last-child) {
           margin-bottom: -1px;
+          margin-left: -1px;
+
         }
 
         &:hover {
