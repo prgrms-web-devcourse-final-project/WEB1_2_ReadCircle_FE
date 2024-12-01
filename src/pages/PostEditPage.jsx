@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import '../styles/scss/PostEditPage.scss';
-import mockPostData from '../components/mockPost.json'; // 예시로 mock 데이터를 사용
-import { useNavigate } from 'react-router-dom';
-import Header from '../components/Header'; // Header 컴포넌트 임포트
+import { useNavigate, useParams } from 'react-router-dom';
+import Header from '../components/Header';
+import axios from 'axios';
 
 const PostEditPage = () => {
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedStatus, setSelectedStatus] = useState('');
-    const [selectedPurpose, setSelectedPurpose] = useState('');
+    // const { postId } = useParams();
+    const postId = 2; 
     const [imagePreview, setImagePreview] = useState(null);
     const [formData, setFormData] = useState({
         title: '',
@@ -23,48 +22,38 @@ const PostEditPage = () => {
 
     const navigate = useNavigate();
 
+    // 기존 데이터
     useEffect(() => {
-        if (mockPostData) {
-            setFormData({
-                title: mockPostData.title,
-                content: mockPostData.content,
-                price: mockPostData.price,
-                category: mockPostData.category,
-                status: mockPostData.condition,
-                purpose: mockPostData.tradeType,
-                image: mockPostData.bookImage,
-            });
-            setSelectedCategory(mockPostData.category);
-            setSelectedStatus(mockPostData.condition);
-            setSelectedPurpose(mockPostData.tradeType);
-            setImagePreview(mockPostData.bookImage);
-        }
-    }, []);
+        const fetchPostData = async () => {
+            try {
+                const response = await axios.get(`http://13.209.5.86:5000/api/posts/${postId}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    },
+                });
+                console.log("API 응답 데이터:", response.data);
 
-    const handleCategoryClick = (category) => {
-        setSelectedCategory(category);
-        setFormData({
-            ...formData,
-            category: category,
-        });
-    };
+                const post = response.data;
+                setFormData({
+                    title: post.title,
+                    content: post.content,
+                    price: post.price,
+                    category: post.bookCategory,
+                    status: post.bookCondition,
+                    purpose: post.tradeType,
+                    image: post.bookImage,
+                });
+                setImagePreview(post.bookImage);
+            } catch (error) {
+                console.error("게시글을 불러오는 중 오류 발생:", error);
+                alert("게시글을 불러오는 데 실패했습니다.");
+            }
+        };
 
-    const handleStatusChange = (event) => {
-        setSelectedStatus(event.target.value);
-        setFormData({
-            ...formData,
-            status: event.target.value,
-        });
-    };
+        fetchPostData();
+    }, [postId]);
 
-    const handlePurposeChange = (event) => {
-        setSelectedPurpose(event.target.value);
-        setFormData({
-            ...formData,
-            purpose: event.target.value,
-        });
-    };
-
+    // 이미지 파일 변경
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -76,6 +65,7 @@ const PostEditPage = () => {
         }
     };
 
+    // 입력값 변경
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -84,31 +74,75 @@ const PostEditPage = () => {
         });
     };
 
-    const handleSubmit = (event) => {
+    // 게시글 수정 처리
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('수정된 포스트:', formData);
-        alert('포스트가 수정되었습니다.');
+
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+
+        // 수정된 데이터
+        const { title, content, price } = formData;
+
+        const updateData = {
+            title,
+            content,
+            price: parseInt(price, 10),
+        };
+
+        try {
+            const response = await axios.put(
+                `http://13.209.5.86:5000/api/posts/${postId}`, 
+                updateData, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    }
+                }
+            );
+
+            if (response.data.success) {
+                alert('게시글이 성공적으로 수정되었습니다.');
+                navigate(`/posts/${postId}`); // 수정 후 해당 게시글 페이지로 이동
+            } else {
+                alert('게시글 수정에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('게시글 수정 오류:', error);
+            alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
+        }
     };
 
-    const handleDelete = () => {
+    // 게시글 삭제 처리
+    const handleDelete = async () => {
         const isConfirmed = window.confirm('정말로 이 포스트를 삭제하시겠습니까?');
         if (isConfirmed) {
-            // 백엔드에서 삭제하는 로직 추가
-            setFormData({
-                title: '',
-                content: '',
-                price: '',
-                category: '',
-                status: '',
-                purpose: '',
-                image: null,
-            });
-            setImagePreview(null);
-            setSelectedCategory('');
-            setSelectedStatus('');
-            setSelectedPurpose('');
-            alert('포스트가 삭제되었습니다.');
-            navigate('/');
+            try {
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    alert('로그인 상태가 아닙니다.');
+                    return;
+                }
+
+                const response = await axios.delete(`http://13.209.5.86:5000/api/posts/${postId}`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+
+                if (response.data.success) {
+                    alert('포스트가 삭제되었습니다.');
+                    navigate('/'); // 삭제 후 메인 페이지로 이동
+                } else {
+                    alert('게시글 삭제에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('게시글 삭제 오류:', error);
+                alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
+            }
         }
     };
 
@@ -154,10 +188,8 @@ const PostEditPage = () => {
                                     {categoryBtn.map((category, index) => (
                                         <button
                                             key={index}
-                                            className={`category-button ${
-                                                selectedCategory === category ? 'selected' : ''
-                                            }`}
-                                            onClick={() => handleCategoryClick(category)}
+                                            className={`category-button ${formData.category === category ? 'selected' : ''}`}
+                                            style={{ pointerEvents: 'none' }}
                                         >
                                             {category}
                                         </button>
@@ -172,8 +204,8 @@ const PostEditPage = () => {
                                             type="radio"
                                             name="status"
                                             value="good"
-                                            checked={selectedStatus === 'good'}
-                                            onChange={handleStatusChange}
+                                            checked={formData.status === 'good'}
+                                            disabled
                                         />
                                         상
                                     </label>
@@ -182,8 +214,8 @@ const PostEditPage = () => {
                                             type="radio"
                                             name="status"
                                             value="fair"
-                                            checked={selectedStatus === 'fair'}
-                                            onChange={handleStatusChange}
+                                            checked={formData.status === 'fair'}
+                                            disabled
                                         />
                                         중
                                     </label>
@@ -192,8 +224,8 @@ const PostEditPage = () => {
                                             type="radio"
                                             name="status"
                                             value="poor"
-                                            checked={selectedStatus === 'poor'}
-                                            onChange={handleStatusChange}
+                                            checked={formData.status === 'poor'}
+                                            disabled
                                         />
                                         하
                                     </label>
@@ -218,8 +250,8 @@ const PostEditPage = () => {
                                             type="radio"
                                             name="purpose"
                                             value="sell"
-                                            checked={selectedPurpose === 'sell'}
-                                            onChange={handlePurposeChange}
+                                            checked={formData.purpose === 'sell'}
+                                            disabled
                                         />
                                         판매
                                     </label>
@@ -228,20 +260,10 @@ const PostEditPage = () => {
                                             type="radio"
                                             name="purpose"
                                             value="exchange"
-                                            checked={selectedPurpose === 'exchange'}
-                                            onChange={handlePurposeChange}
+                                            checked={formData.purpose === 'exchange'}
+                                            disabled
                                         />
                                         교환
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="purpose"
-                                            value="purchase"
-                                            checked={selectedPurpose === 'purchase'}
-                                            onChange={handlePurposeChange}
-                                        />
-                                        구매
                                     </label>
                                 </div>
                             </div>
@@ -267,7 +289,9 @@ const PostEditPage = () => {
                     <button onClick={handleDelete} className="delete">
                         삭제
                     </button>
-                    <button className="cancel">나가기</button>
+                    <button onClick={() => navigate(`/myview`)} className="cancel">
+                        나가기
+                    </button>
                 </div>
             </div>
         </>
