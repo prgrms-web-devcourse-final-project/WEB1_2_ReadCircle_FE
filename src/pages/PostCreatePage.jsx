@@ -118,10 +118,6 @@ const PostCreatePage = () => {
                         bookCategory: formData.category,
                         bookCondition: selectedStatus,
                         tradeType: selectedPurpose,
-                        isbn: selectedBook?.isbn,  // ISBN
-                        author: selectedBook?.author,  // 저자
-                        publisher: selectedBook?.publisher,  // 출판사
-                        publishDate: selectedBook?.pubdate,  // 출판일
                         // userId
                     })
                 ],
@@ -226,17 +222,19 @@ const PostCreatePage = () => {
                         </div>
 
                         <div className="write-right">
-                            <div className="category-buttons">
+                            <div className='category-input'>
                                 <label>카테고리</label>
-                                {categoryBtn.map((category, index) => (
-                                    <button
-                                        key={index}
-                                        className={`category-button ${formData.category === category ? 'selected' : ''}`}
-                                        onClick={() => handleCategoryClick(category)}
-                                    >
-                                        {category}
-                                    </button>
-                                ))}
+                                <div className="category-buttons">
+                                    {categoryBtn.map((category, index) => (
+                                        <button
+                                            key={index}
+                                            className={`category-button ${formData.category === category ? 'selected' : ''}`}
+                                            onClick={() => handleCategoryClick(category)}
+                                        >
+                                            {category}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
 
                             <div className="status-input">

@@ -16,9 +16,9 @@ const PurchaseCreatePage = () => {
     const [formData, setFormData] = useState({
         title: '',
         category: '',
-        depositorName: '',  // 예금주
-        bankName: '',       // 은행
-        accountNumber: '',  // 계좌번호
+        accountOwner: '',  // 예금주
+        bank: '',       // 은행
+        account: '',  // 계좌번호
     });
     const [imageFile, setImageFile] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
@@ -65,9 +65,9 @@ const PurchaseCreatePage = () => {
             const basePrice = parseInt(selectedBook.discount || selectedBook.price, 10);
             let calculated = 0;
 
-            if (status === 'good') calculated = basePrice * 0.7;
-            else if (status === 'fair') calculated = basePrice * 0.6;
-            else if (status === 'poor') calculated = basePrice * 0.4;
+            if (status === '상') calculated = basePrice * 0.7;
+            else if (status === '중') calculated = basePrice * 0.6;
+            else if (status === '하') calculated = basePrice * 0.4;
 
             setCalculatedPrice(Math.round(calculated));
         }
@@ -76,8 +76,9 @@ const PurchaseCreatePage = () => {
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            setImagePreview(URL.createObjectURL(file));
             setImageFile(file);
+            const fileUrl = URL.createObjectURL(file);
+            setImagePreview(fileUrl);
         }
     };
 
@@ -98,34 +99,51 @@ const PurchaseCreatePage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        if (!formData.title || !formData.category || !selectedStatus || !formData.depositorName || !formData.bankName || !formData.accountNumber) {
+    
+        const accessToken = localStorage.getItem('accessToken'); 
+        console.log('Access Token:', accessToken);
+    
+        if (!accessToken) {
+            alert('로그인 상태가 아닙니다.');
+            return;
+        }
+    
+        if (!formData.title || !formData.category || !selectedStatus || !calculatedPrice) {
             alert('모든 필드를 입력해 주세요.');
             return;
         }
-
-        if (!selectedBook || !selectedBook.isbn) {
-            alert('책을 선택해 주세요.');
-            return;
-        }
-
+    
         const postData = new FormData();
-        postData.append('userId', 'user123'); // 유저 아이디
-        postData.append('bank', formData.bankName); // 은행
-        postData.append('account', formData.accountNumber); // 계좌번호
-        postData.append('accountOwner', formData.depositorName); // 예금주
-        postData.append('isbn', selectedBook.isbn); // ISBN
-        postData.append('bookCondition', selectedStatus);
-        postData.append('price', calculatedPrice);
-
-        // 기존 데이터
-        postData.append('title', formData.title);
-        postData.append('bookCategory', formData.category);
-        postData.append('bookImage', imageFile);
+        
+        postData.append(
+            "postDTO", 
+            new Blob(
+                [
+                    JSON.stringify({
+                        title: formData.title,
+                        content: formData.description,
+                        price: calculatedPrice,
+                        bookCategory: formData.category,
+                        bookCondition: selectedStatus,
+                        accountOwner: formData.accountOwner,
+                        bank: formData.bank,
+                        account: formData.account
+                        // userId
+                    })
+                ],
+                { type: "application/json" }
+            )
+        );
+    
+        postData.append("bookImage", imageFile);
+    
+        for (let [key, value] of postData.entries()) {
+            console.log(`${key}:`, value);
+        }
 
         try {
             const response = await axios.post(
-                'http://13.209.5.86:5000/api/posts/purchases',
+                'http://13.209.5.86:5000/api/sale/register',
                 postData,
             );
 
@@ -194,17 +212,19 @@ const PurchaseCreatePage = () => {
                         </div>
 
                         <div className="write-right">
-                            <div className="category-buttons">
+                            <div className='category-input'>
                                 <label>카테고리</label>
-                                {categoryBtn.map((category, index) => (
-                                    <button
-                                        key={index}
-                                        className={`category-button ${formData.category === category ? 'selected' : ''}`}
-                                        onClick={() => handleCategoryClick(category)}
-                                    >
-                                        {category}
-                                    </button>
-                                ))}
+                                <div className="category-buttons">
+                                    {categoryBtn.map((category, index) => (
+                                        <button
+                                            key={index}
+                                            className={`category-button ${formData.category === category ? 'selected' : ''}`}
+                                            onClick={() => handleCategoryClick(category)}
+                                        >
+                                            {category}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
 
                             <div className="status-input">
@@ -214,8 +234,8 @@ const PurchaseCreatePage = () => {
                                         <input
                                             type="radio"
                                             name="status"
-                                            value="good"
-                                            checked={selectedStatus === 'good'}
+                                            value="상"
+                                            checked={selectedStatus === '상'}
                                             onChange={handleStatusChange}
                                         />
                                         상
@@ -224,8 +244,8 @@ const PurchaseCreatePage = () => {
                                         <input
                                             type="radio"
                                             name="status"
-                                            value="fair"
-                                            checked={selectedStatus === 'fair'}
+                                            value="중"
+                                            checked={selectedStatus === '중'}
                                             onChange={handleStatusChange}
                                         />
                                         중
@@ -234,8 +254,8 @@ const PurchaseCreatePage = () => {
                                         <input
                                             type="radio"
                                             name="status"
-                                            value="poor"
-                                            checked={selectedStatus === 'poor'}
+                                            value="하"
+                                            checked={selectedStatus === '하'}
                                             onChange={handleStatusChange}
                                         />
                                         하
