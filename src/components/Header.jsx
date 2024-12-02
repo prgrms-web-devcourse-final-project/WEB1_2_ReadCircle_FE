@@ -6,6 +6,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   // 로그인 상태 확인
   useEffect(() => {
@@ -49,6 +50,11 @@ const Header = () => {
     }
   };
 
+  // 드롭다운 표시/숨김 토글
+  const toggleDropdown = () => {
+    setIsDropdownVisible((prev) => !prev);
+  };
+
   return (
     <header className="header">
       <div className="header__nav">
@@ -75,15 +81,20 @@ const Header = () => {
                 src={user?.profileImage || "/default-profile.png"}
                 alt="Profile"
                 className="header__profile-img"
-                style={{ width: "20px", borderRadius: "50%" }}
+                style={{
+                  width: "20px",
+                  borderRadius: "50%",
+                  cursor: "pointer",
+                }}
+                onClick={toggleDropdown}
               />
-              {/* 로그인 버튼 / 프로필 이미지, 로그아웃 버튼 */}
-              <div className="header__dropdown">
-                <Link to="/mypage">My Page</Link>
-                {/* 장바구니 */}
-                <Link to="/cart">Cart</Link>
-                <button onClick={handleLogout}>Logout</button>
-              </div>
+              {isDropdownVisible && (
+                <div className="header__dropdown">
+                  <Link to="/mypage">마이페이지</Link>
+                  <Link to="/cart">장바구니</Link>
+                  <button onClick={handleLogout}>Logout</button>
+                </div>
+              )}
             </div>
           ) : (
             <Link to="/login" className="header__login">

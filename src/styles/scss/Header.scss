@@ -76,14 +76,13 @@ nav ul li:hover {
 }
 
 .header__dropdown {
-  display: none;
   position: absolute;
   background-color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   right: 0;
   top: 100%;
-}
-
-.header__profile:hover .header__dropdown {
-  display: block;
+  z-index: 3;
+  padding: 10px;
+  border-radius: 4px;
+  display: block; // 항상 렌더링되며 상태에 따라 렌더링 여부 결정
 }
