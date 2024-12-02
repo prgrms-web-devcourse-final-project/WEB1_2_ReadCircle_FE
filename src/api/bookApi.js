@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://13.209.5.86:5000";
+const BASE_URL = "http://3.34.60.101:5000";
 
 // 로컬 스토리지에서 토큰 가져오기
 const getAuthToken = () => {
