@@ -14,12 +14,20 @@ const Header = () => {
   // 로그인 상태 확인
   useEffect(() => {
     const checkLoginStatus = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        // 토큰이 없으면 로그인 상태 해제
+        setIsLoggedIn(false);
+        setUser(null);
+        return;
+      }
+
       try {
-        const response = await fetch("api/users/me", {
+        const response = await fetch("/api/users/me", {
           method: "GET",
-          // headers: {
-          //   Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          // },
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // 저장된 JWT 토큰
+          },
         });
 
         console.log("Response status:", response.status);
@@ -29,6 +37,7 @@ const Header = () => {
           setIsLoggedIn(true);
           setUser(userData);
         } else if (response.status === 401 || response.status === 403) {
+          // 인증 실패 시 토큰 삭제
           setIsLoggedIn(false);
           setUser(null);
           localStorage.removeItem("accessToken");
