@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import Logo from '../assets/Logo.svg';
 import '../styles/css/JoinPage.css';
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
+import DaumPostCode from 'react-daum-postcode';
 
 const JoinPage = () => {
     // 초기 값 세팅
@@ -16,6 +17,9 @@ const JoinPage = () => {
     const [email, setEmail] = useState('');
     const [image, setImage] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
     const [File, setFile] = useState(null);
+    const [address, setAddress] = useState('');
+    const [zonecode, setZonecode] = useState('');
+    const [detail, setDetail] = useState('');
 
     // 오류 메세지
     const [idError, setIdError] = useState('');
@@ -30,6 +34,8 @@ const JoinPage = () => {
     const [isPwCon, setIsPwCon] = useState(false);
     const [isNick, setIsNick] = useState(false);
     const [isEmail, setIsEmail] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [isAdress, setIsAddress] = useState(false);
     const [active, setActive] = useState(false);
     
     // 유저 ID 설정
@@ -108,45 +114,85 @@ const JoinPage = () => {
 
     // 유저 이미지 변경
     const imgChange = (e) => {
-        const input = e.target;
-        if (input.files) {
-            const file = input.files[0];
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const imageUrl = e.target.result;
-                setFile(imageUrl);
-                setImage(imageUrl);
-            };
-
-            reader.readAsDataURL(file);
-            setFile(file);
+        const selectFile = e.target.files[0];
+        if (selectFile) {
+            setFile(selectFile);
+            const fileUrl = URL.createObjectURL(selectFile);
+            setImage(fileUrl);
         }
     }
 
+    // 주소 입력
+    const closeHandler = (state) => {
+        if (state === 'FORCE_CLOSE') {
+            setIsOpen(false);
+          } else if (state === 'COMPLETE_CLOSE') {
+            setIsOpen(false);
+          }
+    }
+
+    const completeHandler = (data) => {
+        const {address, zonecode} = data;
+        setAddress(address);
+        setZonecode(zonecode);
+        setIsAddress(true);
+    }
+
+    const toggleHandler = () => {
+        setIsOpen((prev) => !prev);
+    }
+
+    const inputHandler = (e) => {
+        setAddress(e.target.value)
+    }
+
+    const detailChange = (e) => {
+        const detailValue  = e.target.value;
+        setDetail(detailValue);
+    }
+
     // 회원가입 버튼 활성화
-   useEffect(() => {
-        if (isId && isPw && isPwCon && isEmail && isNick) {
+    useEffect(() => {
+        if (isId && isPw && isPwCon && isEmail && isNick && isAdress) {
             setActive(true)
         } else {
             setActive(false)
         }
-   },[isId, isPw, isPwCon, isEmail, isNick])
+    },[isId, isPw, isPwCon, isEmail, isNick, isAdress])
 
    // 회원가입 요청 처리
    const joinFn = async() => {
     try {
+        const formData = new FormData();
+        formData.append(
+            'request', 
+            new Blob(
+                [
+                    JSON.stringify({
+                        userId: id,
+                        password: password,
+                        email: email,
+                        nickname: nick,
+                        address: address + zonecode + detail
+                    })
+                ],
+                {type: "application/json"}
+            )
+        );
+        formData.append('image', File);
+
+        console.log('FormData 내용:');
+        for (let pair of formData.entries()) {
+            console.log(`${pair[0]}:`, pair[1]);
+        }
+
         await axios.post(
-            'http://localhost:5000/api/users/signup', {
-                userId: id,
-                password: password,
-                nickname: nick,
-                email: email,
-                profileImage: File
-            }, {
+            'http://13.209.5.86:5000/api/users/signup',
+            formData,
+            {
                 headers: {
-                    'Content-Type' : 'multipart/form-data'
-                }
+                    'Content-Type': 'multipart/form-data',
+                },
             }
         );
 
@@ -196,6 +242,28 @@ const JoinPage = () => {
                     />
                     <span>{pwConError}</span>
                 </div>
+                <div className="address_area">
+                    <p>주소</p>
+                    <input 
+                        placeholder='주소를 검색해주세요'
+                        disabled={true}
+                        value={address + zonecode}
+                        onChange={inputHandler}
+                    />
+                    <input 
+                        className='detail_input'
+                        type="text" 
+                        placeholder='상세 주소를 입력해 주세요'
+                        value={detail}
+                        onChange={detailChange}
+                    />
+                    <button
+                        onClick={toggleHandler}
+                        className='address_btn'
+                    >
+                        주소 찾기
+                    </button>
+                </div>
                 <div className="profile_area">
                     <p>프로필 이미지</p>
                     <label htmlFor="file">
@@ -238,6 +306,21 @@ const JoinPage = () => {
             >
                 회원 가입
             </button>
+            {isOpen && (
+                <div className='modal_area'>
+                    <DaumPostCode
+                        className='daum_post'
+                        onComplete={completeHandler}
+                        onClose={closeHandler}
+                    />
+                    <button 
+                        className='close_modal'
+                        onClick={() => setIsOpen(false)}
+                    >
+                        ×
+                    </button>
+                </div>        
+            )}
         </>
     );
 };
