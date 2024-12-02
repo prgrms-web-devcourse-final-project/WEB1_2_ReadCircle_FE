@@ -25,12 +25,7 @@ const Header = () => {
       try {
         const response = await fetch("/api/users/me", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${accessToken}`, // 저장된 JWT 토큰
-          },
         });
-
-        console.log("Response status:", response.status);
 
         if (response.ok) {
           const userData = await response.json();
