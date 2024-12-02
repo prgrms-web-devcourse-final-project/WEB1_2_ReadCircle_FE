@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/scss/Header.scss";
+import NotificationModal from "./NotificationModal";
 
 const Header = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [isNotificationModalVisible, setIsNotificationModalVisible] =
+    useState(false);
 
   // 로그인 상태 확인
   useEffect(() => {
@@ -55,6 +58,11 @@ const Header = () => {
     setIsDropdownVisible((prev) => !prev);
   };
 
+  // 알림 모달 표시/숨김 토글
+  const toggleNotificationModal = () => {
+    setIsNotificationModalVisible((prev) => !prev);
+  };
+
   return (
     <header className="header">
       <div className="header__nav">
@@ -90,6 +98,7 @@ const Header = () => {
               />
               {isDropdownVisible && (
                 <div className="header__dropdown">
+                  <button onClick={toggleNotificationModal}>알림</button>
                   <Link to="/mypage">마이페이지</Link>
                   <Link to="/cart">장바구니</Link>
                   <button onClick={handleLogout}>Logout</button>
@@ -103,6 +112,9 @@ const Header = () => {
           )}
         </div>
       </div>
+      {isNotificationModalVisible && (
+        <NotificationModal onClose={toggleNotificationModal} />
+      )}
     </header>
   );
 };
