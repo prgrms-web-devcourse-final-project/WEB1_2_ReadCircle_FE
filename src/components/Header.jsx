@@ -39,6 +39,7 @@ const Header = () => {
         credentials: "include", // 쿠키 전송
       });
       if (response.ok) {
+        localStorage.removeItem("token");
         setIsLoggedIn(false);
         setUser(null);
         navigate("/"); // 로그아웃 후 홈으로
