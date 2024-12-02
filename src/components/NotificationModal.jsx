@@ -7,23 +7,50 @@ const NotificationModal = ({ onClose }) => {
 
   // 알림 수신을 위한 SSE 연결
   useEffect(() => {
-    const eventSource = new EventSource("/api/notification/subscribe", {
+    const serverUrl = "http://3.34.60.101:5000/api/notification/subscribe";
+    const eventSource = new EventSource(serverUrl, {
       withCredentials: true,
     });
 
+    console.log(localStorage.getItem("accessToken"));
+
+    fetch(serverUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 저장된 JWT 토큰
+      },
+      // credentials: "include",
+    });
+
+    // eventSource.onmessage = (event) => {
+    //   setNotifications((prev) => {
+    //     const newNotification = event.data;
+    //     // 중복 방지(알림 목록에 있는) - 판매글 추가, 수정과는 상관없는
+    //     if (!prev.includes(newNotification)) {
+    //       return [...prev, newNotification];
+    //     }
+    //     return prev;
+    //   });
+    // };
+
     eventSource.onmessage = (event) => {
-      setNotifications((prev) => {
-        const newNotification = event.data;
-        // 중복 방지(알림 목록에 있는) - 판매글 추가, 수정과는 상관없는
-        if (!prev.includes(newNotification)) {
-          return [...prev, newNotification];
-        }
-        return prev;
-      });
+      try {
+        const data = JSON.parse(event.data); // JSON 파싱
+        setNotifications((prev) => {
+          // 중복 방지
+          if (!prev.find((notification) => notification.id === data.id)) {
+            return [...prev, data];
+          }
+          return prev;
+        });
+      } catch (e) {
+        console.error("Failed to parse notification data:", e);
+      }
     };
 
     eventSource.onerror = () => {
       console.error("SSE connection failed.");
+      setError("알림 수신에 실패했습니다. 다시 시도해주세요.");
       eventSource.close();
     };
 

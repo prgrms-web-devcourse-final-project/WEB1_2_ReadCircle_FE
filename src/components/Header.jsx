@@ -15,20 +15,27 @@ const Header = () => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await fetch("/api/users/me", {
+        const response = await fetch("api/users/me", {
           method: "GET",
-          credentials: "include", // 쿠키 포함
+          // headers: {
+          //   Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          // },
         });
+
+        console.log("Response status:", response.status);
+
         if (response.ok) {
           const userData = await response.json();
           setIsLoggedIn(true);
-          setUser(userData); // 사용자 정보 설정
-        } else {
+          setUser(userData);
+        } else if (response.status === 401 || response.status === 403) {
           setIsLoggedIn(false);
+          setUser(null);
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
         }
       } catch (error) {
-        // 추후에 수정해야 할 부분(F12 - 콘솔)
-        // console.error("Error fetching login status:", error);
+        console.error("Error fetching login status:", error);
       }
     };
 
@@ -36,21 +43,14 @@ const Header = () => {
   }, []);
 
   // 로그아웃 처리
-  const handleLogout = async () => {
-    try {
-      const response = await fetch("/api/auth/logout", {
-        method: "POST",
-        credentials: "include", // 쿠키 전송
-      });
-      if (response.ok) {
-        localStorage.removeItem("token");
-        setIsLoggedIn(false);
-        setUser(null);
-        navigate("/"); // 로그아웃 후 홈으로
-      }
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+
+    setIsLoggedIn(false);
+    setUser(null);
+
+    navigate("/");
   };
 
   // 드롭다운 표시/숨김 토글
