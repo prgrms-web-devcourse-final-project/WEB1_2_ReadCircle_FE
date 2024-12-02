@@ -27,10 +27,9 @@ const Header = () => {
           method: "GET",
         });
 
-        console.log("Response status:", response.status);
-
         if (response.ok) {
           const userData = await response.json();
+          console.log(userData);
           setIsLoggedIn(true);
           setUser(userData);
         } else if (response.status === 401 || response.status === 403) {

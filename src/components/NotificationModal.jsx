@@ -7,7 +7,7 @@ const NotificationModal = ({ onClose }) => {
 
   // 알림 수신을 위한 SSE 연결
   useEffect(() => {
-    const serverUrl = "http://3.34.60.101:5000/api/notification/subscribe";
+    const serverUrl = "http://13.209.5.86:5000/api/notification/subscribe";
     const eventSource = new EventSource(serverUrl, {
       withCredentials: true,
     });

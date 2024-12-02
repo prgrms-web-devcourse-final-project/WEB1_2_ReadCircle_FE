@@ -15,7 +15,7 @@ const LoginPage = () => {
   const loginFn = async () => {
     try {
       const response = await axios.post(
-        "http://3.34.60.101:5000/api/auth/login",
+        "http://13.209.5.86:5000//api/auth/login",
         {
           userId: id,
           password: pw,
