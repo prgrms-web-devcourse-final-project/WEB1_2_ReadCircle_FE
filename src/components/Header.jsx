@@ -14,12 +14,17 @@ const Header = () => {
   // 로그인 상태 확인
   useEffect(() => {
     const checkLoginStatus = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+      // 토큰이 없으면 로그인 상태 해제
+      if (!accessToken) {
+        setIsLoggedIn(false);
+        setUser(null);
+        return;
+      }
+
       try {
         const response = await fetch("api/users/me", {
           method: "GET",
-          // headers: {
-          //   Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          // },
         });
 
         console.log("Response status:", response.status);
