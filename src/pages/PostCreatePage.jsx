@@ -30,6 +30,7 @@ const PostCreatePage = () => {
 
         try {
             const results = await searchBooks(searchQuery);
+            console.log('검색 결과:', results);
             setSearchResults(results);
             setIsModalOpen(true);
         // eslint-disable-next-line no-unused-vars
@@ -74,8 +75,8 @@ const PostCreatePage = () => {
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            setImagePreview(URL.createObjectURL(file));
-            const fileUrl = URL.createObjectURL(file)
+            setImagePreview(file);
+            const fileUrl = URL.createObjectURL(file);
             setImageFile(fileUrl);
         }
     };
@@ -117,6 +118,10 @@ const PostCreatePage = () => {
                         bookCategory: formData.category,
                         bookCondition: selectedStatus,
                         tradeType: selectedPurpose,
+                        isbn: selectedBook?.isbn,  // ISBN
+                        author: selectedBook?.author,  // 저자
+                        publisher: selectedBook?.publisher,  // 출판사
+                        publishDate: selectedBook?.pubdate,  // 출판일
                         // userId
                     })
                 ],
