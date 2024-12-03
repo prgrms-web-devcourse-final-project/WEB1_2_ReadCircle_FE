@@ -76,13 +76,13 @@ const Header = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/searchresult">New</Link>
+              <Link to="/searchresult">전체 보기</Link>
             </li>
             <li>
-              <Link to="/shop">Shop</Link>
+              <Link to="/shop">쇼핑</Link>
             </li>
             <li>
-              <Link to="/market">Market</Link>
+              <Link to="/market">직거래</Link>
             </li>
           </ul>
         </nav>
@@ -105,7 +105,7 @@ const Header = () => {
                   <button onClick={toggleNotificationModal}>알림</button>
                   <Link to="/mypage">마이페이지</Link>
                   <Link to="/cart">장바구니</Link>
-                  <button onClick={handleLogout}>Logout</button>
+                  <button onClick={handleLogout}>로그아웃</button>
                 </div>
               )}
             </div>
