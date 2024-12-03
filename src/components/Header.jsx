@@ -71,6 +71,10 @@ const Header = () => {
     setIsNotificationModalVisible((prev) => !prev);
   };
 
+  // const imagePath = `http://3.37.35.134:8080${user?.data.profileImageUrl}`;
+  const imagePath = `http://localhost:5173${user?.data.profileImageUrl}`;
+  console.log(imagePath);
+
   return (
     <header className="header">
       <div className="header__nav">
