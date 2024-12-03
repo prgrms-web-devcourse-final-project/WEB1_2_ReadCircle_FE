@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://13.209.5.86:5000/";
+const BASE_URL = "http://13.209.5.86:5000";
 
 // 로컬 스토리지에서 토큰 가져오기
 const getAuthToken = () => {
@@ -60,7 +60,12 @@ export const fetchDirectTradePosts = async () => {
     forSale: post.tradeStatus, // 판매 상태 (판매 완료, 판매 교환)
     price: post.price,
     tradeType: post.tradeType,
+    // thumbnailUrl: post.bookAPIImage,
     thumbnailUrl: `${BASE_URL}${encodeURIComponent(post.bookAPIImage)}`,
+    // thumbnailUrl: `${baseUrl.replace(/\/$/, "")}/${imagePath.replace(
+    //   /^\//,
+    //   ""
+    // )}`,
     ninkname: post.ninkname,
     createdAt: post.postCreatedAt,
     updatedAt: post.postUpdatedAt,
