@@ -8,12 +8,11 @@ export const usePostView = (postId) => {
 
     // 게시글 정보 가져오기
     useEffect(() => {
-        const postId = 2; 
         const fetchPost = async () => {
             try {
                 const accessToken = localStorage.getItem('accessToken');
                 const response = await axios.get(
-                    `http://13.209.5.86:5000/api/posts/${postId}`,
+                    `http://3.37.35.134:8080/api/posts/${postId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${accessToken}`,
@@ -45,24 +44,62 @@ export const usePostView = (postId) => {
         fetchPost();
     }, [postId]);
 
+    // 댓글 조회
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const accessToken = localStorage.getItem('accessToken');
+                const response = await axios.get(
+                    `http://3.37.35.134:8080/api/comments/${postId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    }
+                );
+                setComments(response.data);
+                console.log(response.data);
+            } catch (error) {
+                console.error('댓글 조회 오류:', error);
+            }
+        };
+
+        fetchComments();
+    }, [postId]);
+
     // 댓글 추가 함수
     const handleAddComment = async () => {
-        const postId = 2;
         if (newComment.trim() === '') return;
 
         try {
             const accessToken = localStorage.getItem('accessToken');
             const response = await axios.post(
-                `http://13.209.5.86:5000/api/posts/${postId}/comments`, 
-                { content: newComment },
+                `http://3.37.35.134:8080/api/comments/${postId}`, 
+                { commentContent: newComment },
                 { headers: { Authorization: `Bearer ${accessToken}` } }
             );
             if (response.data.success) {
-                setComments([...comments, { userId: 'user123', content: newComment }]);
+                const { commentId, commentContent, userId, commentCreatedAt } = response.data;
+                setComments([...comments, { commentId, content: commentContent, userId, commentCreatedAt }]);
                 setNewComment('');
             }
         } catch (error) {
             console.error('댓글 추가 오류:', error);
+        }
+    };
+
+    // 댓글 삭제
+    const handleDeleteComment = async (commentId) => {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            await axios.delete(`http://3.37.35.134:8080/api/comments/${commentId}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            setComments(comments.filter((comment) => comment.commentId !== commentId)); // 삭제된 댓글 제거
+        } catch (error) {
+            console.error('댓글 삭제 오류:', error);
         }
     };
 
@@ -77,6 +114,7 @@ export const usePostView = (postId) => {
         newComment,
         setNewComment,
         handleAddComment,
+        handleDeleteComment,
         handleFavoriteClick,
     };
 };

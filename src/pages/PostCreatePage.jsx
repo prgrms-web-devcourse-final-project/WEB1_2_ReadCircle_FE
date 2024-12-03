@@ -42,6 +42,7 @@ const PostCreatePage = () => {
     // 검색 결과 중 책 선택
     const handleBookSelect = (book) => {
         setSelectedBook(book);
+        console.log("선택된 책:", book);
         setFormData({
             ...formData,
             title: book.title,
@@ -75,9 +76,9 @@ const PostCreatePage = () => {
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            setImagePreview(file);
+            setImageFile(file);
             const fileUrl = URL.createObjectURL(file);
-            setImageFile(fileUrl);
+            setImagePreview(fileUrl);
         }
     };
 
@@ -118,6 +119,10 @@ const PostCreatePage = () => {
                         bookCategory: formData.category,
                         bookCondition: selectedStatus,
                         tradeType: selectedPurpose,
+                        isbn: selectedBook ? selectedBook.isbn : '',
+                        author: selectedBook ? selectedBook.author : '',
+                        publisher: selectedBook ? selectedBook.publisher : '',
+                        publishDate: selectedBook ? selectedBook.pubdate : '',
                         // userId
                     })
                 ],
@@ -134,7 +139,7 @@ const PostCreatePage = () => {
         try {
             // 서버로 POST 요청 보내기
             const response = await axios.post(
-                'http://13.209.5.86:5000/api/posts/create',
+                'http://3.37.35.134:8080/api/posts/create',
                 postData,
                 {
                     headers: {

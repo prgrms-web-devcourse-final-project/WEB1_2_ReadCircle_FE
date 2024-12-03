@@ -125,6 +125,8 @@ const PurchaseCreatePage = () => {
                         price: calculatedPrice,
                         bookCategory: formData.category,
                         bookCondition: selectedStatus,
+                        isbn: selectedBook ? selectedBook.isbn : '',
+                        publishDate: selectedBook ? selectedBook.pubdate : '',
                         accountOwner: formData.accountOwner,
                         bank: formData.bank,
                         account: formData.account
@@ -143,7 +145,7 @@ const PurchaseCreatePage = () => {
 
         try {
             const response = await axios.post(
-                'http://13.209.5.86:5000/api/sale/register',
+                'http://3.37.35.134:8080/api/sale/register',
                 postData,
             );
 

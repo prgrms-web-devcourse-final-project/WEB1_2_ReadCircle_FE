@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import axios from 'axios';
 
 const MyPage = () => {
-    const baseUrl = 'http://13.209.5.86:5000';
+    const baseUrl = 'http://3.37.35.134:8080';
     const token = localStorage.getItem('accessToken');
 
     // 초기값 세팅

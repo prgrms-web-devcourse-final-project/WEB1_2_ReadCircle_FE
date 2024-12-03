@@ -65,8 +65,8 @@ const PostView = () => {
                     {comments.length > 0 && (
                         <div className='comments'>
                             {comments.map((comment) => (
-                                <div key={comment.id} className='comment'>
-                                    <strong>{comment.userId}</strong> {comment.content}
+                                <div key={comment.commentId} className='comment'>
+                                    <p className='user-id'>{comment.userId}</p> <p className='content'>{comment.commentContent}</p>
                                 </div>
                             ))}
                         </div>

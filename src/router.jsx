@@ -18,8 +18,8 @@ const routes = [
   { path: "/login", element: <LoginPage /> },
   { path: "/mypage", element: <MyPage /> },
   { path: "/create", element: <PostCreatePage /> },
-  { path: "/view", element: <PostViewPage /> },
-  { path: "/edit", element: <PostEditPage /> },
+  { path: "/view/:postId", element: <PostViewPage /> },
+  { path: "/edit/:postId", element: <PostEditPage /> },
   { path: "/", element: <MainPage /> },
   { path: "/shop", element: <ShopPage /> },
   { path: "/market", element: <Market /> },
@@ -28,7 +28,7 @@ const routes = [
   { path: "/searchmall/:isbn", element: <SearchMallPage /> },
   { path: "/purchase-create", element: <PurchaseCreatePage /> },
   { path: "/purchase-view", element: <PurchaseViewPage /> },
-  { path: "/myview", element: <MyPostViewPage /> },
+  { path: "/myview/:postId", element: <MyPostViewPage /> },
 ];
 
 export default routes;

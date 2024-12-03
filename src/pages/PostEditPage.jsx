@@ -5,8 +5,7 @@ import Header from '../components/Header';
 import axios from 'axios';
 
 const PostEditPage = () => {
-    // const { postId } = useParams();
-    const postId = 2; 
+    const { postId } = useParams();
     const [imagePreview, setImagePreview] = useState(null);
     const [formData, setFormData] = useState({
         title: '',
@@ -26,7 +25,7 @@ const PostEditPage = () => {
     useEffect(() => {
         const fetchPostData = async () => {
             try {
-                const response = await axios.get(`http://13.209.5.86:5000/api/posts/${postId}`, {
+                const response = await axios.get(`http://3.37.35.134:8080/api/posts/${postId}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                     },
@@ -52,18 +51,6 @@ const PostEditPage = () => {
 
         fetchPostData();
     }, [postId]);
-
-    // 이미지 파일 변경
-    const handleImageChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setImagePreview(URL.createObjectURL(file));
-            setFormData({
-                ...formData,
-                image: file,
-            });
-        }
-    };
 
     // 입력값 변경
     const handleInputChange = (event) => {
@@ -95,7 +82,7 @@ const PostEditPage = () => {
 
         try {
             const response = await axios.put(
-                `http://13.209.5.86:5000/api/posts/${postId}`, 
+                `http://3.37.35.134:8080/api/posts/${postId}`, 
                 updateData, 
                 {
                     headers: {
@@ -109,6 +96,7 @@ const PostEditPage = () => {
                 navigate(`/posts/${postId}`); // 수정 후 해당 게시글 페이지로 이동
             } else {
                 alert('게시글 수정에 실패했습니다.');
+                console.log(response.data.message);
             }
         } catch (error) {
             console.error('게시글 수정 오류:', error);
@@ -127,7 +115,7 @@ const PostEditPage = () => {
                     return;
                 }
 
-                const response = await axios.delete(`http://13.209.5.86:5000/api/posts/${postId}`, {
+                const response = await axios.delete(`http://3.37.35.134:8080/api/posts/${postId}`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
@@ -164,19 +152,10 @@ const PostEditPage = () => {
                                 />
                             </div>
                             <div className="image-input">
-                                <label>이미지 업로드</label>
                                 <div className="image-preview-container">
                                     {imagePreview ? (
                                         <img src={imagePreview} alt="preview" className="image-preview" />
-                                    ) : (
-                                        <div className="image-placeholder">이미지를 추가하세요</div>
-                                    )}
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={handleImageChange}
-                                        className="image-upload-input"
-                                    />
+                                    ) : null}
                                 </div>
                             </div>
                         </div>
@@ -203,8 +182,8 @@ const PostEditPage = () => {
                                         <input
                                             type="radio"
                                             name="status"
-                                            value="good"
-                                            checked={formData.status === 'good'}
+                                            value="상"
+                                            checked={formData.status === '상'}
                                             disabled
                                         />
                                         상
@@ -213,8 +192,8 @@ const PostEditPage = () => {
                                         <input
                                             type="radio"
                                             name="status"
-                                            value="fair"
-                                            checked={formData.status === 'fair'}
+                                            value="중"
+                                            checked={formData.status === '중'}
                                             disabled
                                         />
                                         중
@@ -223,8 +202,8 @@ const PostEditPage = () => {
                                         <input
                                             type="radio"
                                             name="status"
-                                            value="poor"
-                                            checked={formData.status === 'poor'}
+                                            value="하"
+                                            checked={formData.status === '하'}
                                             disabled
                                         />
                                         하
@@ -249,8 +228,8 @@ const PostEditPage = () => {
                                         <input
                                             type="radio"
                                             name="purpose"
-                                            value="sell"
-                                            checked={formData.purpose === 'sell'}
+                                            value="판매"
+                                            checked={formData.purpose === '판매'}
                                             disabled
                                         />
                                         판매
@@ -259,8 +238,8 @@ const PostEditPage = () => {
                                         <input
                                             type="radio"
                                             name="purpose"
-                                            value="exchange"
-                                            checked={formData.purpose === 'exchange'}
+                                            value="교환"
+                                            checked={formData.purpose === '교환'}
                                             disabled
                                         />
                                         교환

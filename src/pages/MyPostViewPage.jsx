@@ -11,6 +11,7 @@ const MyPostView = () => {
         newComment,
         setNewComment,
         handleAddComment,
+        handleDeleteComment
     } = usePostView(false);
     const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ const MyPostView = () => {
                     return;
                 }
 
-                const response = await axios.delete(`http://13.209.5.86:5000/api/posts/${postId}`, {
+                const response = await axios.delete(`http://3.37.35.134:8080/api/posts/${postId}`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
@@ -105,12 +106,15 @@ const MyPostView = () => {
                     </div>
                     {comments.length > 0 && (
                         <div className='comments'>
-                            {comments.map((comment) => (
-                                <div key={comment.id} className='comment'>
-                                    <strong>{comment.userId}</strong> {comment.content}
-                                </div>
-                            ))}
-                        </div>
+                        {comments.map((comment) => (
+                            <div key={comment.commentId} className='comment'>
+                                <p className='user-id'>{comment.userId}</p> <p className='content'>{comment.commentContent}</p>
+                                <button className='delete-btn' onClick={() => handleDeleteComment(comment.commentId)}>
+                                    X
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                     )}
                 </div>
             </div>
