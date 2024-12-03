@@ -79,10 +79,30 @@ nav ul li:hover {
   position: absolute;
   background-color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  right: 0;
-  top: 100%;
+  right: 40px;
+  top: 80%;
   z-index: 3;
   padding: 10px;
   border-radius: 4px;
-  display: block; // 항상 렌더링되며 상태에 따라 렌더링 여부 결정
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #333;
+}
+
+.header__dropdown button,
+.header__dropdown a {
+  all: unset;
+  padding: 0 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.header__dropdown button:hover,
+.header__dropdown a:hover {
+  background-color: #f1f1f1;
 }

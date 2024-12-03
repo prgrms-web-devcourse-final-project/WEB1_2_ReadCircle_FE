@@ -111,8 +111,11 @@ const Header = () => {
               {isDropdownVisible && (
                 <div className="header__dropdown">
                   <button onClick={toggleNotificationModal}>알림</button>
+                  <hr />
                   <Link to="/mypage">마이페이지</Link>
+                  <hr />
                   <Link to="/cart">장바구니</Link>
+                  <hr />
                   <button onClick={handleLogout}>로그아웃</button>
                 </div>
               )}
