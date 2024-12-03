@@ -84,6 +84,7 @@ const Header = () => {
         <nav>
           <ul>
             <li>
+              {/* import NavLink or activeClassName 수정 중 */}
               <Link to="/searchresult" activeClassName="active">
                 전체 보기
               </Link>
