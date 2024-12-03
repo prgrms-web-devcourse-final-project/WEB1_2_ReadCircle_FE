@@ -34,7 +34,6 @@ const Header = () => {
           const userData = await response.json();
           setIsLoggedIn(true);
           setUser(userData);
-          console.log(userData);
         } else if (response.status === 401 || response.status === 403) {
           // 인증 실패 시 토큰 삭제
           setIsLoggedIn(false);
@@ -71,9 +70,7 @@ const Header = () => {
     setIsNotificationModalVisible((prev) => !prev);
   };
 
-  // const imagePath = `http://3.37.35.134:8080${user?.data.profileImageUrl}`;
-  const imagePath = `http://localhost:5173${user?.data.profileImageUrl}`;
-  console.log(imagePath);
+  const imagePath = `http://3.37.35.134:8080${user?.data.profileImageUrl}`;
 
   return (
     <header className="header">
@@ -105,11 +102,12 @@ const Header = () => {
           {isLoggedIn ? (
             <div className="header__profile">
               <img
-                src={user?.profileImage || "/default-profile.png"}
+                src={imagePath}
                 alt="Profile"
                 className="header__profile-img"
                 style={{
-                  width: "20px",
+                  width: "40px",
+                  height: "40px",
                   borderRadius: "50%",
                   cursor: "pointer",
                 }}
