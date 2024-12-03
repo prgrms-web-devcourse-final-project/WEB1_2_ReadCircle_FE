@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import "../styles/scss/Header.scss";
 import NotificationModal from "./NotificationModal";
 
@@ -84,13 +84,19 @@ const Header = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/searchresult">전체 보기</Link>
+              <Link to="/searchresult" activeClassName="active">
+                전체 보기
+              </Link>
             </li>
             <li>
-              <Link to="/shop">쇼핑</Link>
+              <Link to="/shop" activeClassName="active">
+                쇼핑
+              </Link>
             </li>
             <li>
-              <Link to="/market">직거래</Link>
+              <Link to="/market" activeClassName="active">
+                직거래
+              </Link>
             </li>
           </ul>
         </nav>
