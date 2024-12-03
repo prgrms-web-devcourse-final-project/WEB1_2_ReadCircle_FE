@@ -60,7 +60,6 @@ export const fetchDirectTradePosts = async () => {
     forSale: post.tradeStatus, // 판매 상태 (판매 완료, 판매 교환)
     price: post.price,
     tradeType: post.tradeType,
-    // thumbnailUrl: post.bookAPIImage,
     thumbnailUrl: `${BASE_URL}${encodeURIComponent(post.bookAPIImage)}`,
     // thumbnailUrl: `${baseUrl.replace(/\/$/, "")}/${imagePath.replace(
     //   /^\//,
