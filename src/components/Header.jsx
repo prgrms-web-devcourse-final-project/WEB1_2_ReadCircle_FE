@@ -23,14 +23,18 @@ const Header = () => {
       }
 
       try {
-        const response = await fetch("/api/users/me", {
+        const response = await fetch("http://3.37.35.134:8080/api/users/me", {
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 저장된 JWT 토큰
+          },
         });
 
         if (response.ok) {
           const userData = await response.json();
           setIsLoggedIn(true);
           setUser(userData);
+          console.log(userData);
         } else if (response.status === 401 || response.status === 403) {
           // 인증 실패 시 토큰 삭제
           setIsLoggedIn(false);
