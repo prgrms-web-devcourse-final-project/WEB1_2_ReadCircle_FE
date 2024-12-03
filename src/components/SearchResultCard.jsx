@@ -13,14 +13,14 @@ const SearchResultCard = ({ book }) => {
           <img src={book.thumbnailUrl} alt={book.title} />
         </div>
         <div className="book-details">
-          <h3 className="book-isbn">ISBN: {book.isbn}</h3>
           <h3 className="book-title">{book.title}</h3>
-          <p className="book-author">by {book.author}</p>
-          <p className="book-year">Published: {book.publishDate}</p>
-          <p className="book-publisher">publisher: {book.publisher}</p>
+          <p className="isbn">ISBN {book.isbn}</p>
+          <p className="book-author">{book.author}</p>
+          <p className="book-year">{book.publishDate}</p>
+          <p className="book-publisher">{book.publisher}</p>
           <div className="stock-info">
-            <p>New: {book.newCount} </p>
-            <p>Used: {book.usedCount} </p>
+            <p>쇼핑: {book.newCount} </p>
+            <p>직거래: {book.usedCount} </p>
           </div>
         </div>
       </Link>
