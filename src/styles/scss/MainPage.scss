@@ -94,53 +94,36 @@ main {
       display: flex;
       flex-direction: column;
       gap: 20px;
+    }
 
-      .slick-list {
-        overflow: hidden;
-        padding: 10px 0;
+    .card {
+      background-color: #fff;
+      color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      opacity: 0.5;
+      transform: scale(0.9);
+
+      h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
       }
 
-      .slick-track {
-        display: flex;
-        align-items: stretch;
+      p {
+        font-size: 16px;
+        line-height: 1.5;
       }
+    }
 
-      .slick-slide {
-        display: flex !important; // 슬라이더 내부 요소들이 flexbox로 정렬되도록 강제
-        justify-content: center;
-        align-items: center;
-      }
+    .slick-center {
+      opacity: 1;
+      transform: scale(1);
+    }
 
-      .card {
-        flex: 1 1 280px;
-        margin: 15px;
-        min-width: 280px;
-        background: #fff;
-        color: #333;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        text-align: center;
-
-        h3 {
-          font-size: 24px;
-          margin-bottom: 10px;
-          font-weight: bold;
-        }
-
-        p {
-          font-size: 16px;
-          color: #555;
-          line-height: 1.5;
-        }
-      }
-
-      .note {
-        font-size: 14px;
-        margin-top: 10px;
-        color: #ccc;
-        text-align: center;
-      }
+    .slick-slide {
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
   }
 
@@ -168,3 +151,50 @@ main {
     }
   }
 }
+
+//   .slick-list {
+//     overflow: hidden;
+//     padding: 10px 0;
+//   }
+
+//   .slick-track {
+//     display: flex;
+//     align-items: stretch;
+//   }
+
+//   .slick-slide {
+//     display: flex !important; // 슬라이더 내부 요소들이 flexbox로 정렬되도록 강제
+//     justify-content: center;
+//     align-items: center;
+//   }
+
+// .card {
+//   flex: 1 1 280px;
+//   margin: 15px;
+//   min-width: 280px;
+//   background: #fff;
+//   color: #333;
+//   padding: 20px;
+//   border-radius: 10px;
+//   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+//   text-align: center;
+
+//   h3 {
+//     font-size: 24px;
+//     margin-bottom: 10px;
+//     font-weight: bold;
+//   }
+
+//   p {
+//     font-size: 16px;
+//     color: #555;
+//     line-height: 1.5;
+//   }
+// }
+
+//   .note {
+//     font-size: 14px;
+//     margin-top: 10px;
+//     color: #ccc;
+//     text-align: center;
+//   }

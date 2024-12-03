@@ -18,20 +18,12 @@ const MainPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const settings = {
-    dots: true,
+    className: "center",
+    centerMode: true,
     infinite: true,
-    speed: 500,
+    centerPadding: "60px",
     slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+    speed: 500,
   };
 
   useEffect(() => {
