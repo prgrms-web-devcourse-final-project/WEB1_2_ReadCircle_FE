@@ -1,10 +1,6 @@
 import axios from "axios";
 
-<<<<<<< HEAD
-const BASE_URL = "http://3.34.60.101:5000";
-=======
 const BASE_URL = "http://3.37.35.134:8080";
->>>>>>> temp-branch
 
 // 로컬 스토리지에서 토큰 가져오기
 const getAuthToken = () => {
