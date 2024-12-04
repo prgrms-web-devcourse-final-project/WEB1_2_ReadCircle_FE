@@ -1,63 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import React from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, fetchUser } from "../redux/authSlice";
 import "../styles/scss/Header.scss";
 import NotificationModal from "./NotificationModal";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const dispatch = useDispatch();
+
+  const { isLoggedIn, user, loading } = useSelector((state) => state.auth);
+  const [isDropdownVisible, setIsDropdownVisible] = React.useState(false);
   const [isNotificationModalVisible, setIsNotificationModalVisible] =
-    useState(false);
+    React.useState(false);
 
   // 로그인 상태 확인
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      const accessToken = localStorage.getItem("accessToken");
-      if (!accessToken) {
-        // 토큰이 없으면 로그인 상태 해제
-        setIsLoggedIn(false);
-        setUser(null);
-        return;
-      }
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      dispatch(fetchUser());
+    }
+  }, [isLoggedIn, dispatch]);
 
-      try {
-        const response = await fetch("http://3.37.35.134:8080/api/users/me", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 저장된 JWT 토큰
-          },
-        });
-
-        if (response.ok) {
-          const userData = await response.json();
-          setIsLoggedIn(true);
-          setUser(userData);
-        } else if (response.status === 401 || response.status === 403) {
-          // 인증 실패 시 토큰 삭제
-          setIsLoggedIn(false);
-          setUser(null);
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
-        }
-      } catch (error) {
-        console.error("Error fetching login status:", error);
-      }
-    };
-
-    checkLoginStatus();
-  }, []);
-
-  // 로그아웃 처리
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-
-    setIsLoggedIn(false);
-    setUser(null);
-
+    dispatch(logout());
     navigate("/");
   };
 
