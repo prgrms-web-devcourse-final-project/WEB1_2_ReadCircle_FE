@@ -23,7 +23,7 @@ export const fetchECommerceBooks = async () => {
     id: book.id,
     isbn: book.isbn,
     title: book.title,
-    // content: post.content,
+    content: book.description,
     category: book.category,
     author: book.author,
     publisher: book.publisher,
@@ -31,7 +31,8 @@ export const fetchECommerceBooks = async () => {
     condition: book.bookCondition,
     price: book.price,
     forSale: book.forSale,
-    thumbnailUrl: book.thumbnailUrl,
+    thumbnailUrl: `${BASE_URL}/${book.thumbnailUrl}`,
+    // thumbnailUrl: `${BASE_URL}/${encodeURIComponent(book.thumbnailUrl)}`,
     createdAt: book.createdAt,
     updatedAt: book.updatedAt,
   }));
@@ -60,7 +61,8 @@ export const fetchDirectTradePosts = async () => {
     forSale: post.tradeStatus, // 판매 상태 (판매 완료, 판매 교환)
     price: post.price,
     tradeType: post.tradeType,
-    thumbnailUrl: `${BASE_URL}${encodeURIComponent(post.bookAPIImage)}`,
+    thumbnailUrl: `${BASE_URL}${post.bookAPIImage}`,
+    // thumbnailUrl: `${BASE_URL}${encodeURIComponent(post.bookAPIImage)}`,
     // thumbnailUrl: `${baseUrl.replace(/\/$/, "")}/${imagePath.replace(
     //   /^\//,
     //   ""
