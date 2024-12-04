@@ -12,6 +12,7 @@ import SearchMallPage from "./pages/SearchMallPage";
 import PurchaseCreatePage from "./pages/PurchaseCreatePage";
 import PurchaseViewPage from "./pages/PurchaseViewPage";
 import MyPostViewPage from "./pages/MyPostViewPage";
+import CartPage from "./pages/CartPage";
 
 const routes = [
   { path: "/join", element: <JoinPage /> },
@@ -28,6 +29,8 @@ const routes = [
   { path: "/searchmall/:isbn", element: <SearchMallPage /> },
   { path: "/purchase-create", element: <PurchaseCreatePage /> },
   { path: "/purchase-view", element: <PurchaseViewPage /> },
+  { path: "/myview", element: <MyPostViewPage /> },
+  { path: "/cart", element: <CartPage /> },
   { path: "/myview/:postId", element: <MyPostViewPage /> },
 ];
 

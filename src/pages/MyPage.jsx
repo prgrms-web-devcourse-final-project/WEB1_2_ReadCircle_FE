@@ -190,7 +190,6 @@ const MyPage = () => {
                     },
                 }
             );
-            console.log(response.data)
             alert('프로필 이미지 변경이 완료되었습니다.');
             setIsOpen(false);
             setImage(response.data.data);
