@@ -81,6 +81,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        margin-left: 80px;
 
         .price {
           font-size: 16px;
@@ -105,13 +106,12 @@
       .action-buttons {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: flex-end;
 
         .primary-button,
         .secondary-button {
           padding: 10px 12px;
           width: 120px;
-          margin-bottom: 8px;
           border: none;
           border-radius: 6px;
           cursor: pointer;
