@@ -123,6 +123,7 @@ const PostCreatePage = () => {
                         author: selectedBook ? selectedBook.author : '',
                         publisher: selectedBook ? selectedBook.publisher : '',
                         publishDate: selectedBook ? selectedBook.pubdate : '',
+                        bookAPIImage: selectedBook ? selectedBook.image : '',
                         // userId
                     })
                 ],

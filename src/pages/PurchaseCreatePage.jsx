@@ -127,6 +127,7 @@ const PurchaseCreatePage = () => {
                         bookCondition: selectedStatus,
                         isbn: selectedBook ? selectedBook.isbn : '',
                         publishDate: selectedBook ? selectedBook.pubdate : '',
+                        bookAPIImage: selectedBook ? selectedBook.image : '',
                         accountOwner: formData.accountOwner,
                         bank: formData.bank,
                         account: formData.account
@@ -275,36 +276,38 @@ const PurchaseCreatePage = () => {
                                 <span className="unit">원</span>
                             </div>
 
-                            <div className="bank-info-container">
-                                <div className="input-group">
-                                    <label htmlFor="depositorName">예금주</label>
+                            <div className="account-container">
+                                <div className="name-input">
                                     <input
                                         type="text"
                                         name="depositorName"
                                         id="depositorName"
                                         value={formData.depositorName}
                                         onChange={handleInputChange}
+                                        placeholder='예금주'
                                     />
                                 </div>
-                                <div className="input-group">
-                                    <label htmlFor="bankName">은행</label>
-                                    <input
-                                        type="text"
-                                        name="bankName"
-                                        id="bankName"
-                                        value={formData.bankName}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="input-group">
-                                    <label htmlFor="accountNumber">계좌번호</label>
-                                    <input
-                                        type="text"
-                                        name="accountNumber"
-                                        id="accountNumber"
-                                        value={formData.accountNumber}
-                                        onChange={handleInputChange}
-                                    />
+                                <div className='bankInfo'>
+                                    <div className="bank-input">
+                                        <input
+                                            type="text"
+                                            name="bankName"
+                                            id="bankName"
+                                            value={formData.bankName}
+                                            onChange={handleInputChange}
+                                            placeholder='은행'
+                                        />
+                                    </div>
+                                    <div className="account-input">
+                                        <input
+                                            type="text"
+                                            name="accountNumber"
+                                            id="accountNumber"
+                                            value={formData.accountNumber}
+                                            onChange={handleInputChange}
+                                            placeholder='계좌번호'
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
