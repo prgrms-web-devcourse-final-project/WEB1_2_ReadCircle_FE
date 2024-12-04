@@ -188,15 +188,18 @@
 .write-page .write-container .price-input {
   position: relative;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+}
+.write-page .write-container .price-input input {
+  padding-right: 40px;
 }
 .write-page .write-container .price-input .unit {
   position: absolute;
-  right: -100px;
+  right: 0;
   bottom: 0;
   font-size: 14px;
   font-weight: bold;
-  color: #ccc;
+  color: #888;
 }
 .write-page .write-container .category-buttons {
   display: flex;

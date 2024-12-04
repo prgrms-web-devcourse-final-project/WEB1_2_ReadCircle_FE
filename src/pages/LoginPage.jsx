@@ -12,6 +12,7 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+
   const loginFn = async () => {
     try {
       const response = await axios.post(

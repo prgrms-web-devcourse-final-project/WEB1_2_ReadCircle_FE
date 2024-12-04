@@ -1,0 +1,71 @@
+.book-details-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px 90px;
+}
+.book-details-container .book-header {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 200px;
+  background-color: #f9f9f9;
+}
+.book-details-container .book-header .book-info {
+  display: flex;
+  flex-direction: column;
+}
+.book-details-container .book-header .book-info .book-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.book-details-container .book-header .book-info .book-meta {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+.book-details-container .book-header .book-info .book-content {
+  display: flex;
+  gap: 20px;
+}
+.book-details-container .book-header .book-info .book-content .book-thumbnail {
+  width: 150px;
+  height: auto;
+  border: 1px solid #ddd;
+}
+.book-details-container .book-header .book-info .book-content .book-description {
+  flex: 1;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+.book-details-container .category-buttons {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.book-details-container .category-buttons .category-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  color: #555;
+}
+.book-details-container .category-buttons .category-button.active {
+  color: #000;
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+}
+.book-details-container .category-buttons .category-button:hover {
+  color: #000;
+}
+.book-details-container .book-list {
+  flex: 2;
+  padding: 20px 60px;
+  overflow-y: auto;
+}

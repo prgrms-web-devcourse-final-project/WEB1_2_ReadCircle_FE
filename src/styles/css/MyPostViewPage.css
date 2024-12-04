@@ -82,29 +82,43 @@
   text-align: center;
 }
 
-.wish {
-  background-color: #3E6604;
-  width: 200px;
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  padding: 12px;
-  cursor: pointer;
-  font-size: 20px;
-  margin-top: 15px;
-  transition: background-color 0.3s;
-  text-align: center;
-}
-
-.message:hover, .wish:hover {
-  background-color: #385c04;
-}
-
 .description {
   margin: 20px;
   font-size: 16px;
   line-height: 1.6;
   word-wrap: break-word;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin: 20px;
+  width: 80%;
+}
+.action-buttons button {
+  padding: 10px 20px;
+  margin: 0;
+  width: 100px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.action-buttons button.edit {
+  background-color: #3E6604;
+  color: white;
+}
+.action-buttons button.edit:hover {
+  background-color: #385c04;
+}
+.action-buttons button.delete {
+  background-color: #3E6604;
+  color: white;
+}
+.action-buttons button.delete:hover {
+  background-color: #385c04;
 }
 
 .comment-section {

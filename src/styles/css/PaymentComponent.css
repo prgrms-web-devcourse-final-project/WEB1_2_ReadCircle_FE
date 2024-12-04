@@ -1,0 +1,86 @@
+.payment_area {
+  width: 49%;
+  max-width: 500px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  color: #121212;
+}
+.payment_area h2 {
+  font-size: 22px;
+  margin-bottom: 25px;
+}
+.payment_area h3 {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.payment_area .cards {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.payment_area .cards li {
+  width: 75px;
+  height: 55px;
+  text-align: center;
+  line-height: 55px;
+  font-size: 14px;
+}
+.payment_area .cards li img {
+  width: 100%;
+  height: 100%;
+}
+.payment_area .card_info {
+  margin-top: 25px;
+}
+.payment_area .card_info > div {
+  margin-top: 15px;
+}
+.payment_area .card_info > div p {
+  font-size: 14px;
+}
+.payment_area .card_info > div input {
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  border-bottom: solid #d9d9d9 1px;
+  padding: 10px;
+  outline: none;
+}
+.payment_area .card_info .card_date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.payment_area .card_info .card_date div {
+  width: 45%;
+}
+.payment_area .card_info .card_date div p {
+  font-size: 14px;
+}
+.payment_area .total_price {
+  margin-top: 35px;
+}
+.payment_area .total_price div {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.payment_area .total_price div p {
+  font-size: 14px;
+}
+.payment_area .purchase_btn {
+  width: 100%;
+  margin-top: 25px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+.payment_area .purchase_btn.on {
+  color: #fefcfc;
+  background: #27AE60;
+}
