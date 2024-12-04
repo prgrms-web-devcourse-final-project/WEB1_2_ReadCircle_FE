@@ -60,7 +60,9 @@ nav ul li a:hover {
 }
 
 nav ul li a.active {
-  color: #148f77;
+  font-weight: bold;
+  color: #1abc9c;
+  border-bottom: 2px solid #1abc9c;
 }
 
 .actions .header__login {

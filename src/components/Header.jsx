@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, NavLink } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../styles/scss/Header.scss";
 import NotificationModal from "./NotificationModal";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -81,18 +82,28 @@ const Header = () => {
         <nav>
           <ul>
             <li>
-              {/* import NavLink or activeClassName 수정 중 */}
-              <Link to="/searchresult" activeClassName="active">
+              <Link
+                to="/searchresult"
+                className={
+                  location.pathname === "/searchresult" ? "active" : ""
+                }
+              >
                 전체 보기
               </Link>
             </li>
             <li>
-              <Link to="/shop" activeClassName="active">
+              <Link
+                to="/shop"
+                className={location.pathname === "/shop" ? "active" : ""}
+              >
                 쇼핑
               </Link>
             </li>
             <li>
-              <Link to="/market" activeClassName="active">
+              <Link
+                to="/market"
+                className={location.pathname === "/market" ? "active" : ""}
+              >
                 직거래
               </Link>
             </li>
