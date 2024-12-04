@@ -187,7 +187,7 @@ const JoinPage = () => {
         }
 
         await axios.post(
-            'http://13.209.5.86:5000/api/users/signup',
+            'http://3.37.35.134:8080/api/users/signup',
             formData,
             {
                 headers: {

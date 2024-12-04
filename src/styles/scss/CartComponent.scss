@@ -1,0 +1,94 @@
+.cart_area {
+    width: 49%;
+    color: #1E1E1E;
+
+    button {
+        width: auto;
+        height: auto;
+        margin: 0;
+        margin-bottom: 0;
+        border: none;
+        background: none;
+    }
+
+    .go_back_area {
+        width: 100%;
+        border-bottom: 2px solid #D0CFCF;
+        padding: 20px 10px;
+
+        button {
+            font-size: 18px;
+            font-weight: 300;
+        }
+    }
+
+    .quantity {
+        font-size: 14px;
+        margin-top: 40px;
+    }
+
+    .carts {
+        margin-top: 40px;
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
+            img {
+                width: 80px;
+                height: 80px;
+                margin-right: 15px;
+            }
+
+            .book_info {
+                width: 40%;
+
+                .book_title {
+                    font-size: 18px;
+
+                    span {
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            .quantitiy_area {
+                display: flex;
+                align-items: center;
+
+                p {
+                    font-size: 22px;
+                    margin-right: 5px;
+                }
+
+                button {
+                    width: 25px;
+                    height: 25px;
+                    font-size: 20px;
+                }
+
+                button.none {
+                    pointer-events: none;
+                }
+            }
+
+            .pirce {
+                font-size: 14px;
+            }
+
+            .delete {
+                width: 25px;
+                height: 25px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
