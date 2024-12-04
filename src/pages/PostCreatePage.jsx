@@ -28,27 +28,29 @@ const PostCreatePage = () => {
   const handleSearch = async () => {
     if (!searchQuery) return;
 
-    try {
-      const results = await searchBooks(searchQuery);
-      setSearchResults(results);
-      setIsModalOpen(true);
-      // eslint-disable-next-line no-unused-vars
-    } catch (error) {
-      alert("책 검색에 실패했습니다.");
-    }
-  };
+        try {
+            const results = await searchBooks(searchQuery);
+            console.log('검색 결과:', results);
+            setSearchResults(results);
+            setIsModalOpen(true);
+        // eslint-disable-next-line no-unused-vars
+        } catch (error) {
+            alert('책 검색에 실패했습니다.');
+        }
+    };
 
-  // 검색 결과 중 책 선택
-  const handleBookSelect = (book) => {
-    setSelectedBook(book);
-    setFormData({
-      ...formData,
-      title: book.title,
-      category: book.category || "카테고리 정보 없음",
-    });
-    setSearchResults([]);
-    setIsModalOpen(false);
-  };
+    // 검색 결과 중 책 선택
+    const handleBookSelect = (book) => {
+        setSelectedBook(book);
+        console.log("선택된 책:", book);
+        setFormData({
+            ...formData,
+            title: book.title,
+            category: book.category || '카테고리 정보 없음',
+        });
+        setSearchResults([]); 
+        setIsModalOpen(false);
+    };
 
   // 책 상태 변경 및 가격 계산
   const handleStatusChange = (event) => {
@@ -74,14 +76,14 @@ const PostCreatePage = () => {
     setSelectedPurpose(event.target.value);
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-      const fileUrl = URL.createObjectURL(file);
-      setImageFile(fileUrl);
-    }
-  };
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setImageFile(file);
+            const fileUrl = URL.createObjectURL(file);
+            setImagePreview(fileUrl);
+        }
+    };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -91,78 +93,77 @@ const PostCreatePage = () => {
     });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const accessToken = localStorage.getItem("accessToken");
-    console.log("Access Token:", accessToken);
-
-    if (!accessToken) {
-      alert("로그인 상태가 아닙니다.");
-      return;
-    }
-
-    if (
-      !formData.title ||
-      !formData.category ||
-      !selectedStatus ||
-      !calculatedPrice ||
-      !selectedPurpose
-    ) {
-      alert("모든 필드를 입력해 주세요.");
-      return;
-    }
-
-    const postData = new FormData();
-
-    postData.append(
-      "postDTO",
-      new Blob(
-        [
-          JSON.stringify({
-            title: formData.title,
-            content: formData.description,
-            price: calculatedPrice,
-            bookCategory: formData.category,
-            bookCondition: selectedStatus,
-            tradeType: selectedPurpose,
-            // userId
-          }),
-        ],
-        { type: "application/json" }
-      )
-    );
-
-    postData.append("bookImage", imageFile);
-
-    for (let [key, value] of postData.entries()) {
-      console.log(`${key}:`, value);
-    }
-
-    try {
-      // 서버로 POST 요청 보내기
-      const response = await axios.post(
-        "http://13.209.5.86:5000/api/posts/create",
-        postData,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "multipart/form-data",
-          },
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    
+        const accessToken = localStorage.getItem('accessToken'); 
+        console.log('Access Token:', accessToken);
+    
+        if (!accessToken) {
+            alert('로그인 상태가 아닙니다.');
+            return;
         }
-      );
-
-      if (response.data.success) {
-        alert("게시글이 성공적으로 작성되었습니다.");
-        navigate("/");
-      } else {
-        alert("게시글 작성에 실패했습니다.");
-      }
-    } catch (error) {
-      console.error("게시글 작성 오류:", error);
-      alert("서버 오류가 발생했습니다. 다시 시도해 주세요.");
-    }
-  };
+    
+        if (!formData.title || !formData.category || !selectedStatus || !calculatedPrice || !selectedPurpose) {
+            alert('모든 필드를 입력해 주세요.');
+            return;
+        }
+    
+        const postData = new FormData();
+        
+        postData.append(
+            "postDTO", 
+            new Blob(
+                [
+                    JSON.stringify({
+                        title: formData.title,
+                        content: formData.description,
+                        price: calculatedPrice,
+                        bookCategory: formData.category,
+                        bookCondition: selectedStatus,
+                        tradeType: selectedPurpose,
+                        isbn: selectedBook ? selectedBook.isbn : '',
+                        author: selectedBook ? selectedBook.author : '',
+                        publisher: selectedBook ? selectedBook.publisher : '',
+                        publishDate: selectedBook ? selectedBook.pubdate : '',
+                        bookAPIImage: selectedBook ? selectedBook.image : '',
+                        // userId
+                    })
+                ],
+                { type: "application/json" }
+            )
+        );
+    
+        postData.append("bookImage", imageFile);
+    
+        for (let [key, value] of postData.entries()) {
+            console.log(`${key}:`, value);
+        }
+    
+        try {
+            // 서버로 POST 요청 보내기
+            const response = await axios.post(
+                'http://3.37.35.134:8080/api/posts/create',
+                postData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "multipart/form-data",
+                    }
+                }
+            );
+    
+            if (response.data.success) {
+                alert('게시글이 성공적으로 작성되었습니다.');
+                navigate('/');
+            } else {
+                alert('게시글 작성에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('게시글 작성 오류:', error);
+            alert('서버 오류가 발생했습니다. 다시 시도해 주세요.');
+        }
+    };
 
   const handleCancel = () => {
     navigate("/");
@@ -245,21 +246,21 @@ const PostCreatePage = () => {
               </div>
             </div>
 
-            <div className="write-right">
-              <div className="category-buttons">
-                <label>카테고리</label>
-                {categoryBtn.map((category, index) => (
-                  <button
-                    key={index}
-                    className={`category-button ${
-                      formData.category === category ? "selected" : ""
-                    }`}
-                    onClick={() => handleCategoryClick(category)}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
+                        <div className="write-right">
+                            <div className='category-input'>
+                                <label>카테고리</label>
+                                <div className="category-buttons">
+                                    {categoryBtn.map((category, index) => (
+                                        <button
+                                            key={index}
+                                            className={`category-button ${formData.category === category ? 'selected' : ''}`}
+                                            onClick={() => handleCategoryClick(category)}
+                                        >
+                                            {category}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
 
               <div className="status-input">
                 <label>상태</label>

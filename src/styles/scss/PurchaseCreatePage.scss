@@ -202,7 +202,6 @@ $hover-color: #e0e0e0;
     .price-input {
       position: relative;
       display: flex;
-      align-items: center;
       
       input {
         padding-right: 40px;
@@ -299,6 +298,33 @@ $hover-color: #e0e0e0;
         }
       }
     }
+  }
+
+  .account-container {
+    margin-top: 20px;
+  }
+
+  .name-input {
+      margin-bottom: 10px;
+  }
+
+  .bankInfo {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+  }
+
+  .bank-input,
+  .account-input {
+      flex: 1;
+  }
+
+  input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
   }
 
   .button-container {

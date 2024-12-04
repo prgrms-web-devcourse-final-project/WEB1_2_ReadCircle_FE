@@ -7,21 +7,21 @@ import { searchBooks } from "../api"; // 네이버 API 호출 함수
 import SearchModal from "../components/SearchModal";
 
 const PurchaseCreatePage = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedBook, setSelectedBook] = useState(null);
-  const [selectedStatus, setSelectedStatus] = useState("");
-  const [calculatedPrice, setCalculatedPrice] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
-  const [formData, setFormData] = useState({
-    title: "",
-    category: "",
-    depositorName: "", // 예금주
-    bankName: "", // 은행
-    accountNumber: "", // 계좌번호
-  });
-  const [imageFile, setImageFile] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [selectedBook, setSelectedBook] = useState(null);
+    const [selectedStatus, setSelectedStatus] = useState('');
+    const [calculatedPrice, setCalculatedPrice] = useState('');
+    const [imagePreview, setImagePreview] = useState(null);
+    const [formData, setFormData] = useState({
+        title: '',
+        category: '',
+        accountOwner: '',  // 예금주
+        bank: '',       // 은행
+        account: '',  // 계좌번호
+    });
+    const [imageFile, setImageFile] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
   const navigate = useNavigate();
 
@@ -78,21 +78,22 @@ const PurchaseCreatePage = () => {
       );
       let calculated = 0;
 
-      if (status === "good") calculated = basePrice * 0.7;
-      else if (status === "fair") calculated = basePrice * 0.6;
-      else if (status === "poor") calculated = basePrice * 0.4;
+            if (status === '상') calculated = basePrice * 0.7;
+            else if (status === '중') calculated = basePrice * 0.6;
+            else if (status === '하') calculated = basePrice * 0.4;
 
       setCalculatedPrice(Math.round(calculated));
     }
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-      setImageFile(file);
-    }
-  };
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setImageFile(file);
+            const fileUrl = URL.createObjectURL(file);
+            setImagePreview(fileUrl);
+        }
+    };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -109,45 +110,58 @@ const PurchaseCreatePage = () => {
     });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    
+        const accessToken = localStorage.getItem('accessToken'); 
+        console.log('Access Token:', accessToken);
+    
+        if (!accessToken) {
+            alert('로그인 상태가 아닙니다.');
+            return;
+        }
+    
+        if (!formData.title || !formData.category || !selectedStatus || !calculatedPrice) {
+            alert('모든 필드를 입력해 주세요.');
+            return;
+        }
+    
+        const postData = new FormData();
+        
+        postData.append(
+            "postDTO", 
+            new Blob(
+                [
+                    JSON.stringify({
+                        title: formData.title,
+                        content: formData.description,
+                        price: calculatedPrice,
+                        bookCategory: formData.category,
+                        bookCondition: selectedStatus,
+                        isbn: selectedBook ? selectedBook.isbn : '',
+                        publishDate: selectedBook ? selectedBook.pubdate : '',
+                        bookAPIImage: selectedBook ? selectedBook.image : '',
+                        accountOwner: formData.accountOwner,
+                        bank: formData.bank,
+                        account: formData.account
+                        // userId
+                    })
+                ],
+                { type: "application/json" }
+            )
+        );
+    
+        postData.append("bookImage", imageFile);
+    
+        for (let [key, value] of postData.entries()) {
+            console.log(`${key}:`, value);
+        }
 
-    if (
-      !formData.title ||
-      !formData.category ||
-      !selectedStatus ||
-      !formData.depositorName ||
-      !formData.bankName ||
-      !formData.accountNumber
-    ) {
-      alert("모든 필드를 입력해 주세요.");
-      return;
-    }
-
-    if (!selectedBook || !selectedBook.isbn) {
-      alert("책을 선택해 주세요.");
-      return;
-    }
-
-    const postData = new FormData();
-    postData.append("userId", "user123"); // 유저 아이디
-    postData.append("bank", formData.bankName); // 은행
-    postData.append("account", formData.accountNumber); // 계좌번호
-    postData.append("accountOwner", formData.depositorName); // 예금주
-    postData.append("isbn", selectedBook.isbn); // ISBN
-    postData.append("bookCondition", selectedStatus);
-    postData.append("price", calculatedPrice);
-
-    // 기존 데이터
-    postData.append("title", formData.title);
-    postData.append("bookCategory", formData.category);
-    postData.append("bookImage", imageFile);
-
-    try {
-      const response = await axios.post(
-        "http://13.209.5.86:5000/api/posts/purchases",
-        postData
-      );
+        try {
+            const response = await axios.post(
+                'http://3.37.35.134:8080/api/sale/register',
+                postData,
+            );
 
       if (response.data.success) {
         alert("게시글이 성공적으로 작성되었습니다.");
@@ -219,102 +233,104 @@ const PurchaseCreatePage = () => {
               </div>
             </div>
 
-            <div className="write-right">
-              <div className="category-buttons">
-                <label>카테고리</label>
-                {categoryBtn.map((category, index) => (
-                  <button
-                    key={index}
-                    className={`category-button ${
-                      formData.category === category ? "selected" : ""
-                    }`}
-                    onClick={() => handleCategoryClick(category)}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
+                        <div className="write-right">
+                            <div className='category-input'>
+                                <label>카테고리</label>
+                                <div className="category-buttons">
+                                    {categoryBtn.map((category, index) => (
+                                        <button
+                                            key={index}
+                                            className={`category-button ${formData.category === category ? 'selected' : ''}`}
+                                            onClick={() => handleCategoryClick(category)}
+                                        >
+                                            {category}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
 
-              <div className="status-input">
-                <label>상태</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      name="status"
-                      value="good"
-                      checked={selectedStatus === "good"}
-                      onChange={handleStatusChange}
-                    />
-                    상
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="status"
-                      value="fair"
-                      checked={selectedStatus === "fair"}
-                      onChange={handleStatusChange}
-                    />
-                    중
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="status"
-                      value="poor"
-                      checked={selectedStatus === "poor"}
-                      onChange={handleStatusChange}
-                    />
-                    하
-                  </label>
-                </div>
-              </div>
-              <div className="price-input">
-                <label>가격</label>
-                <input
-                  type="number"
-                  name="price"
-                  value={calculatedPrice}
-                  readOnly
-                />
-                <span className="unit">원</span>
-              </div>
+                            <div className="status-input">
+                                <label>상태</label>
+                                <div className="radio-group">
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="status"
+                                            value="상"
+                                            checked={selectedStatus === '상'}
+                                            onChange={handleStatusChange}
+                                        />
+                                        상
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="status"
+                                            value="중"
+                                            checked={selectedStatus === '중'}
+                                            onChange={handleStatusChange}
+                                        />
+                                        중
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="status"
+                                            value="하"
+                                            checked={selectedStatus === '하'}
+                                            onChange={handleStatusChange}
+                                        />
+                                        하
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="price-input">
+                                <label>가격</label>
+                                <input
+                                    type="number"
+                                    name="price"
+                                    value={calculatedPrice}
+                                    readOnly
+                                />
+                                <span className="unit">원</span>
+                            </div>
 
-              <div className="bank-info-container">
-                <div className="input-group">
-                  <label htmlFor="depositorName">예금주</label>
-                  <input
-                    type="text"
-                    name="depositorName"
-                    id="depositorName"
-                    value={formData.depositorName}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="input-group">
-                  <label htmlFor="bankName">은행</label>
-                  <input
-                    type="text"
-                    name="bankName"
-                    id="bankName"
-                    value={formData.bankName}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="input-group">
-                  <label htmlFor="accountNumber">계좌번호</label>
-                  <input
-                    type="text"
-                    name="accountNumber"
-                    id="accountNumber"
-                    value={formData.accountNumber}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+                            <div className="account-container">
+                                <div className="name-input">
+                                    <input
+                                        type="text"
+                                        name="depositorName"
+                                        id="depositorName"
+                                        value={formData.depositorName}
+                                        onChange={handleInputChange}
+                                        placeholder='예금주'
+                                    />
+                                </div>
+                                <div className='bankInfo'>
+                                    <div className="bank-input">
+                                        <input
+                                            type="text"
+                                            name="bankName"
+                                            id="bankName"
+                                            value={formData.bankName}
+                                            onChange={handleInputChange}
+                                            placeholder='은행'
+                                        />
+                                    </div>
+                                    <div className="account-input">
+                                        <input
+                                            type="text"
+                                            name="accountNumber"
+                                            id="accountNumber"
+                                            value={formData.accountNumber}
+                                            onChange={handleInputChange}
+                                            placeholder='계좌번호'
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
           <div className="button-container">
             <button className="submit" onClick={handleSubmit}>
