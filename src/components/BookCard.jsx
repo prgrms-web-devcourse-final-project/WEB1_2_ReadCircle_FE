@@ -1,9 +1,9 @@
 import React from "react";
 import "./../styles/scss/BookCard.scss";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const BookCard = ({
+  id,
   title,
   details,
   condition,
@@ -68,7 +68,7 @@ const BookCard = ({
                 className="primary-button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigate("/cart"); // 장바구니 페이지로 이동
+                  navigate(`/cart/${id}`); // 장바구니 페이지로 이동
                 }}
               >
                 장바구니
@@ -77,7 +77,7 @@ const BookCard = ({
                 className="secondary-button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigate("/cart"); // 구매 페이지로 이동
+                  navigate(`/cart/${id}`); // 구매 페이지로 이동
                 }}
               >
                 구매
