@@ -78,10 +78,13 @@ const NotificationModal = ({ onClose }) => {
         <ul>
           {notifications.length > 0 ? (
             notifications.map((notification) => (
-              <li key={notification.notificationId}>
-                <p>{notification.message}</p>
-                <small>
-                  받은 시간: {new Date(notification.createdAt).toLocaleString()}
+              <li
+                key={notification.notificationId}
+                className="notification-item"
+              >
+                <p className="notification-message">{notification.message}</p>
+                <small className="notification-time">
+                  {new Date(notification.createdAt).toLocaleString()}
                 </small>
               </li>
             ))
