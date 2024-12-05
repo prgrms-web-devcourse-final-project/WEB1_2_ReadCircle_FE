@@ -97,7 +97,7 @@ const SearchMallPage = () => {
             <img
               src={representativeBook.thumbnailUrl}
               alt={representativeBook.title}
-              className="book-thumbnail"
+              className="book-thumbnail_mall"
             />
             <p className="book-description">{representativeBook.content}</p>
           </div>

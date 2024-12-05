@@ -5,11 +5,12 @@
   padding: 20px 90px;
 
   .book-header {
-    height: 500px;
     display: flex;
     flex-direction: column;
     padding: 20px 200px;
     background-color: #f9f9f9;
+    height: auto;
+    min-height: 500px;
 
     .book-info {
       display: flex;
@@ -26,23 +27,25 @@
         color: #555;
         margin-bottom: 20px;
       }
+    }
 
-      .book-content {
-        display: flex;
-        gap: 20px;
+    .book-content {
+      display: flex;
+      gap: 20px;
 
-        .book-thumbnail {
-          width: 150px;
-          height: auto;
-          border: 1px solid #ddd;
-        }
+      .book-thumbnail_mall {
+        width: 150px;
+        height: auto;
+        max-height: 200px;
+        border: 1px solid #ddd;
+        object-fit: cover;
+      }
 
-        .book-description {
-          flex: 1;
-          font-size: 14px;
-          color: #333;
-          line-height: 1.5;
-        }
+      .book-description {
+        flex: 1;
+        font-size: 14px;
+        color: #333;
+        line-height: 1.5;
       }
     }
   }
@@ -81,3 +84,89 @@
     overflow-y: auto;
   }
 }
+
+// .book-details-container {
+//   display: flex;
+//   flex-direction: column;
+//   height: 100vh;
+//   padding: 20px 90px;
+
+//   .book-header {
+//     height: 500px;
+//     display: flex;
+//     flex-direction: column;
+//     padding: 20px 200px;
+//     background-color: #f9f9f9;
+
+//     .book-info {
+//       display: flex;
+//       flex-direction: column;
+
+//       .book-title {
+//         font-size: 24px;
+//         font-weight: bold;
+//         margin-bottom: 10px;
+//       }
+
+//       .book-meta {
+//         font-size: 16px;
+//         color: #555;
+//         margin-bottom: 20px;
+//       }
+
+//       .book-content {
+//         display: flex;
+//         gap: 20px;
+
+//         .book-thumbnail_mall {
+//           width: 50px;
+//           height: auto;
+//           max-height: 200px;
+//           border: 1px solid #ddd;
+//           object-fit: cover;
+//         }
+
+//         .book-description {
+//           flex: 1;
+//           font-size: 14px;
+//           color: #333;
+//           line-height: 1.5;
+//         }
+//       }
+//     }
+//   }
+
+//   .category-buttons {
+//     display: flex;
+//     justify-content: center;
+//     padding: 10px;
+//     background-color: #fff;
+//     border-top: 1px solid #ddd;
+//     border-bottom: 1px solid #ddd;
+
+//     .category-button {
+//       padding: 10px 20px;
+//       font-size: 16px;
+//       border: none;
+//       cursor: pointer;
+//       background-color: transparent;
+//       color: #555;
+
+//       &.active {
+//         color: #000;
+//         font-weight: bold;
+//         border-bottom: 2px solid #000;
+//       }
+
+//       &:hover {
+//         color: #000;
+//       }
+//     }
+//   }
+
+//   .book-list {
+//     flex: 2; // 화면 하단 2/3
+//     padding: 20px 60px;
+//     overflow-y: auto;
+//   }
+// }
