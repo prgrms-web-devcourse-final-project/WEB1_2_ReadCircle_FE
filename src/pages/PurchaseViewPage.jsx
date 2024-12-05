@@ -43,15 +43,17 @@ const PurchaseViewPage = () => {
                     }
                 );
 
-                if (response.data) {
-                    const { bookId, title, content, category, postCreatedAt, bookImage, price, bookCondition } = response.data;
+                if (response.data.data) {
+                    const { id, title, description, category, createdAt, thumbnailUrl, price, bookCondition } = response.data.data;
+
+                    // 상태값 업데이트
                     setPost({
-                        bookId,
+                        id,
                         title,
-                        content,
+                        description,
                         category,
-                        postCreatedAt,
-                        bookImage,
+                        createdAt,
+                        thumbnailUrl,
                         price,
                         bookCondition,
                     });
@@ -90,7 +92,11 @@ const PurchaseViewPage = () => {
                     <div className="top-container">
                         <div className="left-container">
                             <div className="image">
-                                <img src={post.bookImage} alt={`${post.title} 책 표지`} />
+                                {post.thumbnailUrl ? (
+                                    <img src={post.thumbnailUrl} alt={`${post.title} 책 표지`} />
+                                ) : (
+                                    <div className="no-image">이미지가 없습니다</div>
+                                )}
                             </div>
                         </div>
                         <div className="right-container">
@@ -107,7 +113,7 @@ const PurchaseViewPage = () => {
                         </div>
                     </div>
                     <div className="description">
-                        <p>{post.content}</p>
+                        <p>{post.description}</p>
                     </div>
                 </div>
             </div>

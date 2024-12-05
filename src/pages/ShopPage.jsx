@@ -139,7 +139,7 @@ const Shop = () => {
             books={filteredBooks}
             onCardClick={(bookId) =>
               // 이커머스 책 상세 페이지 경로
-              navigate(`/purchase-view`)
+              navigate(`/book/${bookId}`)
             }
             showDeliveryFee={true} // 배송비 표시
             showActions={true} // 장바구니, 구매 버튼 표시
