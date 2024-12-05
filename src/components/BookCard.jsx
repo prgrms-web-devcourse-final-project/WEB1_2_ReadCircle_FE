@@ -17,7 +17,6 @@ const BookCard = ({
   isForSale,
 }) => {
   const navigate = useNavigate();
-  console.log(thumbnail);
 
   return (
     <div
