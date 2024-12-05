@@ -1,10 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import { usePostView } from '../components/usePostView';
 import '../styles/scss/MyPostViewPage.scss';
 import axios from 'axios';
 
 const MyPostView = () => {
+    const { postId } = useParams();
     const {
         post,
         comments,
@@ -17,7 +18,7 @@ const MyPostView = () => {
 
     function handleEditPost() {
         if (post) {
-            navigate('/edit');
+            navigate(`/edit/${postId}`);
         }
     }
 
@@ -38,9 +39,9 @@ const MyPostView = () => {
                     },
                 });
 
-                if (response.data.success) {
+                if (response.status === 200) {
                     alert('포스트가 삭제되었습니다.');
-                    navigate('/'); // 삭제 후 메인 페이지로 이동
+                    navigate('/market');
                 } else {
                     alert('게시글 삭제에 실패했습니다.');
                 }

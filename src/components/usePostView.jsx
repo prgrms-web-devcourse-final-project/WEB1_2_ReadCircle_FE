@@ -19,6 +19,7 @@ export const usePostView = (postId) => {
                         }
                     }
                 );
+                console.log(response.data)
 
                 if (response.data) {
                     const { postId, userId, title, content, category, postCreatedAt, bookImage, price, bookCondition, tradeType, trade_status } = response.data;

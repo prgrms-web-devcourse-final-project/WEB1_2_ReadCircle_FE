@@ -46,7 +46,6 @@ const PurchaseViewPage = () => {
                 if (response.data.data) {
                     const { id, title, description, category, createdAt, thumbnailUrl, price, bookCondition } = response.data.data;
 
-                    // 상태값 업데이트
                     setPost({
                         id,
                         title,
@@ -106,10 +105,12 @@ const PurchaseViewPage = () => {
                             <div className="status">
                                 <span>{post.bookCondition}</span> 
                             </div>
-                            <button className="wish" onClick={handleFavoriteClick}>
+                            <div className='botton-container'>
+                                <button className="wish" onClick={handleFavoriteClick}>
                                 {isFavorited ? '찜 취소' : '찜하기'}
-                            </button>
-                            <button className="cart">장바구니</button>
+                                </button>
+                                <button className="cart">장바구니</button>
+                            </div>
                         </div>
                     </div>
                     <div className="description">
