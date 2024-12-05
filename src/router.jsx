@@ -28,7 +28,7 @@ const routes = [
   { path: "/searchresult", element: <SearchResultPage /> },
   { path: "/searchmall/:isbn", element: <SearchMallPage /> },
   { path: "/purchase-create", element: <PurchaseCreatePage /> },
-  { path: "/purchase-view", element: <PurchaseViewPage /> },
+  { path: "/book/:bookId", element: <PurchaseViewPage /> },
   { path: "/myview", element: <MyPostViewPage /> },
   { path: "/cart", element: <CartPage /> },
   { path: "/myview/:postId", element: <MyPostViewPage /> },

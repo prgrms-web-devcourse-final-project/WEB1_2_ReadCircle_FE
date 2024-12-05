@@ -155,7 +155,7 @@ const PostCreatePage = () => {
     
             if (response.data.success) {
                 alert('게시글이 성공적으로 작성되었습니다.');
-                navigate('/');
+                navigate('/market');
             } else {
                 alert('게시글 작성에 실패했습니다.');
             }
@@ -166,7 +166,7 @@ const PostCreatePage = () => {
     };
 
   const handleCancel = () => {
-    navigate("/");
+    navigate("/market");
   };
 
   const categoryBtn = [
