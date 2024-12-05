@@ -31,8 +31,7 @@ export const fetchECommerceBooks = async () => {
     condition: book.bookCondition,
     price: book.price,
     forSale: book.forSale,
-    thumbnailUrl: `${BASE_URL}/${book.thumbnailUrl}`,
-    // thumbnailUrl: `${BASE_URL}/${encodeURIComponent(book.thumbnailUrl)}`,
+    thumbnailUrl: `${book.thumbnailUrl}`,
     createdAt: book.createdAt,
     updatedAt: book.updatedAt,
   }));
@@ -48,27 +47,29 @@ export const fetchDirectTradePosts = async () => {
     : {};
 
   const response = await api.get("/api/posts", config);
-  return response.data.content.map((post) => ({
-    id: post.postId,
-    isbn: post.isbn,
-    title: post.title,
-    content: post.content,
-    category: post.bookCategory,
-    author: post.author,
-    publisher: post.publisher,
-    publishDate: post.publishDate,
-    condition: post.bookCondition,
-    forSale: post.tradeStatus, // 판매 상태 (판매 완료, 판매 교환)
-    price: post.price,
-    tradeType: post.tradeType,
-    thumbnailUrl: `${BASE_URL}${post.bookAPIImage}`,
-    // thumbnailUrl: `${BASE_URL}${encodeURIComponent(post.bookAPIImage)}`,
-    // thumbnailUrl: `${baseUrl.replace(/\/$/, "")}/${imagePath.replace(
-    //   /^\//,
-    //   ""
-    // )}`,
-    ninkname: post.ninkname,
-    createdAt: post.postCreatedAt,
-    updatedAt: post.postUpdatedAt,
-  }));
+  return response.data.content.map((post) => {
+    const processBookAPIImage = post.bookAPIImage.replace(
+      "/post_image_storage/",
+      ""
+    );
+
+    return {
+      id: post.postId,
+      isbn: post.isbn,
+      title: post.title,
+      content: post.content,
+      category: post.bookCategory,
+      author: post.author,
+      publisher: post.publisher,
+      publishDate: post.publishDate,
+      condition: post.bookCondition,
+      forSale: !post.tradeStatus, // 판매 상태 (판매 중, 판매 완료)
+      price: post.price,
+      tradeType: post.tradeType,
+      thumbnailUrl: processBookAPIImage,
+      ninkname: post.ninkname,
+      createdAt: post.postCreatedAt,
+      updatedAt: post.postUpdatedAt,
+    };
+  });
 };
