@@ -54,12 +54,12 @@ const SearchMallPage = () => {
 
   // 이커머스 책 상세 페이지로 이동
   const handleCardClickECommerce = (id) => {
-    navigate(`/purchase-view`);
+    navigate(`/book/${id}`);
   };
 
   // 직거래 책 상세 페이지로 이동
   const handleCardClickDirect = (id) => {
-    navigate(`/view`);
+    navigate(`/view/${id}`);
   };
 
   if (isLoading) {
