@@ -32,16 +32,21 @@ const NotificationModal = ({ onClose }) => {
 
         const data = await response.json();
         setNotifications((prevNotifications) => {
-          // 중복된 알림이 없으면 추가
-          return [
+          // 중복 제거
+          const uniqueNotifications = data.filter(
+            (notification) =>
+              !prevNotifications.some(
+                (item) => item.notificationId === notification.notificationId
+              )
+          );
+
+          const updatedNotifications = [
             ...prevNotifications,
-            ...data.filter(
-              (notification) =>
-                !prevNotifications.some(
-                  (item) => item.notificationId === notification.notificationId
-                )
-            ),
+            ...uniqueNotifications,
           ];
+          return updatedNotifications.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
         });
       } catch (error) {
         setError("알림 수신에 실패했습니다. 다시 시도해주세요.");
@@ -49,7 +54,7 @@ const NotificationModal = ({ onClose }) => {
       }
     };
 
-    fetchNotifications(); // 알림 데이터를 한 번 불러옴
+    fetchNotifications();
 
     // 1분마다 알림 데이터를 새로 고침
     const interval = setInterval(() => {
