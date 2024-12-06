@@ -81,7 +81,7 @@
         padding: 0 8%;
 
         li {
-            width: 100%;
+            width: auto;
             display: flex;
             align-items: center;
 
@@ -102,6 +102,12 @@
     
                 .book_title {
                     margin-top: 10px;
+                    display: -webkit-box;
+                    word-wrap: break-word;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
                 }
     
                 .middle {

@@ -31,7 +31,7 @@ const BookCard = ({
       )}
 
       <div className="card-left">
-        <img className="card-image" src={thumbnail} alt={`${title} 썸네일`} />
+        <img className="card-image" src={thumbnail} alt='' />
       </div>
 
       <div className="card-center">

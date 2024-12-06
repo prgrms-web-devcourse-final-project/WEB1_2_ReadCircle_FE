@@ -4,10 +4,12 @@ import Modi from '../assets/Modi.svg';
 import Book from '../assets/book4.png';
 import Header from '../components/Header';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
     const baseUrl = 'http://3.37.35.134:8080';
     const token = localStorage.getItem('accessToken');
+    const navigate = useNavigate();
 
     // 초기값 세팅
     const [currentImage, setCurrentImage] = useState();
@@ -22,6 +24,7 @@ const MyPage = () => {
     const [File, setFile] = useState(null);
     const [active, setActive] = useState(false);
     const [pwActive, setPwActive] = useState(false);
+    const [posts, setPosts] = useState([]);
 
     // 유효성 검사
     const [isOpen, setIsOpen] = useState(false);
@@ -63,8 +66,28 @@ const MyPage = () => {
         }
     }
 
+    // 유저 게시글 불러오기
+    const postData = async() => {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            const response = await axios.get(
+                `${baseUrl}/api/posts/search/my-posts`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                }
+            )
+            console.log(response.data.content);
+            setPosts(response.data.content);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         userData();
+        postData();
     },[])
 
     // 탭 메뉴 기능
@@ -77,24 +100,31 @@ const MyPage = () => {
                 </li>
             ),
             content: (
-                <li className='mypost'>
-                    <div className="post">
-                        <img src={Book} alt="" />
-                        <p className='book_title'>power!!!!</p>
-                        <div className='middle'>
-                            <p className='category'>Novel</p>
-                            <p className='quality'>최상</p>
-                        </div>
-                        <div className='bottom'>
-                            <div>
-                                <p className='status sell'></p>
-                                <p className='status trade'></p>
+                posts && posts.map((post => (
+                    <li 
+                        key={post.id}
+                        className='mypost' 
+                        onClick={() => navigate(`/view/${post.postId}`)}
+                    >
+                        <div className="post">
+                            <img src={`${baseUrl}${post.bookImage}`} alt="" />
+                            <p className='book_title'>{post.title}</p>
+                            <div className='middle'>
+                                <p className='category'>{post.bookCategory}</p>
+                                <p className='quality'>{post.bookCondition}</p>
                             </div>
-                            <p className='price'>17,000</p>
+                            <div className='bottom'>
+                                <div>
+                                    <p className=
+                                        {`status ${post.tradeType == '교환' ? 'trade' : 'sell'}`}
+                                    ></p>
+                                </div>
+                                <p className='price'>{post.price}</p>
+                            </div>
+                            <div className='block'></div>
                         </div>
-                        <div className='block'></div>
-                    </div>
-                </li>
+                    </li>
+                )))
             )
         },
         {

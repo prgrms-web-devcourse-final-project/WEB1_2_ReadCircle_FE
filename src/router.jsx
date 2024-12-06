@@ -13,6 +13,7 @@ import PurchaseCreatePage from "./pages/PurchaseCreatePage";
 import PurchaseViewPage from "./pages/PurchaseViewPage";
 import MyPostViewPage from "./pages/MyPostViewPage";
 import CartPage from "./pages/CartPage";
+import PaymentPage from "./pages/PaymentPage";
 
 const routes = [
   { path: "/join", element: <JoinPage /> },
@@ -32,6 +33,7 @@ const routes = [
   { path: "/myview", element: <MyPostViewPage /> },
   { path: "/cart", element: <CartPage /> },
   { path: "/myview/:postId", element: <MyPostViewPage /> },
+  { path: "/payment", element: <PaymentPage /> },
 ];
 
 export default routes;

@@ -57,6 +57,7 @@ main .innovation__text h2 {
   font-size: 36px;
   color: #1abc9c;
   margin-bottom: 20px;
+  text-align: center;
 }
 main .innovation__text p {
   margin: 20px 0;
@@ -81,45 +82,32 @@ main .innovation .innovation-slider {
   flex-direction: column;
   gap: 20px;
 }
-main .innovation .innovation-slider .slick-list {
-  overflow: hidden;
-  padding: 10px 0;
-}
-main .innovation .innovation-slider .slick-track {
-  display: flex;
-  align-items: stretch;
-}
-main .innovation .innovation-slider .slick-slide {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-}
-main .innovation .innovation-slider .card {
-  flex: 1 1 280px;
-  margin: 15px;
-  min-width: 280px;
-  background: #fff;
+main .innovation .card {
+  background-color: #fff;
   color: #333;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+main .innovation .card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
   text-align: center;
 }
-main .innovation .innovation-slider .card h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-main .innovation .innovation-slider .card p {
+main .innovation .card p {
   font-size: 16px;
-  color: #555;
   line-height: 1.5;
 }
-main .innovation .innovation-slider .note {
-  font-size: 14px;
-  margin-top: 10px;
-  color: #ccc;
-  text-align: center;
+main .innovation .slick-center {
+  opacity: 1;
+  transform: scale(1);
+}
+main .innovation .slick-slide {
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 @media (max-width: 768px) {
   main .innovation {
@@ -139,4 +127,81 @@ main .innovation .innovation-slider .note {
   main .innovation .innovation-slider .card {
     margin-bottom: 15px;
   }
+}
+main .container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 300px;
+  background-color: #042029;
+  color: #fff;
+}
+main .transaction-warning {
+  width: 100%;
+}
+main .transaction-warning h2 {
+  font-size: 32px;
+  text-align: left;
+  margin-left: 20px;
+  color: #1abc9c;
+}
+main .warning-card-container {
+  display: flex;
+  margin-top: 30px;
+}
+main .warning-list {
+  width: 250px;
+  padding-right: 20px;
+}
+main .warning-card {
+  padding: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  min-width: 230px;
+}
+main .warning-card h3 {
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s;
+}
+main .warning-card:hover {
+  background-color: transparent;
+}
+main .warning-card:hover h3 {
+  color: rgb(255, 255, 255);
+}
+main .warning-card.selected {
+  background-color: #042029;
+}
+main .warning-card.selected h3 {
+  color: rgb(255, 255, 255);
+}
+main .warning-detail {
+  flex-grow: 1;
+  padding: 20px;
+  min-width: 200px;
+  background-color: #061621;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+main .warning-detail h3,
+main .warning-detail p {
+  margin: 0;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 20px;
+}
+main .warning-detail h3 {
+  text-align: left;
+  font-size: 24px;
+  margin: 0;
+  color: #fff;
+}
+main .warning-detail p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #b8c4c2;
 }
