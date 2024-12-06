@@ -7,55 +7,61 @@ const NotificationModal = ({ onClose }) => {
 
   // 알림 수신을 위한 SSE 연결
   useEffect(() => {
-    const serverUrl = "http://3.37.35.134:8080/api/notification/subscribe";
-    const eventSource = new EventSource(serverUrl, {
-      withCredentials: true,
-    });
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setError("로그인 토큰이 없습니다. 다시 로그인해주세요.");
+      return;
+    }
 
-    console.log(localStorage.getItem("accessToken"));
-
-    fetch(serverUrl, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 저장된 JWT 토큰
-      },
-      // credentials: "include",
-    });
-
-    // eventSource.onmessage = (event) => {
-    //   setNotifications((prev) => {
-    //     const newNotification = event.data;
-    //     // 중복 방지(알림 목록에 있는) - 판매글 추가, 수정과는 상관없는
-    //     if (!prev.includes(newNotification)) {
-    //       return [...prev, newNotification];
-    //     }
-    //     return prev;
-    //   });
-    // };
-
-    eventSource.onmessage = (event) => {
+    // SSE 연결을 위한 fetch 설정
+    const fetchNotifications = async () => {
       try {
-        const data = JSON.parse(event.data); // JSON 파싱
-        setNotifications((prev) => {
-          // 중복 방지
-          if (!prev.find((notification) => notification.id === data.id)) {
-            return [...prev, data];
+        const response = await fetch(
+          "http://3.37.35.134:8080/api/notification/list",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`, // JWT 토큰
+            },
           }
-          return prev;
+        );
+
+        if (!response.ok) {
+          throw new Error("알림 데이터를 가져오는 데 실패했습니다.");
+        }
+
+        const data = await response.json();
+        setNotifications((prevNotifications) => {
+          // 중복 제거
+          const uniqueNotifications = data.filter(
+            (notification) =>
+              !prevNotifications.some(
+                (item) => item.notificationId === notification.notificationId
+              )
+          );
+
+          const updatedNotifications = [
+            ...prevNotifications,
+            ...uniqueNotifications,
+          ];
+          return updatedNotifications.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
         });
-      } catch (e) {
-        console.error("Failed to parse notification data:", e);
+      } catch (error) {
+        setError("알림 수신에 실패했습니다. 다시 시도해주세요.");
+        console.error(error);
       }
     };
 
-    eventSource.onerror = () => {
-      console.error("SSE connection failed.");
-      setError("알림 수신에 실패했습니다. 다시 시도해주세요.");
-      eventSource.close();
-    };
+    fetchNotifications();
 
-    // SSE 연결 해제
-    return () => eventSource.close();
+    // 1분마다 알림 데이터를 새로 고침
+    const interval = setInterval(() => {
+      fetchNotifications();
+    }, 60000); // 1분 간격
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleBackdropClick = (e) => {
@@ -73,12 +79,24 @@ const NotificationModal = ({ onClose }) => {
             X
           </button>
         </div>
-        {error && <p className="notification-modal__error">{error}</p>}{" "}
+        {error && <p className="notification-modal__error">{error}</p>}
         <ul>
           {notifications.length > 0 ? (
-            notifications.map((notification, index) => (
-              <li key={index}>{notification}</li>
-            ))
+            notifications.map((notification) => {
+              const createdAt = new Date(notification.createdAt);
+              const krTime = new Date(createdAt.getTime() + 9 * 60 * 60 * 1000);
+              return (
+                <li
+                  key={notification.notificationId}
+                  className="notification-item"
+                >
+                  <p className="notification-message">{notification.message}</p>
+                  <small className="notification-time">
+                    {krTime.toLocaleString()}
+                  </small>
+                </li>
+              );
+            })
           ) : (
             <p>새로운 알림이 없습니다.</p>
           )}

@@ -50,6 +50,13 @@ const Shop = () => {
     setFilters(newFilters);
   };
 
+  const parseYYYYMMDD = (dateString) => {
+    const year = parseInt(dateString.slice(0, 4), 10);
+    const month = parseInt(dateString.slice(4, 6), 10) - 1;
+    const day = parseInt(dateString.slice(6, 8), 10);
+    return new Date(year, month, day);
+  };
+
   const filteredBooks = useMemo(() => {
     return eCommerceBooks
       .filter((book) => {
@@ -98,18 +105,22 @@ const Shop = () => {
         return true;
       })
       .sort((a, b) => {
+        const dateA = parseYYYYMMDD(a.publishDate);
+        const dateB = parseYYYYMMDD(b.publishDate);
+
+        if (isNaN(dateA)) return 1;
+        if (isNaN(dateB)) return -1;
+
         if (filters.sortOrder === "newest") {
-          return new Date(b.publishDate) - new Date(a.publishDate);
+          return dateB - dateA;
         } else {
-          return new Date(a.publishDate) - new Date(b.publishDate);
+          return dateA - dateB;
         }
       });
   }, [eCommerceBooks, filters, searchTerm]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-
-  console.log(eCommerceBooks);
 
   return (
     <>

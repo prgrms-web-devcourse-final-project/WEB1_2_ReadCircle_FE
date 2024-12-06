@@ -88,6 +88,13 @@ const SearchResultPage = () => {
     new Set(books.map((book) => book.category))
   ).sort((a, b) => a.localeCompare(b));
 
+  const parseYYYYMMDD = (dateString) => {
+    const year = parseInt(dateString.slice(0, 4), 10);
+    const month = parseInt(dateString.slice(4, 6), 10) - 1;
+    const day = parseInt(dateString.slice(6, 8), 10);
+    return new Date(year, month, day);
+  };
+
   // 필터링 로직
   const filterBooks = () => {
     let results = books;
@@ -108,8 +115,9 @@ const SearchResultPage = () => {
     }
 
     results = results.sort((a, b) => {
-      const dateA = new Date(a.publishDate);
-      const dateB = new Date(b.publishDate);
+      const dateA = parseYYYYMMDD(a.publishDate);
+      const dateB = parseYYYYMMDD(b.publishDate);
+
       return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
     });
 

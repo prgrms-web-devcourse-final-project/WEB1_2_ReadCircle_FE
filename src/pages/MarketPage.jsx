@@ -54,6 +54,13 @@ const Market = () => {
     setFilters(newFilters);
   };
 
+  const parseYYYYMMDD = (dateString) => {
+    const year = parseInt(dateString.slice(0, 4), 10);
+    const month = parseInt(dateString.slice(4, 6), 10) - 1;
+    const day = parseInt(dateString.slice(6, 8), 10);
+    return new Date(year, month, day);
+  };
+
   // 필터링된 책 목록
   const filteredBooks = useMemo(() => {
     return directTradePosts
@@ -106,11 +113,17 @@ const Market = () => {
         return true;
       })
       .sort((a, b) => {
-        // 최신순 정렬
+        const dateA = parseYYYYMMDD(a.publishDate);
+        const dateB = parseYYYYMMDD(b.publishDate);
+
+        if (isNaN(dateA)) return 1;
+        if (isNaN(dateB)) return -1;
+
         if (filters.sortOrder === "newest") {
-          return new Date(b.publishDate) - new Date(a.publishDate);
+          return dateB - dateA;
+        } else {
+          return dateA - dateB;
         }
-        return new Date(a.publishDate) - new Date(b.publishDate);
       });
   }, [directTradePosts, filters, searchTerm]);
 

@@ -13,8 +13,9 @@ const BookList = ({
       {books.map((book) => (
         <BookCard
           key={book.id}
+          id={book.id}
           title={book.title}
-          details={`${book.author}, ${book.publisher} | ${book.category} | ${book.publishDate}`} // 작가, 출판사, 카테고리, 출판날짜
+          details={`${book.author} | ${book.publisher} | ${book.category} | ${book.publishDate}`} // 작가, 출판사, 카테고리, 출판날짜
           thumbnail={book.thumbnailUrl} // 책 사진
           condition={book.condition}
           price={`${book.price}원`}
