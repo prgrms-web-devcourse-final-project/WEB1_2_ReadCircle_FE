@@ -29,7 +29,7 @@ const PostView = () => {
                     <div className='top-container'>
                         <div className='left-container'>
                             <div className='image'>
-                                <img src={post.bookImage} alt={`${post.title} 책 표지`} />
+                                <img src={`http://3.37.35.134:8080${post.bookImage}`} alt={`${post.title} 책 표지`} />
                             </div>
                         </div>
                         <div className='right-container'>

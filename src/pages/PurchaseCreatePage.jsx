@@ -147,7 +147,7 @@ const PurchaseCreatePage = () => {
                 }
             );
 
-            if (response.data.success) {
+            if (response.status === 200) {
                 alert("게시글이 성공적으로 작성되었습니다.");
                 navigate("/shop");
             } else {

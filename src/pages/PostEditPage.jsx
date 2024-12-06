@@ -30,7 +30,7 @@ const PostEditPage = () => {
                         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                     },
                 });
-                console.log("API 응답 데이터:", response.data);
+                // console.log("API 응답 데이터:", response.data);
 
                 const post = response.data;
                 setFormData({
@@ -91,12 +91,14 @@ const PostEditPage = () => {
                 }
             );
 
-            if (response.data.success) {
+            console.log('응답 데이터:', response.data);
+
+            if (response.status === 200) {
                 alert('게시글이 성공적으로 수정되었습니다.');
                 navigate(`/posts/${postId}`); // 수정 후 해당 게시글 페이지로 이동
             } else {
                 alert('게시글 수정에 실패했습니다.');
-                console.log(response.data.message);
+                console.log(response);
             }
         } catch (error) {
             console.error('게시글 수정 오류:', error);
@@ -121,9 +123,9 @@ const PostEditPage = () => {
                     },
                 });
 
-                if (response.data.success) {
+                if (response.status === 200) {
                     alert('포스트가 삭제되었습니다.');
-                    navigate('/'); // 삭제 후 메인 페이지로 이동
+                    navigate('/market');
                 } else {
                     alert('게시글 삭제에 실패했습니다.');
                 }

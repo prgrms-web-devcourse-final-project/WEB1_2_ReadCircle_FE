@@ -24,12 +24,10 @@ const routes = [
   { path: "/", element: <MainPage /> },
   { path: "/shop", element: <ShopPage /> },
   { path: "/market", element: <Market /> },
-  { path: "/market", element: <Market /> },
   { path: "/searchresult", element: <SearchResultPage /> },
   { path: "/searchmall/:isbn", element: <SearchMallPage /> },
   { path: "/purchase-create", element: <PurchaseCreatePage /> },
   { path: "/book/:bookId", element: <PurchaseViewPage /> },
-  { path: "/myview", element: <MyPostViewPage /> },
   { path: "/cart", element: <CartPage /> },
   { path: "/myview/:postId", element: <MyPostViewPage /> },
 ];
