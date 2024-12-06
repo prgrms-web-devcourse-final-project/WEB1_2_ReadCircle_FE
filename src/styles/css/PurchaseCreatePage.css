@@ -4,7 +4,6 @@
   align-items: center;
   height: 100vh;
   padding: 30px;
-  margin-top: 200px;
   font-family: "Inter", sans-serif;
   flex-direction: column;
 }
@@ -188,7 +187,6 @@
 .write-page .write-container .price-input {
   position: relative;
   display: flex;
-  align-items: center;
 }
 .write-page .write-container .price-input input {
   padding-right: 40px;
@@ -275,6 +273,28 @@
 .write-page .write-container .status-input .radio-group label input[type=radio]:hover,
 .write-page .write-container .purpose-input .radio-group label input[type=radio]:hover {
   border-color: #069F03;
+}
+.write-page .account-container {
+  margin-top: 20px;
+}
+.write-page .name-input {
+  margin-bottom: 10px;
+}
+.write-page .bankInfo {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.write-page .bank-input,
+.write-page .account-input {
+  flex: 1;
+}
+.write-page input[type=text] {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 .write-page .button-container {
   display: flex;

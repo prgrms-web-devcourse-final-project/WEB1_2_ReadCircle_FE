@@ -10,8 +10,6 @@
   max-width: 1200px;
   width: 100%;
   height: 140px;
-  margin-left: auto;
-  margin-right: auto;
 }
 .book-card__ind .overlay {
   position: absolute;
@@ -41,6 +39,8 @@
   border-radius: 8px;
 }
 .book-card__ind .card-center {
+  width: 40%;
+  height: 100%;
   flex: 1;
   margin-right: 16px;
 }
@@ -48,12 +48,19 @@
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 8px;
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .book-card__ind .card-center .card-details {
   color: #666;
   font-size: 14px;
 }
 .book-card__ind .card-right {
+  width: 50%;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -73,6 +80,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-left: 80px;
 }
 .book-card__ind .card-right .horizontal-info .price-delivery .price {
   font-size: 16px;
@@ -93,13 +101,12 @@
 .book-card__ind .card-right .horizontal-info .action-buttons {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 .book-card__ind .card-right .horizontal-info .action-buttons .primary-button,
 .book-card__ind .card-right .horizontal-info .action-buttons .secondary-button {
   padding: 10px 12px;
   width: 120px;
-  margin-bottom: 8px;
   border: none;
   border-radius: 6px;
   cursor: pointer;

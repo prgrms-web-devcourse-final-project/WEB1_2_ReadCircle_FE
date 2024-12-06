@@ -39,44 +39,49 @@ const LoginPage = () => {
   return (
     <>
       <Header />
-      <img src={LoginImage} alt="" />
-      <div className="logos">
-        <img src={Logo} alt="" />
-        <h2>로그인</h2>
-      </div>
-      <div className="login_area">
-        <div className="id_area">
-          <p>아이디</p>
-          <input
-            type="text"
-            placeholder="아이디를 입력해 주세요."
-            value={id}
-            onChange={(e) => {
-              setId(e.target.value);
-            }}
-          />
+      <div className="tops">
+        <img src={LoginImage} alt="" />
+        <div className="logins">
+          <div className="logos">
+            <img src={Logo} alt="" />
+            <h2>로그인</h2>
+          </div>
+          <div className="login_area">
+            <div className="id_area">
+              <p>아이디</p>
+              <input
+                type="text"
+                placeholder="아이디를 입력해 주세요."
+                value={id}
+                onChange={(e) => {
+                  setId(e.target.value);
+                }}
+              />
+            </div>
+            <div className="pw_area">
+              <p>비밀번호</p>
+              <input
+                type="password"
+                placeholder="비밀번호를 입력해 주세요."
+                value={pw}
+                onChange={(e) => {
+                  setPw(e.target.value);
+                }}
+              />
+            </div>
+            <p className="error_message">{error}</p>
+          </div>
+          <div className="btn_area">
+            <button className="join_btn">
+              <Link to="/join">회원 가입</Link>
+            </button>
+            <button className="login_btn" onClick={loginFn}>
+              로그인
+            </button>
+          </div>
         </div>
-        <div className="pw_area">
-          <p>비밀번호</p>
-          <input
-            type="password"
-            placeholder="비밀번호를 입력해 주세요."
-            value={pw}
-            onChange={(e) => {
-              setPw(e.target.value);
-            }}
-          />
-        </div>
-        <p className="error_message">{error}</p>
       </div>
-      <div className="btn_area">
-        <button className="join_btn">
-          <Link to="/join">회원 가입</Link>
-        </button>
-        <button className="login_btn" onClick={loginFn}>
-          로그인
-        </button>
-      </div>
+      
     </>
   );
 };
