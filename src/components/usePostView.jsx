@@ -5,6 +5,7 @@ export const usePostView = (postId) => {
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     // 게시글 정보 가져오기
     useEffect(() => {
@@ -19,8 +20,6 @@ export const usePostView = (postId) => {
                         }
                     }
                 );
-                console.log(response.data)
-
                 if (response.data) {
                     const { postId, userId, title, content, category, postCreatedAt, bookImage, price, bookCondition, tradeType, trade_status } = response.data;
                     setPost({
@@ -59,7 +58,6 @@ export const usePostView = (postId) => {
                     }
                 );
                 setComments(response.data);
-                console.log(response.data);
             } catch (error) {
                 console.error('댓글 조회 오류:', error);
             }
@@ -72,20 +70,29 @@ export const usePostView = (postId) => {
     const handleAddComment = async () => {
         if (newComment.trim() === '') return;
 
+        setIsLoading(true);
+
         try {
             const accessToken = localStorage.getItem('accessToken');
             const response = await axios.post(
-                `http://3.37.35.134:8080/api/comments/${postId}`, 
+                `http://3.37.35.134:8080/api/comments/${postId}`,
                 { commentContent: newComment },
                 { headers: { Authorization: `Bearer ${accessToken}` } }
             );
             if (response.data.success) {
-                const { commentId, commentContent, userId, commentCreatedAt } = response.data;
-                setComments([...comments, { commentId, content: commentContent, userId, commentCreatedAt }]);
+                const newCommentData = {
+                    commentId: response.data.commentId,
+                    commentContent: newComment,
+                    createdAt: new Date().toISOString(),
+                    userId: response.data.userId,
+                };
+                setComments(prevComments => [...prevComments, newCommentData]);
                 setNewComment('');
             }
         } catch (error) {
             console.error('댓글 추가 오류:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -98,7 +105,8 @@ export const usePostView = (postId) => {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            setComments(comments.filter((comment) => comment.commentId !== commentId)); // 삭제된 댓글 제거
+            // 삭제된 댓글을 상태에서 필터링하여 제거
+            setComments(prevComments => prevComments.filter(comment => comment.commentId !== commentId));
         } catch (error) {
             console.error('댓글 삭제 오류:', error);
         }
@@ -117,5 +125,6 @@ export const usePostView = (postId) => {
         handleAddComment,
         handleDeleteComment,
         handleFavoriteClick,
+        isLoading,
     };
 };

@@ -13,7 +13,8 @@ const MyPostView = () => {
         setNewComment,
         handleAddComment,
         handleDeleteComment
-    } = usePostView(false);
+    } = usePostView(postId);
+
     const navigate = useNavigate();
 
     function handleEditPost() {
