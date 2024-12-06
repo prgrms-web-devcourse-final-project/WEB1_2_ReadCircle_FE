@@ -86,7 +86,7 @@ const PurchaseViewPage = () => {
             <div className="view-page">
                 <div className="post-container">
                     <div className="title">
-                        <h1>{post.title}</h1>
+                        <span>{post.title}</span>
                     </div>
                     <div className="top-container">
                         <div className="left-container">
