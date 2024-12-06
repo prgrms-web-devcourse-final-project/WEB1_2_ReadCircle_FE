@@ -77,17 +77,21 @@ const NotificationModal = ({ onClose }) => {
         {error && <p className="notification-modal__error">{error}</p>}
         <ul>
           {notifications.length > 0 ? (
-            notifications.map((notification) => (
-              <li
-                key={notification.notificationId}
-                className="notification-item"
-              >
-                <p className="notification-message">{notification.message}</p>
-                <small className="notification-time">
-                  {new Date(notification.createdAt).toLocaleString()}
-                </small>
-              </li>
-            ))
+            notifications.map((notification) => {
+              const createdAt = new Date(notification.createdAt);
+              const krTime = new Date(createdAt.getTime() + 9 * 60 * 60 * 1000);
+              return (
+                <li
+                  key={notification.notificationId}
+                  className="notification-item"
+                >
+                  <p className="notification-message">{notification.message}</p>
+                  <small className="notification-time">
+                    {krTime.toLocaleString()}
+                  </small>
+                </li>
+              );
+            })
           ) : (
             <p>새로운 알림이 없습니다.</p>
           )}
