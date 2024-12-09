@@ -53,7 +53,7 @@ const PaymentPage = () => {
                 buyer_name: recipientName,
                 buyer_addr: address,
             };
-
+            console.log(data)
             // 2. 결제 요청 및 결과 처리
             IMP.request_pay(data, async (response) => {
                 if (response.success) {
