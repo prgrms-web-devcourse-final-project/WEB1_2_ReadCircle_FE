@@ -5,11 +5,12 @@
   padding: 20px 90px;
 }
 .book-details-container .book-header {
-  height: 500px;
   display: flex;
   flex-direction: column;
   padding: 20px 200px;
   background-color: #f9f9f9;
+  height: auto;
+  min-height: 500px;
 }
 .book-details-container .book-header .book-info {
   display: flex;
@@ -25,16 +26,18 @@
   color: #555;
   margin-bottom: 20px;
 }
-.book-details-container .book-header .book-info .book-content {
+.book-details-container .book-header .book-content {
   display: flex;
   gap: 20px;
 }
-.book-details-container .book-header .book-info .book-content .book-thumbnail {
+.book-details-container .book-header .book-content .book-thumbnail_mall {
   width: 150px;
   height: auto;
+  max-height: 200px;
   border: 1px solid #ddd;
+  object-fit: cover;
 }
-.book-details-container .book-header .book-info .book-content .book-description {
+.book-details-container .book-header .book-content .book-description {
   flex: 1;
   font-size: 14px;
   color: #333;

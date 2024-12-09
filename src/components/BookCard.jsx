@@ -1,6 +1,7 @@
 import React from "react";
 import "./../styles/scss/BookCard.scss";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const BookCard = ({
   id,
@@ -17,6 +18,25 @@ const BookCard = ({
   isForSale,
 }) => {
   const navigate = useNavigate();
+  const token = localStorage.getItem('accessToken');
+
+  const addCart = async() => {
+      try {
+        const response = await axios.post(
+          `http://3.37.35.134:8080/api/cart/add/${id}`,
+          {},
+          {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              },
+          }
+        )
+        console.log(response.data);
+        navigate('/cart')
+      } catch (error) {
+          console.log(error);
+      }
+  }
 
   return (
     <div
@@ -67,7 +87,7 @@ const BookCard = ({
                 className="primary-button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigate(`/cart/${id}`); // 장바구니 페이지로 이동
+                  addCart();
                 }}
               >
                 장바구니
@@ -76,7 +96,7 @@ const BookCard = ({
                 className="secondary-button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigate(`/cart/${id}`); // 구매 페이지로 이동
+                  addCart();
                 }}
               >
                 구매

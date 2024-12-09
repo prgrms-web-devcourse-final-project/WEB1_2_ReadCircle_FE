@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import '../styles/scss/PurchaseViewPage.scss';
 import Header from '../components/Header';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const PurchaseViewPage = () => {
     const { bookId } = useParams();
@@ -10,6 +10,8 @@ const PurchaseViewPage = () => {
     const [isFavorited, setIsFavorited] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
+    const accessToken = localStorage.getItem('accessToken');
 
     const handleFavoriteClick = () => {
         setIsFavorited(!isFavorited);
@@ -27,7 +29,6 @@ const PurchaseViewPage = () => {
             setError(null);
 
             try {
-                const accessToken = localStorage.getItem('accessToken');
                 if (!accessToken) {
                     setError('로그인 정보가 없습니다.');
                     setIsLoading(false);
@@ -67,6 +68,26 @@ const PurchaseViewPage = () => {
 
         fetchPost();
     }, [bookId]);
+
+    // 장바구니 기능
+    const addCart = async() => {
+        console.log(bookId)
+        try {
+          const response = await axios.post(
+            `http://3.37.35.134:8080/api/cart/add/${bookId}`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                },
+            }
+          )
+          console.log(response.data);
+          navigate('/cart')
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -109,7 +130,10 @@ const PurchaseViewPage = () => {
                                 <button className="wish" onClick={handleFavoriteClick}>
                                 {isFavorited ? '찜 취소' : '찜하기'}
                                 </button>
-                                <button className="cart">장바구니</button>
+                                <button 
+                                    className="cart"
+                                    onClick={addCart}
+                                >장바구니</button>
                             </div>
                         </div>
                     </div>
