@@ -35,7 +35,7 @@
   margin-top: 25px;
 }
 .payment_area .card_info > div {
-  margin-top: 15px;
+  margin-top: 25px;
 }
 .payment_area .card_info > div p {
   font-size: 14px;
@@ -47,6 +47,7 @@
   border-bottom: solid #d9d9d9 1px;
   padding: 10px;
   outline: none;
+  margin-top: 15px;
 }
 .payment_area .card_info .card_date {
   display: flex;

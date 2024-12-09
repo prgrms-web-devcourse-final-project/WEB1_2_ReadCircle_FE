@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 
 const initialState = {
-    cartItems: []
+    cartItems: [],
+    bookList: []
 }
 
 const cartSlice = createSlice({
@@ -14,7 +15,8 @@ const cartSlice = createSlice({
             state.cartItems = action.payload.map((item) => ({
                 ...item,
                 quantity: 1
-            }))
+            }));
+            state.bookList = action.payload.map((item) => item.bookId);
         },
         increment: (state, action) => {
             const bookId = action.payload;
@@ -33,7 +35,7 @@ const cartSlice = createSlice({
         deleteCart: (state, action) => {
             const bookId = action.payload;
             state.cartItems = state.cartItems.filter((item) => item.bookId !== bookId);
-           
+            state.bookList = state.bookList.filter((id) => id !== bookId)
         }
     }
 });
