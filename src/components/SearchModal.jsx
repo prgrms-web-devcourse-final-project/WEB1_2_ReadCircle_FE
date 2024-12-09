@@ -9,15 +9,15 @@ const SearchModal = ({ isModalOpen, closeModal, searchResults, onBookSelect }) =
                 <ul className="modal-list">
                     {searchResults.map((book, index) => (
                         <li key={index} className="modal-item" onClick={() => onBookSelect(book)}>
-                            <img src={book.image} alt={book.title} className="book-image" />
-                            <div>
-                                <h3>{book.title}</h3>
-                                <p>{book.category}</p>
+                            <img src={book.image} alt={book.title} className="book-URLimage" />
+                            <div className="book-info">
+                                <p className='book-title'>{book.title}</p>
+                                <p className='book-author'>{book.author}</p>
                             </div>
                         </li>
                     ))}
                 </ul>
-                <button onClick={closeModal}>닫기</button>
+                <button className='modal-cancel' onClick={closeModal}>닫기</button>
             </div>
         </div>
     );
