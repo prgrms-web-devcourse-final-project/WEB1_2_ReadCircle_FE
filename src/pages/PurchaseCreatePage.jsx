@@ -205,7 +205,7 @@ const PurchaseCreatePage = () => {
                                             className="image-preview"
                                         />
                                     ) : (
-                                        <div className="image-placeholder">책 이미지를 선택하세요</div>
+                                        <div className="image-placeholder">책 이미지</div>
                                     )}
                                 </div>
                             </div>

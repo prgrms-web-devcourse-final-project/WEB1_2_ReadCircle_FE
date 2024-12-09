@@ -63,12 +63,12 @@ const MyPostView = () => {
             <div className='view-page'>
                 <div className='post-container'>
                     <div className='title'>
-                        <h1>{post.title}</h1>
+                        <span>{post.title}</span>
                     </div>
                     <div className='top-container'>
                         <div className='left-container'>
                             <div className='image'>
-                                <img src={post.bookImage} alt={`${post.title} 책 표지`} />
+                            <img src={`http://3.37.35.134:8080${post.bookImage}`} alt={`${post.title} 책 표지`} />
                             </div>
                         </div>
                         <div className='right-container'>
@@ -112,7 +112,7 @@ const MyPostView = () => {
                             <div key={comment.commentId} className='comment'>
                                 <p className='user-id'>{comment.userId}</p> <p className='content'>{comment.commentContent}</p>
                                 <button className='delete-btn' onClick={() => handleDeleteComment(comment.commentId)}>
-                                    X
+                                    ×
                                 </button>
                             </div>
                         ))}
