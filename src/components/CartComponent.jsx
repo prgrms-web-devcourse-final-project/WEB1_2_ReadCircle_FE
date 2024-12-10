@@ -21,6 +21,7 @@ const CartComponent = () => {
                     }
                 }
             )
+            console.log(response.data);
             dispatch(setCartItems(response.data.data));
         } catch (error) {
             console.log(error)
@@ -41,12 +42,12 @@ const CartComponent = () => {
     }
 
     // 카트 목록 삭제
-    const deleteItem = async(bookId) => {
+    const deleteItem = async(cartItemId) => {
         const accessToken = localStorage.getItem('accessToken');
     
         try {
             const response = await axios.delete(
-                `http://3.37.35.134:8080/api/cart?cartItemId=${bookId}`,
+                `http://3.37.35.134:8080/api/cart?cartItemId=${cartItemId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
@@ -54,7 +55,7 @@ const CartComponent = () => {
                 }
             )
             console.log(response.data);
-            dispatch(deleteCart(bookId));
+            dispatch(deleteCart(cartItemId));
         } catch (error) {
             if (error.response) {
                 console.error("Error Response:", error.response);
@@ -93,7 +94,7 @@ const CartComponent = () => {
                             <p className='pirce'>{item.price * item.quantity} 원</p>
                             <button 
                                 className='delete'
-                                onClick={() => deleteItem(item.bookId)}
+                                onClick={() => deleteItem(item.cartItemId)}
                             >
                                 <img src={Trash} alt="" />
                             </button>
