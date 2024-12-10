@@ -33,9 +33,9 @@ const cartSlice = createSlice({
             }
         },
         deleteCart: (state, action) => {
-            const bookId = action.payload;
-            state.cartItems = state.cartItems.filter((item) => item.bookId !== bookId);
-            state.bookList = state.bookList.filter((id) => id !== bookId)
+            const cartItemId = action.payload;
+            state.cartItems = state.cartItems.filter((item) => item.cartItemId !== cartItemId);
+            state.bookList = state.bookList.filter((id) => id !== cartItemId)
         }
     }
 });

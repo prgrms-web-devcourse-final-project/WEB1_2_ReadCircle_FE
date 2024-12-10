@@ -33,12 +33,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 
 .title {
   font-size: 28px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 50px !important;
+  text-align: center;
 }
 
 .image img {
@@ -78,6 +80,7 @@
   justify-content: center;
   align-items: center;
   font-size: 14px;
+  font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -172,7 +175,7 @@
   color: #333;
 }
 .comment-section .comments .comment .delete-btn {
-  background-color: #FF6B6B;
+  background-color: #f92f2f;
   color: white;
   border: none;
   border-radius: 50%;
@@ -189,5 +192,5 @@
   transform: translateY(-50%);
 }
 .comment-section .comments .comment .delete-btn:hover {
-  background-color: #FF4C4C;
+  background-color: #f81212;
 }

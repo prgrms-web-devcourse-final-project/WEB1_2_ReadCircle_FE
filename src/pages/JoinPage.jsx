@@ -227,7 +227,7 @@ const JoinPage = () => {
                     <p>비밀번호</p>
                     <input 
                         type="password" 
-                        placeholder='8 ~ 12 자 사이의 비밀번호를 입력해 주세요.' 
+                        placeholder='6 ~ 12 자 사이의 비밀번호를 입력해 주세요.' 
                         value={password}
                         onChange={pwChange}
                     />

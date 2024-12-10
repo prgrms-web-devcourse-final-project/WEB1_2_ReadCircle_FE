@@ -64,7 +64,7 @@ export const usePostView = (postId) => {
         };
 
         fetchComments();
-    }, [postId]);
+    }, [postId, comments]);
 
     // 댓글 추가 함수
     const handleAddComment = async () => {
@@ -86,9 +86,9 @@ export const usePostView = (postId) => {
                     createdAt: new Date().toISOString(),
                     userId: response.data.userId,
                 };
-                setComments(prevComments => [...prevComments, newCommentData]);
-                setNewComment('');
+                setComments((prevComments) => [...prevComments, newCommentData]);
             }
+            setNewComment('');
         } catch (error) {
             console.error('댓글 추가 오류:', error);
         } finally {

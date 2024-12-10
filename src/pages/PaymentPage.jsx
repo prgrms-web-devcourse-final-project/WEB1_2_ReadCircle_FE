@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 const PaymentPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState(null); // 결제 상태
+    const [paymentDetail, setPaymentDetail] = useState([]);
     const paymentInfo = useSelector((state) => state.payment);
     const token = localStorage.getItem('accessToken');
 
@@ -53,7 +54,7 @@ const PaymentPage = () => {
                 buyer_name: recipientName,
                 buyer_addr: address,
             };
-            console.log(data)
+
             // 2. 결제 요청 및 결과 처리
             IMP.request_pay(data, async (response) => {
                 if (response.success) {
@@ -72,8 +73,11 @@ const PaymentPage = () => {
                         });
 
                         // 3. 결제 상태 확인 및 사용자 피드백
+                        setPaymentDetail(res.data);
                         setPaymentStatus('success');
                         console.log(res.data);
+                        console.log(paymentDetail);
+                        console.log(paymentDetail.data);
                         alert("결제가 성공적으로 완료되었습니다!");
                 } else {
                     // 결제 실패 시
@@ -98,10 +102,10 @@ const PaymentPage = () => {
             {paymentStatus === 'success' && (
                 <div>
                     <h2>결제 완료</h2>
-                    <p>상품명: {paymentInfo.productName}</p>
-                    <p>결제 금액: {paymentInfo.amount}원</p>
-                    <p>구매자: {paymentInfo.buyerName}</p>
-                    <p>결제 방법: {paymentInfo.payMethod}</p>
+                    <p>상품명: {paymentDetail.productName}</p>
+                    <p>결제 금액: {paymentDetail.amount}원</p>
+                    <p>구매자: {paymentDetail.buyerName}</p>
+                    <p>결제 방법: {paymentDetail.payMethod}</p>
                     <button onClick={() => window.location.href = "/order-details"}>주문 내역 보기</button>
                 </div>
             )}
