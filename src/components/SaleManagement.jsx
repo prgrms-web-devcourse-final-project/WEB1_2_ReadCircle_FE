@@ -37,20 +37,31 @@ const SaleManagement = () => {
     }
   };
 
-  const handleDepositUpdate = (sellerId) => {
+  const handleDepositUpdate = async (sellerId) => {
     const price = prompt("매입가를 입력하세요:");
     const bookCondition = prompt("책 상태를 입력하세요 (예: 상, 중, 하):");
+
     if (price && bookCondition) {
-      dispatch(
-        updateSaleDeposit({
-          sellerId,
-          depositData: {
-            process: "REGISTRATION",
-            bookCondition,
-            price,
-          },
-        })
-      );
+      try {
+        const result = await dispatch(
+          updateSaleDeposit({
+            sellerId,
+            depositData: {
+              process: "REGISTRATION",
+              bookCondition,
+              price,
+            },
+          })
+        ).unwrap();
+
+        if (result) {
+          alert("가격 수정이 완료되었습니다.");
+          dispatch(fetchSaleInfo({ page: currentPage, size: 10, process }));
+        }
+      } catch (error) {
+        console.error("가격 수정 오류:", error);
+        alert("가격 수정에 실패했습니다. 다시 시도해주세요.");
+      }
     }
   };
 
