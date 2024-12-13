@@ -20,7 +20,6 @@ export const fetchUserList = createAsyncThunk(
           },
         }
       );
-      console.log("API Response:", response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
