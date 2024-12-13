@@ -16,6 +16,7 @@ import CartPage from "./pages/CartPage";
 import PaymentPage from "./pages/PaymentPage";
 import UserList from "./pages/UserList";
 import SaleManagement from "./pages/SaleManagement";
+import AdminPage from "./pages/AdminPage";
 
 const routes = [
   { path: "/join", element: <JoinPage /> },
@@ -36,6 +37,7 @@ const routes = [
   { path: "/payment", element: <PaymentPage /> },
   { path: "/userList", element: <UserList /> },
   { path: "/saleManagement", element: <SaleManagement /> },
+  { path: "/adminmanagement", element: <AdminPage /> },
 ];
 
 export default routes;
