@@ -5,8 +5,7 @@ import "../styles/scss/AdminPage.scss";
 import Header from "../components/Header";
 
 const AdminPage = () => {
-  const [activeTab, setActiveTab] = useState("user"); // 기본 탭 설정
-
+  const [activeTab, setActiveTab] = useState("user");
   return (
     <>
       <Header />
