@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SaleManagement from "./SaleManagement";
-import UserList from "./UserList";
+import SaleManagement from "../components/SaleManagement";
+import UserList from "../components/UserList";
 import "../styles/scss/AdminPage.scss";
 
 const AdminPage = () => {
