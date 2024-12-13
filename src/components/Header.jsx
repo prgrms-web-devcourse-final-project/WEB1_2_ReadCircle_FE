@@ -73,6 +73,18 @@ const Header = () => {
                 직거래
               </Link>
             </li>
+            {user?.data?.role === "ADMIN" && (
+              <li>
+                <Link
+                  to="/adminmanagement"
+                  className={
+                    location.pathname === "/adminmanagement" ? "active" : ""
+                  }
+                >
+                  관리자 페이지
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
         <div className="actions">
