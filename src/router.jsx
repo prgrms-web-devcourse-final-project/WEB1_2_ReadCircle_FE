@@ -15,6 +15,9 @@ import MyPostViewPage from "./pages/MyPostViewPage";
 import CartPage from "./pages/CartPage";
 import PaymentPage from "./pages/PaymentPage";
 import DeliveryStatus from "./pages/DeliveryStatus";
+import UserList from "./components/UserList";
+import SaleManagement from "./components/SaleManagement";
+import AdminPage from "./pages/AdminPage";
 
 const routes = [
   { path: "/join", element: <JoinPage /> },
@@ -34,6 +37,9 @@ const routes = [
   { path: "/myview/:postId", element: <MyPostViewPage /> },
   { path: "/payment", element: <PaymentPage /> },
   { path: "/delivery/:orderId", element: <DeliveryStatus /> },
+  { path: "/userList", element: <UserList /> },
+  { path: "/saleManagement", element: <SaleManagement /> },
+  { path: "/adminmanagement", element: <AdminPage /> },
 ];
 
 export default routes;
