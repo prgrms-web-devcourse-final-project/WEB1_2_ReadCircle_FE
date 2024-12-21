@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid'; // UUID 라이브러리 사용
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
+import { setCartItems } from '../redux/cartSlice';
+import '../styles/css/PaymentPage.css';
+import { useNavigate } from "react-router-dom";
 
 const PaymentPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState(null); // 결제 상태
     const [paymentDetail, setPaymentDetail] = useState([]);
     const paymentInfo = useSelector((state) => state.payment);
+    const cartItems = useSelector((state) => state.cart.cartItems);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const token = localStorage.getItem('accessToken');
 
     // 아임포트 SDK 추가
@@ -19,6 +25,7 @@ const PaymentPage = () => {
 
         script.onload = () => {
             console.log("아임포트 SDK 로드 완료");
+            console.log(paymentInfo);
         };
 
         script.onerror = () => {
@@ -29,6 +36,30 @@ const PaymentPage = () => {
         };
     }, []);
 
+    // 카트 데이터 불러오기
+    const cartData = async() => {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            const response = await axios.get(
+                'http://3.37.35.134:8080/api/cart',
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                }
+            )
+            console.log(response.data);
+            dispatch(setCartItems(response.data.data));
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        cartData();
+    },[]);
+
+    // 결제
     const handlePayment = async () => {
         try {
             const { address, recipientName, totalPrice, bookList } = paymentInfo;
@@ -95,18 +126,53 @@ const PaymentPage = () => {
     };
     return (
         <div>
-            <h1>결제 테스트</h1>
+            <h1 className="h1">결제</h1>
+            <div className="main">
+                <div className="book_info">
+                    <ul>
+                        {
+                            cartItems && cartItems.map((item) => (
+                                <li key={item.cartId}>
+                                    <img src={item.thumbnailUrl} alt="" />
+                                    <div className='book_detail'>
+                                        <p className='book_title'>{item.title}</p>
+                                        <span className='book_author'>{item.author}</span> / 
+                                        <span className='book_publish'> {item.publisher}</span>
+                                    </div>
+                                    <p className="book_price">{item.price}원</p>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+                <div className="order_info">
+                    <h2>결제 정보</h2>
+                    <p>
+                        <span>수령인:</span>
+                        <span>{paymentInfo.recipientName}</span>
+                    </p>
+                    <p>
+                       <span>주소:</span>
+                       <span>{paymentInfo.address}</span>
+                    </p>
+                    <p>
+                        <span>결제 방법: </span>
+                        <span>card</span>
+                    </p>
+                    <hr />
+                    <p>
+                        <span>결제 금액:</span>
+                        <span className="blue">{paymentInfo.totalPrice}원</span>
+                    </p>
+                </div>
+            </div>
             <button onClick={handlePayment} disabled={isLoading}>
                 {isLoading ? "결제 중..." : "결제하기"}
             </button>
             {paymentStatus === 'success' && (
                 <div>
                     <h2>결제 완료</h2>
-                    <p>상품명: {paymentDetail.productName}</p>
-                    <p>결제 금액: {paymentDetail.amount}원</p>
-                    <p>구매자: {paymentDetail.buyerName}</p>
-                    <p>결제 방법: {paymentDetail.payMethod}</p>
-                    <button onClick={() => window.location.href = "/order-details"}>주문 내역 보기</button>
+                    <button onClick={() => navigate('/mypage')}>주문 내역 보기</button>
                 </div>
             )}
             {paymentStatus === 'failed' && (

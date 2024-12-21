@@ -75,16 +75,18 @@
     .post_area {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         margin-top: 100px;
         padding: 0 8%;
 
         li {
-            width: auto;
+            width: 25%;
             display: flex;
             align-items: center;
 
             .post {
+                width: 100%;
                 margin-right: 40px;
     
                 img {
@@ -172,6 +174,22 @@
                     .price {
                         text-align: right;
                     }
+
+                    .isbn {
+                        color: #2980B9;
+                        font-weight: 700;
+                    }
+                }
+
+                .details {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .delivery_stat {
+                        color: #2980B9;
+                        font-weight: 700;
+                    }
                 }
     
                 .block {
@@ -179,6 +197,10 @@
                     height: 30px;
                     background: #3E494A;
                     margin-top: 10px;
+                    text-align: center;
+                    line-height: 30px;
+                    color: #d9d9d9;
+                    cursor: pointer;
                 }
             }
         }
