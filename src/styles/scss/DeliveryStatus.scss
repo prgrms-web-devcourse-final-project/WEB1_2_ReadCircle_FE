@@ -1,0 +1,126 @@
+.del_h1 {
+    width: 50%;
+    padding: 20px 10px;
+    font-size: 24px;
+    margin-top: 70px;
+    margin-bottom: 50px;
+    margin-left: 5%;
+    font-weight: 800;
+    border-bottom: 2px solid #D0CFCF;
+    display: flex;
+    align-items: center;
+    
+    p {
+        cursor: pointer;
+        margin-right: 20px;
+        font-size: 30px;
+    }
+}
+
+.delivery_status {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    gap: 30px;
+
+    ul {
+        flex: 1;
+        flex-direction: column;
+
+        li {
+            display: flex;
+            flex: 1;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: #d9d9d9 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+            
+            img {
+                width: 200px;
+                height: 300px;
+                margin-right: 30px;
+                border: 1px solid #d9d9d9;
+            }
+        }
+    }
+
+    .del_stat {
+        height: auto;
+        box-shadow: #d9d9d9 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+        padding: 20px;
+        border-radius: 20px;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+
+        p {
+            margin-bottom: 10px;
+            margin-left: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        hr {
+            margin-bottom: 10px;
+        }
+
+        .total_pr {
+            font-size: 28px;
+
+            .bl {
+                color: #2980B9;
+            }
+        }
+
+        .cancel_btn {
+            margin-top: 50px;
+        }
+    }
+
+    .outside {
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,.5);
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 99;
+
+        .modal {
+            width: 30%;
+            height: auto;
+            padding: 30px;
+
+            h3 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            select {
+                width: 80%;
+                margin: 0 auto;
+                outline: none;
+                padding: 10px;
+            }
+
+            textarea {
+                width: 80%;
+                height: 50%;
+                min-height: 300px;
+                resize: none;
+                outline: none;
+                padding: 10px;
+                margin: 20px auto;
+            }
+
+            .modal_close {
+                font-size: 40px;
+                position: absolute;
+                right: 20px;
+                top: 0;
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -25,12 +25,13 @@ const PaymentComponent = () => {
         setName(e.target.value);
         setIsName(true);  
     } 
+
+    // 주소 입력
     const completeHandler = (data) => {
         setAddress(data.address);
         setIsAddress(true);
     }  
 
-    // 주소 입력
     const closeHandler = (state) => {
         if (state === 'FORCE_CLOSE') {
             setIsOpen(false);
@@ -51,14 +52,16 @@ const PaymentComponent = () => {
     // 결제 정보 전송
     const paymentDataSend = () => {
         const bookList = cartItems.map((item) => item.bookId);
-        dispatch(
-            setPaymentInfo({
-                recipientName: name,
-                address: address,
-                totalPrice: totalPrice + 3000,
-                bookList: bookList
-            })
-        )
+        const paymentPayload = {
+            recipientName: name,
+            address: address,
+            totalPrice: totalPrice + 3000,
+            bookList: bookList
+        };
+
+        console.log(paymentPayload);
+        dispatch(setPaymentInfo(paymentPayload));
+
         if(!active) {
             alert('수령인 이름과 주소를 입력해 주세요.')
         } else {

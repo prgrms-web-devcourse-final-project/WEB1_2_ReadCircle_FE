@@ -25,6 +25,7 @@ const MyPage = () => {
     const [active, setActive] = useState(false);
     const [pwActive, setPwActive] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [orders, setOrders] = useState([]);
 
     // 유효성 검사
     const [isOpen, setIsOpen] = useState(false);
@@ -85,9 +86,29 @@ const MyPage = () => {
         }
     }
 
+    // 유저 주문 내역 불러오기
+    const orderData = async() => {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            const response = await axios.get(
+                `${baseUrl}/api/orders/me`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                }
+            )
+            console.log(response.data.data);
+            setOrders(response.data.data.content);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         userData();
         postData();
+        orderData();
     },[])
 
     // 탭 메뉴 기능
@@ -104,7 +125,6 @@ const MyPage = () => {
                     <li 
                         key={post.id}
                         className='mypost' 
-                        onClick={() => navigate(`/view/${post.postId}`)}
                     >
                         <div className="post">
                             <img src={`${baseUrl}${post.bookImage}`} alt="" />
@@ -121,7 +141,10 @@ const MyPage = () => {
                                 </div>
                                 <p className='price'>{post.price}</p>
                             </div>
-                            <div className='block'></div>
+                            <div 
+                                className='block'
+                                onClick={() => navigate(`/view/${post.postId}`)}
+                            >자세히 보기</div>
                         </div>
                     </li>
                 )))
@@ -163,24 +186,32 @@ const MyPage = () => {
                 </li>
             ),
             content: (
-                <li className='purchase_list'>
-                    <div className="post">
-                        <img src={Book} alt="" />
-                        <p className='book_title'>Purchase</p>
-                        <div className='middle'>
-                            <p className='category'>Fantasy</p>
-                            <p className='quality'>중</p>
-                        </div>
-                        <div className='bottom'>
-                            <div>
-                                <p className='status sell'></p>
-                                <p className='status trade'></p>
+                orders && orders.map((order, idx) => (
+                    <li className='purchase_list' key={idx}>
+                        <div className="post">
+                            <img src={order.orderItems[0].thumbnailUrl} alt="" />
+                            <p className='book_title'>{order.orderItems[0].bookTitle}</p>
+                            <div className='middle'>
+                                <p className='author'>{order.orderItems[0].author}</p>
+                                <p className='quality'>{order.orderItems[0].bookCondition}</p>
                             </div>
-                            <p className='price'>20,000</p>
+                            <div className='bottom'>
+                                <p className='isbn'>{order.orderItems[0].isbn}</p>
+                                <p className='price'>{order.totalPrice}원</p>
+                            </div>
+                            <div className='details'>
+                                <p>배송 상태</p>
+                                <p className='delivery_stat'>{order.deliveryStatus}</p>
+                            </div>
+                            <div 
+                                className='block'
+                                onClick={() => navigate(`/delivery/${order.orderId}`)}
+                            >
+                                    자세히 보기
+                            </div>
                         </div>
-                        <div className='block'></div>
-                    </div>
-                </li>
+                    </li>
+                ))
             )
         },
     ]
